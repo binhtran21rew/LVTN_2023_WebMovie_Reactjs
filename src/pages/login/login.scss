@@ -1,0 +1,79 @@
+@use '../../scss/' as *;
+:root{
+    --width-form: 529px;
+    --witdh-input: 357px;
+}
+
+.login{
+    @include mobile {
+        display: block;
+        width: 100%;
+    }
+    &:hover{
+        border-color: #91fe91;
+    }
+    // padding: 25px 100px;
+    margin: calc($header-height + 2rem) auto auto auto;
+    display: grid;
+    align-items: center;
+    width: var(--width-form);
+
+    h2{
+        @include mobile {
+            margin: 1.2rem 20px;
+        }
+        background-color: $red;
+        display: grid;
+        justify-content: center;
+        margin-bottom: $margin-bottom;
+    }
+    label{
+        font-weight: 500;
+        font-size: 1.2rem;    
+    }
+    .input{
+    
+        &__password{
+            
+            position: relative;
+
+            &::after{
+                content: "";
+                position: absolute;
+                width: 1px;
+                top: $search-top-spacer;
+                left: 92%;
+                transform: translateX(-100%);
+                height: calc($search-height - $search-top-spacer);
+                background-color: rgba(22, 24, 35, 0.2);
+            }
+
+            &__display{
+                cursor: pointer;
+                position: absolute;
+                left: 100%;
+                transform: translateX(-100%);
+                background-color: transparent;
+                color: $black;
+                padding: 10px;
+
+            }
+        }
+
+        
+    }
+   
+    .tag{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .link{
+            font-size: 1.3rem;
+            text-decoration: underline;
+        }
+    }
+
+
+
+}

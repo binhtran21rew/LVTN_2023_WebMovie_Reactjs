@@ -1,0 +1,80 @@
+@use './scss/' as *;
+
+:root{
+    --bg-color: #fff;
+    --bg-color-header: #bdbdbd;
+    --txt-color: #000;
+    --bg-color-black: #000;
+    --bg-content-color:#a4a4a4;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 100%;
+
+    @include tablet{
+        font-size: 80% ;
+      }
+    
+    @include mobile{
+    font-size: 60%;
+    }
+}
+body.dark{
+    --bg-color: #000;
+    --txt-color: #fff;
+    --bg-color-header: #767575;
+    --bg-content-color: #292929;
+}
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $txt-color;
+    background-color: $body-bg;
+
+    @include mobile{
+        margin-bottom: 3rem;
+      }
+}
+
+button,input{
+    outline: 0;
+}
+a{
+    color: unset;
+    text-decoration: none;
+
+    
+}
+ul,li{
+    list-style-type: none;
+}
+img{
+    max-width: 100%;
+}
+.container{
+    margin: calc($header-height) auto auto auto;
+}
+.mb-3{
+    margin-bottom: 3rem;
+}
+.section{
+    padding: 0 2rem;
+}
+.section__header{
+    @include flex(center, space-between);
+}
+
+.show{
+    display: block !important;
+}
+@media (hover: hover){
+    a:hover{
+        color: $main-color;
+    }
+}

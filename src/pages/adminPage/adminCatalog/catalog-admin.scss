@@ -1,0 +1,22 @@
+@use '../../../scss/' as *;
+
+.Admin-catalog{
+    width: 100%;
+    padding: 1.5rem 2.187rem 1.5rem 3.5rem;
+    background-color: var(--bg-content-color);
+    color: var(--txt-color);
+
+
+    .Catalog{
+        &__header{
+            text-align: center;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        &__body{
+            width: 100%;
+            height: 100%;
+        }
+    }
+}

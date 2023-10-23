@@ -1,0 +1,22 @@
+@use '../../scss/' as *;
+
+input{
+
+
+    border: 0;
+    background-color: $white;
+    padding: .5rem 1.5rem;
+    color: $black;
+    border-radius: $border-radius;
+    font-size: 1rem;
+    height: $search-height;
+    width: $width-input;
+
+    &:focus,&:hover{
+        border: 2px solid #b365eef2;
+    }
+
+    @include mobile {
+        width: 100%;
+    }
+}

@@ -1,0 +1,45 @@
+@use '../../../scss/' as *;
+
+:root{
+    --height: 571px;
+}
+
+.movie-content{
+    position: relative;
+    width: 100%;
+    height: auto;
+    background:  $bg-content;
+    padding: 30px 0 10px 0;
+    min-height: var(--height);
+    margin-top: 10rem;
+    @include tablet{
+        min-height: calc( var(--height ) - 100px);
+
+    }
+    @include mobile{
+        min-height: calc( var(--height ) - 250px);
+
+    }
+    .movie-wrap{
+        width: 90%;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .swiper-slide{
+        width: 17%;
+
+        @include tablet{
+            width: 20%;
+        }
+
+        @include mobile{
+            width: 20%;
+        }
+    }
+
+  
+}
+
+
+

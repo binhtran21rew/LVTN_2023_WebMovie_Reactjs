@@ -1,0 +1,131 @@
+@use '../../scss/' as *;
+
+.Detail{
+    background: url('https://cinestar.com.vn/catalog/view/theme/default/images/film-bg.jpg');
+    padding: 50px 0;
+    .content{
+        @include flex(flex-start, flex-start);
+
+        @include mobile{
+            display: block;
+        }
+
+        max-width: 1260px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        padding: 0 2rem;
+
+        &__poster{
+            flex : 1;
+            &__img{
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+                padding-top: 165%;
+                border-radius: $border-radius;
+
+                @include mobile{
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    padding-top: 86%;
+                    border-radius: $border-radius;
+                    margin-bottom: 2rem;
+                }
+            }
+        }
+
+        &__text{
+            width: 70%;
+            padding-left: 2rem;
+            position: relative;
+            background-color: #f18720;
+            margin-left: 2rem;
+            box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.3), 0 0 50px 0 rgba(0,0,0,0.4) inset;
+            
+            @include mobile{
+                width: 100%;
+                margin: auto;
+                padding: 10px;
+            }
+
+            & > * {
+                margin-bottom: 2rem;
+            }
+
+            .title{
+                font-size: 3rem;
+                line-height: 2;
+
+                @include mobile{
+                    font-size: 3.8rem;
+                    text-align: center;
+                }
+            }
+            
+            .genres{
+                & > * ~ *{
+                    margin-left: .5rem;
+                }
+                    
+                @include mobile{
+                    text-align: center;
+                    
+                }
+                &__item{
+                    padding: .5rem 1.5rem;
+                    border: 2px solid $white;
+                    border-radius: 1rem;
+                    font-size: .8rem;
+                    font-weight: 600;
+                    background-color: $body-bg;
+                    @include mobile{
+                        font-size: 1.2rem;
+                    }
+
+                }
+            }
+
+            .overview{
+                margin-right: 1rem;
+                font-size: 1.6rem;
+            }
+        }
+    }
+}
+
+.casts{
+    display:  grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 10px;
+    margin: 10px 2rem;
+
+
+    &__item{
+        &__img{
+            padding-top: 150%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            margin-bottom: .5rem;
+
+                        
+                @include mobile{
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    padding-top: 120%;
+                    border-radius: $border-radius;
+                    margin-bottom: 1rem;
+                }
+
+        }
+        &__name{
+            font-size: .8rem;
+            @include mobile{
+                font-size: 1.6rem;
+                text-align: center;
+            }
+        }
+    }
+}
