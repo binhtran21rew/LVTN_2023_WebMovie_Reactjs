@@ -1,0 +1,21 @@
+@use '../../../scss/' as *;
+
+
+.Trailer_form{    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-content-color-2);
+    form{ 
+        display: flex;
+        max-width: $width-input;
+
+        padding: 1rem;
+        @include mobile{
+            display: block;
+        }
+
+
+    }
+        
+}

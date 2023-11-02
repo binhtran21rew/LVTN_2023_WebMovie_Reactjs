@@ -1,8 +1,6 @@
 @use '../../scss/' as *;
 
 input{
-
-
     border: 0;
     background-color: $white;
     padding: .5rem 1.5rem;
@@ -15,8 +13,17 @@ input{
     &:focus,&:hover{
         border: 2px solid #b365eef2;
     }
-
+    @include tablet{
+        width: 100%;
+        height: auto;
+    }
     @include mobile {
         width: 100%;
+        height: auto;
     }
+}
+
+.ipnut_checkbox{
+    width: 5%;
+    margin: 1rem;
 }

@@ -50,6 +50,10 @@ const AdminRoute = ({...rest}) => {
             swal('404 Error',"Url not found", 'warning')
             history.push('/404')
         }
+        else if(err.response.status === 400){
+            swal('Error Validation', err.response.data.message, 'warning')
+
+        }
         return Promise.reject(err)
     })
     if(loading){

@@ -9,31 +9,27 @@ import 'swiper/css/pagination';
 
 import './carousel.scss';
 
-import tmdbApi, { movieType } from '../../../api/tmdbApi';
-import apiConfig from '../../../api/apiConfig';
 import Button, { OutlineButton } from '../../button/Button';
 import Modal, { ModalContent } from '../../modal/Modal';
-
+import webApi from '../../../api/webApi';
+import { apiWeb } from '../../../api/apiConfig';
 const Carousel = (props) => {
     const [movies, setMovies] = useState([]);
     useEffect(() => {
         const getMovies = async () =>{
-            const params = {
-                language: 'vi-VN',
-                page :1
-            };
             try{
-                const response = await tmdbApi.getMovieList(movieType.now_playing, {params});
-                setMovies(response.results);
+                const response = await webApi.getAllMovies();
+                setMovies(response);
 
             }catch(e){
-                console.log(e);
+
             }
         }
         
         getMovies();
     }, []);
     console.log(movies);
+
     return (
         <div className="hero-slide">
             <Swiper
@@ -76,20 +72,21 @@ const HeroSlideItem = props => {
     let history = useHistory();
 
     const item = props.item;
-    const background = apiConfig.originalImage(item.backdrop_path ? item.backdrop_path: item.poster_path);
-
+    const background = `${apiWeb.baseUrl}${item.backdrop_path}`
+    const poster =  `${apiWeb.baseUrl}${item.poster_path}`
     const setModalActive = async () => {
         const modal = document.querySelector(`#modal_${item.id}`);
 
-        const videos = await tmdbApi.getVideos(item.id);
-        if(videos.results.length > 0) {
-            const videosSrc = 'https://www.youtube.com/embed/' + videos.results[0].key;
+        const videos = await webApi.getTrailer(item.id);
+        if(videos) {
+            const videosSrc = 'https://www.youtube.com/embed/' + videos.key;
             modal.querySelector('.modal__content > iframe').setAttribute('src', videosSrc);
         }else{
             modal.querySelector('.modal__content').innerHTML = 'No trailer';
         }
 
         modal.classList.toggle('active');
+        console.log(videos);
     }
     return(
         <div className={`hero-slide__item ${props.className}`}
@@ -113,7 +110,7 @@ const HeroSlideItem = props => {
                     </div>
                 </div>
                 <div className="hero-slide__item__content__poster">
-                    <img src={apiConfig.w500Image(item.poster_path)}/>
+                    <img src={poster}/>
                 </div>
             </div>
 

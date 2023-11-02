@@ -3,33 +3,32 @@ import { useParams } from 'react-router-dom';
 
 import './detail.scss';
 
-import tmdbApi from '../../api/tmdbApi';
-import apiConfig from '../../api/apiConfig';
 import CastList from './CastList';
+import webApi from '../../api/webApi';
+
+import {apiWeb} from '../../api/apiConfig';
 const Detail = () => {
     const {id} = useParams();
 
     const [movie, setMovie] = useState(null);
+    const [genres, setGenres] = useState([]);
     useEffect(() => {
         const movieDetail = async () => {
-            const params = {
-                language: 'vi-VN',
-            }
-            const response = await tmdbApi.detail(id, {params});
-            setMovie(response);
+            const response = await webApi.getMovieDetails(id);
+            setGenres(response.data.genres[0]);
+            setMovie(response.data);
         }
         movieDetail();
+
     }, [id]);
-
-console.log(movie);
-
+    
     return (
         <div className="Detail container mb-3">
             {
                 movie && (
                 <div className="content">
                     <div className="content__poster">
-                        <div className="content__poster__img" style={{backgroundImage: `url(${apiConfig.originalImage(movie.poster_path || movie.backdrop_path)})`}}>
+                        <div className="content__poster__img" style={{backgroundImage: `url(${apiWeb.baseUrl}${movie.backdrop_path})`}}>
 
                         </div>
                     </div>
@@ -38,8 +37,8 @@ console.log(movie);
                             {movie.title || movie.name}
                         </h1>
                         <div className="genres">
-                            {movie.genres && movie.genres.map((genres, i)=>(
-                                <span key={i} className='genres__item'> {genres.name}</span>
+                            {genres && genres.map((genre, i)=>(
+                                <span key={i} className='genres__item'> {genre.name}</span>
                             ))}
                         </div>
                         <p className="overview">{movie.overview.length > 0 ? movie.overview: 'Dang cap nhat'}</p>

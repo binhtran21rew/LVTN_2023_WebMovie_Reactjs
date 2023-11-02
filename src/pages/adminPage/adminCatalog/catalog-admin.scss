@@ -18,5 +18,20 @@
             width: 100%;
             height: 100%;
         }
+        label{
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .movie_btn_create{
+            float: right;
+            transform: translateX(-50%);
+            margin: 1rem 0;
+
+            &:hover{
+                color: $main-color;
+            }
+        }
     }
 }
+

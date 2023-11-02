@@ -1,0 +1,57 @@
+@use '../../../scss/' as *;
+
+.Cast-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-content-color-2);
+    form{ 
+        display: flex;
+        margin: 2rem;
+        @include mobile{
+            display: block;
+
+            .profile_image{
+                display: none;
+            }
+        }
+        .margin{
+            margin-top: 20rem;
+        }
+        textarea{
+            width: $width-input;
+            height: calc($width-input - 350px);
+            font-size: 1rem;
+        }
+        .poster_image{
+            position: absolute;
+            img{
+                width: 125px;
+                height: 100%;
+                position: relative;
+            }
+        }
+        .input_status{
+            display: flex;
+            .status_item{
+                display: flex;
+                align-items: center;
+                span{
+                    font-size: 1.2rem;
+                    text-transform: capitalize;
+                }
+                .input_checkbox{
+                    width: 100px;
+                    height: 25px;
+                }
+            }
+        }
+
+        .profile_image{
+            max-width: 200px;
+            min-width: 50px;
+        }
+        
+
+    }
+}

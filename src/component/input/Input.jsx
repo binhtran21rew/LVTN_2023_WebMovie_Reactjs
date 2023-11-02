@@ -23,14 +23,32 @@ const Input = React.forwardRef((props,ref) => {
     )
 })
 
-export const InputDefault = (props) => {
+export const InputDefault = React.forwardRef((props,ref) => {
     return (
         <input
+            ref={ref || null}
             placeholder={props.placeholder}
             type={props.type}
             onChange={props.onChange ? (e) => props.onChange(e) : null}
             value={props.value}
+            name={props.name}
+            className={props.className ? props.className : ''}
+            min={props.min ? props.min : null}
             />
     )
+})
+
+export const InputRadio = (props) => {
+    return (
+        <input 
+            type='radio'
+            name={props.name}
+            onChange={props.onChange}
+            value={props.value}
+            className={props.className}
+        />
+    )
 }
+
+
 export default Input;

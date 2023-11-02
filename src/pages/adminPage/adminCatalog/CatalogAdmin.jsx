@@ -1,13 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
  
-import Movies from '../../../component/admin/movies/Movies';
-import Trailers from '../../../component/admin/trailers/Trailers';
-import Casts from '../../../component/admin/casts/Casts';
-import Rooms from '../../../component/admin/rooms/Rooms';
-import Bookings from '../../../component/admin/bookings/Bookings';
-import Accounts from '../../../component/admin/accounts/Accounts';
-import Profile from '../../../component/admin/profile/Profile';
+import Movies from '../movies/Movies';
+import Trailers from '../trailers/Trailers';
+import Casts from '../casts/Casts';
+import Genres from '../genres/Genres';
+import Rooms from '../rooms/Rooms';
+import Bookings from '../bookings/Bookings';
+import Accounts from '../accounts/Accounts';
+import Profile from '../profile/Profile';
 
 import './catalog-admin.scss';
 const CatalogAdmin = () => {
@@ -22,6 +23,10 @@ const CatalogAdmin = () => {
             case 'trailers':
                 return(
                     <Trailers list={list}/>
+                )
+            case 'genres':
+                return(
+                    <Genres list={list}/>
                 )
             case 'casts':
                 return(

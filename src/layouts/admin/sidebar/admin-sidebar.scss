@@ -26,7 +26,7 @@ body.dark {
     justify-content: space-between;
     width: $sidebar-width;
     min-width: $sidebar-width;
-    height: 100%;
+    height: auto;
     min-height: calc(100vh - 97px);
     background-color: var(--bg-color);
     font-size: 1.4rem;

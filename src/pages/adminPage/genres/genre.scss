@@ -1,0 +1,21 @@
+@use '../../../scss/' as *;
+
+.Genres-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-content-color-2);
+
+    form{
+        padding: 1rem;
+
+        input{
+            margin-top: .6rem;
+            max-width: $width-input;
+
+        }
+
+
+    }
+
+}

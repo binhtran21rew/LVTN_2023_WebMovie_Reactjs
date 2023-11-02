@@ -11,6 +11,7 @@ import './movieContent.scss';
 
 import tmdbApi, {movieType} from '../../../api/tmdbApi';
 import MovieItem from '../movieItem/MovieItem';
+import webApi from '../../../api/webApi';
 
 
 const MovieContent = props => {
@@ -22,8 +23,9 @@ const MovieContent = props => {
                 page : 2
             };
             try{
-                const response = await tmdbApi.getMovieList(movieType.now_playing, {params});
-                setMovies(response.results.slice(0,8));
+                // const response = await tmdbApi.getMovieList(movieType.now_playing, {params});
+                const response = await webApi.getAllMovies();
+                setMovies(response.slice(0,8));
             }catch(e){
                 console.log(e);
             }
@@ -31,7 +33,6 @@ const MovieContent = props => {
 
         loadMovies();
     }, []);
-
 
     return(
         <div className="movie-content container">

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import apiConfig from '../../../api/apiConfig';
+import {apiWeb} from '../../../api/apiConfig';
 
 import './movieItem.scss';
 const MovieItem = props => {
     const item = props.item;
+    const poster =  `${apiWeb.baseUrl}${item.poster_path}`;
     return(
         <div className="movie__item" id={`movie_${item.id}`}>
-            <div className="movie__item-pic" style={{backgroundImage: `url(${apiConfig.w500Image(item.poster_path)})`}}>
+            <div className="movie__item-pic" style={{backgroundImage: `url(${poster})`}}>
             </div>
             <div className="movie__item-txt">
                 {item.title || item.name}

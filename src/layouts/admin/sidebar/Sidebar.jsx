@@ -23,6 +23,12 @@ const Sitebar = () => {
 
         },
         {
+            'display': 'Genres',
+            'path' : '/admin/genres/list_genre',
+            'icon' : 'user'
+
+        },
+        {
             'display': 'Rooms',
             'path' : '/admin/rooms/list_room',
             'icon' : 'tv'
