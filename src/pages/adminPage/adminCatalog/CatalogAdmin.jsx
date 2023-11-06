@@ -1,6 +1,7 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
- 
+import {Link, useParams } from 'react-router-dom';
+
+
 import Movies from '../movies/Movies';
 import Trailers from '../trailers/Trailers';
 import Casts from '../casts/Casts';
@@ -9,6 +10,7 @@ import Rooms from '../rooms/Rooms';
 import Bookings from '../bookings/Bookings';
 import Accounts from '../accounts/Accounts';
 import Profile from '../profile/Profile';
+import Schedules from '../schedules/Schedules';
 
 import './catalog-admin.scss';
 const CatalogAdmin = () => {
@@ -36,6 +38,10 @@ const CatalogAdmin = () => {
                 return(
                     <Rooms list={list}/>
                 )
+            case 'schedules':
+                return(
+                    <Schedules list={list}/>
+                )
             case 'bookings':
                 return(
                     <Bookings list={list}/>
@@ -54,7 +60,13 @@ const CatalogAdmin = () => {
         <div className='Admin-catalog'>
             <div className="Catalog">
                 <div className="Catalog__header">
-                    {name}
+                    <span>{name}</span>
+
+                    <div className='LinkTo'>
+                        <Link to={`/admin/${list}/${name}`}>go to {list} </Link>
+                    </div>
+                    
+                    
                 </div>
                 <div className="Catalog__body">
                     {renderPage(name)}

@@ -168,6 +168,7 @@ const Movies = () =>{
                                         data= {casts} 
                                         name="casts[]"
                                         placeholder="Input cast name..."
+                                        isMulti={true}
                                     />
                                 </div>
 
@@ -178,6 +179,7 @@ const Movies = () =>{
                                         data= {genres}
                                         name="genres[]"
                                         placeholder="Input genres name..."
+                                        isMulti={true}
                                     />
                                 </div>
 

@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import AsyncSelect from 'react-select/async';
 
 
-
 import webApi from '../../api/webApi';
 const SelectOptionCasts = (props) => {
     const [selectValue, setSelectValue] = useState(null)
@@ -19,6 +18,12 @@ const SelectOptionCasts = (props) => {
             },2000)
         }
     }
+    const setStyle = {
+        control: (styles) => ({...styles, backgroundColor: "white"}),
+        option: (styles) => {
+            return {...styles, color: 'black'}
+        }
+    }
     return (
         <AsyncSelect 
             cacheOptions={false}
@@ -29,8 +34,9 @@ const SelectOptionCasts = (props) => {
             loadOptions={loadOption} 
             onChange={handleChange} 
             name={props.name}
-            isMulti 
+            isMulti={props.isMulti}
             placeholder={props.placeholder || 'Select'}
+            styles={setStyle}
         />
     )
 }

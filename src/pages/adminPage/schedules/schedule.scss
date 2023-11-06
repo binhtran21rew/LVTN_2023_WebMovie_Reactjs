@@ -1,11 +1,11 @@
 @use '../../../scss/' as *;
 
-.Genres-form{
+.Schedule-page{
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: var(--bg-content-color-2);
-
+    
     form{
         padding: 1rem;
 

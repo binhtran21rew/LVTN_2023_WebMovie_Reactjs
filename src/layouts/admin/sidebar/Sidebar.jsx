@@ -34,6 +34,11 @@ const Sitebar = () => {
             'icon' : 'tv'
         },
         {
+            'display': 'Schedules',
+            'path' : '/admin/schedules/list_schedule',
+            'icon' : 'calendar'
+        },
+        {
             'display': 'Bookings',
             'path' : '/admin/bookings/list_booking',
             'icon' : 'calendar'

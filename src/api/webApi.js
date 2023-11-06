@@ -55,6 +55,14 @@ const webApi = {
         const url = 'api/genre/createGenre';
         return axiosWebClient.post(url, params);
     },
+    createRoom: (params) => {
+        const url = 'api/room/createRoom';
+        return axiosWebClient.post(url, params);
+    },
+    createSchedule: (params) => {
+        const url = 'api/schedule/createSchedule';
+        return axiosWebClient.post(url, params);
+    },
 
 
     // Action GET methods ==========================
@@ -71,7 +79,7 @@ const webApi = {
         return axiosWebClient.get(url);
     },
 
-    // get ALL
+    // get ALL =======================================
     getAllCasts: () => {
         const url = 'api/cast/getAll';
         return axiosWebClient.get(url);
@@ -84,6 +92,10 @@ const webApi = {
         const url = 'api/genre/getAll';
         return axiosWebClient.get(url);
     },
+    getAllRoom: () => {
+        const url = 'api/room/getAll';
+        return axiosWebClient.get(url);
+    }
 
 
 }
