@@ -4,13 +4,13 @@ import swal from "sweetalert";
 
 
 import './trailer.scss'
-import {InputDefault as Input} from '../../../component/input/Input';
-import Button from '../../../component/button/Button';
-import SelectOptionCasts from '../../../component/admin/SelectOption';
+import {InputDefault as Input} from '../../../../component/input/Input';
+import Button from '../../../../component/button/Button';
+import SelectOptionCasts from '../../../../component/admin/SelectOption';
 
-import webApi from '../../../api/webApi';
+import webApi from '../../../../api/webApi';
 
-const Trailers = ({list}) =>{
+const Trailers = () =>{
     const [trailerInput, setTrailerInput] = useState({
         key: '',
     });

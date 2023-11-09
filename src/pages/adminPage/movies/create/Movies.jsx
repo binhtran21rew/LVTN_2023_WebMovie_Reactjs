@@ -3,12 +3,12 @@ import AsyncSelect from 'react-select/async';
 import swal from "sweetalert";
 
 import './movies.scss';
-import {InputDefault as Input, InputRadio} from '../../../component/input/Input';
-import Button from '../../../component/button/Button';
-import img from '../../../file/image/empty.jpg';
-import SelectOptionCasts from '../../../component/admin/SelectOption';
+import {InputDefault as Input, InputRadio} from '../../../../component/input/Input';
+import Button from '../../../../component/button/Button';
+import img from '../../../../file/image/empty.jpg';
+import SelectOptionCasts from '../../../../component/admin/SelectOption';
 
-import webApi from '../../../api/webApi';
+import webApi from '../../../../api/webApi';
 const Movies = () =>{
     const optionStatus = [
         {

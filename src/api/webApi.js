@@ -1,10 +1,10 @@
 import axiosWebClient from './axiosWeb';
-export const getType= {
-    movie: 'movie',
-    cast: 'cast',
-    genre: 'genre',
-    trailer: 'trailer'
-}
+// export const getType= {
+//     movie: 'movie',
+//     cast: 'cast',
+//     genre: 'genre',
+//     trailer: 'trailer'
+// }
 
 
 const webApi = {
@@ -80,6 +80,10 @@ const webApi = {
     },
 
     // get ALL =======================================
+    getMovieAdmin: () => {
+        const url = 'api/movie/getMovie';
+        return axiosWebClient.get(url);
+    },
     getAllCasts: () => {
         const url = 'api/cast/getAll';
         return axiosWebClient.get(url);
@@ -88,12 +92,35 @@ const webApi = {
         const url = 'api/movie/getAll';
         return axiosWebClient.get(url);
     },
+    getAllTrailers: () => {
+        const url = 'api/trailer/getAll';
+        return axiosWebClient.get(url);
+    },
     getAllGenres: () => {
         const url = 'api/genre/getAll';
         return axiosWebClient.get(url);
     },
+
+    getAllSchedule: () => {
+        const url = 'api/schedule/getAllSchedule';
+        return axiosWebClient.get(url);
+    },
     getAllRoom: () => {
         const url = 'api/room/getAll';
+        return axiosWebClient.get(url);
+    },
+
+    getAvailableRoom: () => {
+        const url = 'api/room/getAvailable';
+        return axiosWebClient.get(url);
+
+    },
+
+
+    //Get page======================================
+
+    getMoviePage: ($page) => {
+        const url = 'api/movie/getmovies/'+$page;
         return axiosWebClient.get(url);
     }
 

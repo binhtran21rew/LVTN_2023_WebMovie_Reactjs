@@ -1,4 +1,4 @@
-@use '../../../scss/' as *;
+@use '../../../../scss/' as *;
 
 
 .Movie-form{
@@ -9,8 +9,6 @@
     @include mobile{
         width: 100%;
         height: auto;
-
-
     }
     
     @include tablet{

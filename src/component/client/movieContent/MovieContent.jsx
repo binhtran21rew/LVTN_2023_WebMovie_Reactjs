@@ -23,8 +23,7 @@ const MovieContent = props => {
                 page : 2
             };
             try{
-                // const response = await tmdbApi.getMovieList(movieType.now_playing, {params});
-                const response = await webApi.getAllMovies();
+                const response = await webApi.getMoviePage(1);
                 setMovies(response.slice(0,8));
             }catch(e){
                 console.log(e);

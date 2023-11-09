@@ -4,6 +4,7 @@ import {apiWeb} from '../../../api/apiConfig';
 
 import './movieItem.scss';
 const MovieItem = props => {
+
     const item = props.item;
     const poster =  `${apiWeb.baseUrl}${item.poster_path}`;
     return(

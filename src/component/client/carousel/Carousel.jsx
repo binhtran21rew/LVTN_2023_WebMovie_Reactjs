@@ -20,15 +20,11 @@ const Carousel = (props) => {
             try{
                 const response = await webApi.getAllMovies();
                 setMovies(response);
-
             }catch(e){
-
             }
         }
-        
         getMovies();
     }, []);
-    console.log(movies);
 
     return (
         <div className="hero-slide">

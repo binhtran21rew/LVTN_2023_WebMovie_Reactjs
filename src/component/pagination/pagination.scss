@@ -1,0 +1,32 @@
+@use '../../scss/' as *;
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    margin: 2rem;
+    gap: 5px;
+
+    .page-num{
+        padding: 8px 15px;
+        cursor: pointer;
+        border-radius:  $border-radius;
+        font-weight: 400;
+        
+        &:hover{
+            background-color: $bg-active;
+            color: $black;
+        }
+
+        &.active{
+            background-color: $bg-active;
+
+        }
+    }
+}
+
+.table-pagination{
+   
+}
+

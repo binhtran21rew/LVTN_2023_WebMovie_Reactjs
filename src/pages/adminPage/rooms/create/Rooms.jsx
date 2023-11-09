@@ -4,11 +4,11 @@ import swal from "sweetalert";
 
 import './room.scss';
 
-import {InputDefault as Input} from '../../../component/input/Input';
-import Button from '../../../component/button/Button';
+import {InputDefault as Input} from '../../../../component/input/Input';
+import Button from '../../../../component/button/Button';
 
-import webApi from '../../../api/webApi';
-const Rooms = ({list}) =>{
+import webApi from '../../../../api/webApi';
+const Rooms = () =>{
 
 
     const [roomInput, setRoomInput] = useState({

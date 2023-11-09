@@ -3,10 +3,10 @@ import swal from "sweetalert";
 
 import './genre.scss';
 
-import {InputDefault as Input} from '../../../component/input/Input';
-import Button from '../../../component/button/Button';
+import {InputDefault as Input} from '../../../../component/input/Input';
+import Button from '../../../../component/button/Button';
 
-import webApi from '../../../api/webApi';
+import webApi from '../../../../api/webApi';
 const Genres = () => {
     const [genreInput, setGenreInput] = useState('');
     const handleInput = (e) => {

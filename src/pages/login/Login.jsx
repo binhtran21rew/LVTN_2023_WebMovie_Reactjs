@@ -46,7 +46,7 @@ const Login = () => {
             const result = await webApi.userLogin(params);
             if(result){
                 localStorage.setItem('auth_token', result.data.token);
-                localStorage.setItem('role', result.data.roles);
+                // localStorage.setItem('role', result.data.roles);
 
                 history.push('/');
             }

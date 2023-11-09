@@ -3,12 +3,12 @@ import swal from "sweetalert";
 
 import './schedule.scss';
 
-import {InputDefault as Input} from '../../../component/input/Input';
-import Button from '../../../component/button/Button';
-import SelectOptionCasts from '../../../component/admin/SelectOption';
+import {InputDefault as Input} from '../../../../component/input/Input';
+import Button from '../../../../component/button/Button';
+import SelectOptionCasts from '../../../../component/admin/SelectOption';
 
-import webApi from '../../../api/webApi';
-const Schedules = ({list}) => {
+import webApi from '../../../../api/webApi';
+const Schedules = () => {
     const [movie, setMovie] = useState([]);
     const [room, setRoom] = useState([]);
     const [scheduleInput, setScheduleInput] = useState({
@@ -22,7 +22,7 @@ const Schedules = ({list}) => {
 
     useEffect(() => {
         const roomData = async () => {
-            const result = await webApi.getAllRoom();
+            const result = await webApi.getAvailableRoom();
             setRoom(result);
         }
         const movieData = async () => {

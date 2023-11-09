@@ -3,13 +3,13 @@ import swal from "sweetalert";
 
 
 import './cast.scss';
-import {InputDefault as Input} from '../../../component/input/Input';
-import Button from '../../../component/button/Button';
-import img from '../../../file/image/empty.jpg';
+import {InputDefault as Input} from '../../../../component/input/Input';
+import Button from '../../../../component/button/Button';
+import img from '../../../../file/image/empty.jpg';
 
-import webApi from '../../../api/webApi';
+import webApi from '../../../../api/webApi';
 
-const Casts = ({list}) =>{
+const Casts = () =>{
     const fileRef = useRef(null);
     const [castInput, setCastInput ] = useState('');
     const [imageInput, setImageInput] = useState({
