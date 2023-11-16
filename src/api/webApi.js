@@ -1,10 +1,18 @@
 import axiosWebClient from './axiosWeb';
-// export const getType= {
-//     movie: 'movie',
-//     cast: 'cast',
-//     genre: 'genre',
-//     trailer: 'trailer'
-// }
+export const getType= {
+    Movie: 'Movie',
+    Cast: 'Cast',
+    Genre: 'Genre',
+    Trailer: 'Trailer',
+    Room: 'Room',
+    Schedule: 'Schedule',
+}
+
+
+export const getMethod={
+    getAll: 'getAll',
+    detail: 'detail'
+}
 
 
 const webApi = {
@@ -38,89 +46,41 @@ const webApi = {
     //admin=============
 
     // Action POST methods===========================
-
-    createMovie: (params) => {
-        const url = 'api/movie/createMovie';
-        return axiosWebClient.post(url, params);
-    },
-    createCast: (params) => {
-        const url = 'api/cast/createCast';
-        return axiosWebClient.post(url, params);
-    },
-    createTrailer: (params) => {
-        const url = 'api/trailer/createTrailer';
-        return axiosWebClient.post(url, params);
-    },
-    createGenre: (params) => {
-        const url = 'api/genre/createGenre';
-        return axiosWebClient.post(url, params);
-    },
-    createRoom: (params) => {
-        const url = 'api/room/createRoom';
-        return axiosWebClient.post(url, params);
-    },
-    createSchedule: (params) => {
-        const url = 'api/schedule/createSchedule';
+    create: (type, params) => {
+        const url = 'api/' + getType[type] + '/create' + getType[type];
         return axiosWebClient.post(url, params);
     },
 
 
     // Action GET methods ==========================
-    getMovieDetails: (id) => {
-        const url = 'api/movie/detail/'+id;
+    getDetails: (type, method, id) => {
+        const url = 'api/' + getType[type] + '/' + getMethod[method] + '/' + id;
         return axiosWebClient.get(url);
     },
-    getCastDetails: (id) => {
-        const url = 'api/cast/detail/'+id;
+
+    getTrailer: (type, id) => {
+        const url = 'api/'+ getType[type] + '/getTrailer/'+id;
         return axiosWebClient.get(url);
     },
-    getTrailer: (id) => {
-        const url = 'api/trailer/getTrailer/'+id;
-        return axiosWebClient.get(url);
-    },
+
+
 
     // get ALL =======================================
-    getMovieAdmin: () => {
-        const url = 'api/movie/getMovie';
-        return axiosWebClient.get(url);
-    },
-    getAllCasts: () => {
-        const url = 'api/cast/getAll';
-        return axiosWebClient.get(url);
-    },
-    getAllMovies: () => {
-        const url = 'api/movie/getAll';
-        return axiosWebClient.get(url);
-    },
-    getAllTrailers: () => {
-        const url = 'api/trailer/getAll';
-        return axiosWebClient.get(url);
-    },
-    getAllGenres: () => {
-        const url = 'api/genre/getAll';
+
+    getAll: (type, method) => {
+        const url = 'api/' + getType[type]+ '/' + getMethod[method];
         return axiosWebClient.get(url);
     },
 
-    getAllSchedule: () => {
-        const url = 'api/schedule/getAllSchedule';
+    getMovieAdmin: (type) => {
+        const url = 'api/'+ getType[type] + '/get' + getType[type];
         return axiosWebClient.get(url);
-    },
-    getAllRoom: () => {
-        const url = 'api/room/getAll';
-        return axiosWebClient.get(url);
-    },
-
-    getAvailableRoom: () => {
-        const url = 'api/room/getAvailable';
-        return axiosWebClient.get(url);
-
     },
 
 
     //Get page======================================
-
-    getMoviePage: ($page) => {
-        const url = 'api/movie/getmovies/'+$page;
+    getMoviePage: (type, $page) => {
+        const url = 'api/'+ getType[type]  +'/page/'+$page;
         return axiosWebClient.get(url);
     }
 

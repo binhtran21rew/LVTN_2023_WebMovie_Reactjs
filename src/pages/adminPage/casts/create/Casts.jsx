@@ -7,7 +7,7 @@ import {InputDefault as Input} from '../../../../component/input/Input';
 import Button from '../../../../component/button/Button';
 import img from '../../../../file/image/empty.jpg';
 
-import webApi from '../../../../api/webApi';
+import webApi, { getType } from '../../../../api/webApi';
 
 const Casts = () =>{
     const fileRef = useRef(null);
@@ -36,7 +36,7 @@ const Casts = () =>{
             data.append('name', castInput)
             data.append('profile_path', imageInput.profile_path)
 
-            const result = await webApi.createCast(data);
+            const result = await webApi.create(getType.Cast, data);
             if(result){
                 swal('Success',"create cast success", 'success')
                 resetValue();

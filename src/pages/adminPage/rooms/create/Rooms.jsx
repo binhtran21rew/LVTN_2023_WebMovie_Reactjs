@@ -7,7 +7,7 @@ import './room.scss';
 import {InputDefault as Input} from '../../../../component/input/Input';
 import Button from '../../../../component/button/Button';
 
-import webApi from '../../../../api/webApi';
+import webApi, {getType} from '../../../../api/webApi';
 const Rooms = () =>{
 
 
@@ -26,7 +26,7 @@ const Rooms = () =>{
                 name: roomInput.name,
                 number_seat: roomInput.number_seat
             }
-            const result = await webApi.createRoom(data);
+            const result = await webApi.create(getType.Room, data);
             if(result.status === 200){
                 swal('Success', result.message, 'success')
                 setRoomInput('');

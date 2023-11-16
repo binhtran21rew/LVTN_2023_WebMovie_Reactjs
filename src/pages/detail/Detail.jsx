@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import './detail.scss';
 
 import CastList from './CastList';
-import webApi from '../../api/webApi';
+import webApi, {getType, getMethod} from '../../api/webApi';
 
 import {apiWeb} from '../../api/apiConfig';
 const Detail = () => {
@@ -14,14 +14,13 @@ const Detail = () => {
     const [genres, setGenres] = useState([]);
     useEffect(() => {
         const movieDetail = async () => {
-            const response = await webApi.getMovieDetails(id);
-            setGenres(response.data.genres[0]);
+            const response = await webApi.getDetails(getType.Movie, getMethod.detail, id);
+            setGenres(response.data.genres);
             setMovie(response.data);
         }
         movieDetail();
 
     }, [id]);
-    
     return (
         <div className="Detail container mb-3">
             {

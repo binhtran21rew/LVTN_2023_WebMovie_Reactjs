@@ -8,7 +8,7 @@ import Button from '../../../../component/button/Button';
 import img from '../../../../file/image/empty.jpg';
 import SelectOptionCasts from '../../../../component/admin/SelectOption';
 
-import webApi from '../../../../api/webApi';
+import webApi, {getType, getMethod} from '../../../../api/webApi';
 const Movies = () =>{
     const optionStatus = [
         {
@@ -37,7 +37,7 @@ const Movies = () =>{
 
     useEffect(() => {
         const getCast = async () => {
-            const result = await webApi.getAllCasts();
+            const result = await webApi.getAll(getType.Cast, getMethod.getAll);
             setCasts(result);
         }
         getCast();
@@ -45,7 +45,7 @@ const Movies = () =>{
 
     useEffect(() => {
         const getGenre = async () => {
-            const result = await webApi.getAllGenres();
+            const result = await webApi.getAll(getType.Genre, getMethod.getAll);
             setGenres(result);
         }
         getGenre();
@@ -89,7 +89,7 @@ const Movies = () =>{
         e.preventDefault();
         try{
             const data = new FormData(document.getElementById('form-submit'))
-            const result = await webApi.createMovie(data);
+            const result = await webApi.create(getType.Movie, data);
             if(result.status === 200){
                 swal('Success',"Create movie success", 'success')
                 resetValue();

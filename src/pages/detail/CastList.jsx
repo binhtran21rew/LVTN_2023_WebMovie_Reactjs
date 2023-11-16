@@ -2,14 +2,14 @@ import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router';
 
 
-import webApi from '../../api/webApi';
+import webApi, {getType, getMethod} from '../../api/webApi';
 import {apiWeb} from '../../api/apiConfig';
 const CastList = props => {
     const [casts, setCasts] = useState([]);
     useEffect(() => {
         try{
             const getCredits = async () => {
-                const response = await webApi.getCastDetails(props.id)
+                const response = await webApi.getDetails(getType.Cast, getMethod.detail, props.id)
                 setCasts(response.data.cast.slice(0,5));
             }
             getCredits();

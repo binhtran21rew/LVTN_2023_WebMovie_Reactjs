@@ -4,7 +4,7 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 
-import webApi from '../../../../api/webApi';
+import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
 const ListRoom = () => {
 
@@ -13,7 +13,7 @@ const ListRoom = () => {
 
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getAllRoom();
+            const result = await webApi.getAll(getType.Room, getMethod.getAll);
             setRooms(result)
             setLoading(false);
         }

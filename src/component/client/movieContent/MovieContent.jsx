@@ -11,19 +11,15 @@ import './movieContent.scss';
 
 import tmdbApi, {movieType} from '../../../api/tmdbApi';
 import MovieItem from '../movieItem/MovieItem';
-import webApi from '../../../api/webApi';
+import webApi, {getType, getMethod} from '../../../api/webApi';
 
 
 const MovieContent = props => {
     const [movies, setMovies] = useState([]);
     useEffect(() => {
         const loadMovies = async () => {
-            const params = { 
-                language: 'vi-VN',
-                page : 2
-            };
             try{
-                const response = await webApi.getMoviePage(1);
+                const response = await webApi.getMoviePage(getType.Movie,1);
                 setMovies(response.slice(0,8));
             }catch(e){
                 console.log(e);

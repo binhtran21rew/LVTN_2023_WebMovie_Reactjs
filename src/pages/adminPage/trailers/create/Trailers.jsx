@@ -8,17 +8,16 @@ import {InputDefault as Input} from '../../../../component/input/Input';
 import Button from '../../../../component/button/Button';
 import SelectOptionCasts from '../../../../component/admin/SelectOption';
 
-import webApi from '../../../../api/webApi';
+import webApi, {getMethod, getType} from '../../../../api/webApi';
 
 const Trailers = () =>{
     const [trailerInput, setTrailerInput] = useState({
         key: '',
     });
     const [movies, setMovies] = useState([]);
-    console.log(movies);
     useEffect(() => {
         const getMovies = async () => {
-            const result = await webApi.getAllMovies();
+            const result = await webApi.getAll(getType.Movie, getMethod.getAll);
             setMovies(result);
         }
         getMovies();
@@ -37,7 +36,7 @@ const Trailers = () =>{
         try{
             const idFrom = document.getElementById('trailer_formSubmit');
             const data = new FormData(idFrom);
-            const result = await webApi.createTrailer(data);
+            const result = await webApi.create(getType.Trailer, data);
             if(result.status === 200){
                 swal('Success',"Create movie success", 'success')
             }else{

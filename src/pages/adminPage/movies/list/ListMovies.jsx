@@ -5,7 +5,7 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import './listmovies.scss';
 
 
-import webApi from '../../../../api/webApi';
+import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
 const ListMovies = () => {
     const [loading ,setLoading] = useState(true);
@@ -13,7 +13,7 @@ const ListMovies = () => {
 
     useEffect(() => {
         const loadMovies = async () => {
-            const result = await webApi.getMovieAdmin();
+            const result = await webApi.getMovieAdmin(getType.Movie);
             setMovies(result)
             setLoading(false);
         }

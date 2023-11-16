@@ -6,7 +6,7 @@ import './genre.scss';
 import {InputDefault as Input} from '../../../../component/input/Input';
 import Button from '../../../../component/button/Button';
 
-import webApi from '../../../../api/webApi';
+import webApi, {getType} from '../../../../api/webApi';
 const Genres = () => {
     const [genreInput, setGenreInput] = useState('');
     const handleInput = (e) => {
@@ -19,7 +19,7 @@ const Genres = () => {
             const data ={
                 name: genreInput
             }
-            const loadGenres = await webApi.createGenre(data);
+            const loadGenres = await webApi.create(getType.Genre, data);
 
             if(loadGenres.status === 200){
                 swal('Success', loadGenres.message, 'success')

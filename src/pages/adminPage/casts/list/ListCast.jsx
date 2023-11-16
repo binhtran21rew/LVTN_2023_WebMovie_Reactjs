@@ -4,7 +4,7 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 
-import webApi from '../../../../api/webApi';
+import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
 const ListCast = () => {
 
@@ -13,7 +13,7 @@ const ListCast = () => {
 
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getAllCasts();
+            const result = await webApi.getAll(getType.Cast, getMethod.getAll);
             setCasts(result)
             setLoading(false);
         }

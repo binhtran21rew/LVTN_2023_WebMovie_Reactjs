@@ -11,14 +11,14 @@ import './carousel.scss';
 
 import Button, { OutlineButton } from '../../button/Button';
 import Modal, { ModalContent } from '../../modal/Modal';
-import webApi from '../../../api/webApi';
+import webApi, {getMethod, getType} from '../../../api/webApi';
 import { apiWeb } from '../../../api/apiConfig';
 const Carousel = (props) => {
     const [movies, setMovies] = useState([]);
     useEffect(() => {
         const getMovies = async () =>{
             try{
-                const response = await webApi.getAllMovies();
+                const response = await webApi.getMoviePage(getType.Movie, 1);
                 setMovies(response);
             }catch(e){
             }
@@ -73,7 +73,7 @@ const HeroSlideItem = props => {
     const setModalActive = async () => {
         const modal = document.querySelector(`#modal_${item.id}`);
 
-        const videos = await webApi.getTrailer(item.id);
+        const videos = await webApi.getTrailer(getType.Trailer, item.id);
         if(videos) {
             const videosSrc = 'https://www.youtube.com/embed/' + videos.key;
             modal.querySelector('.modal__content > iframe').setAttribute('src', videosSrc);
