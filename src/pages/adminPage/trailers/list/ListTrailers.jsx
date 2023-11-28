@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useHistory } from 'react-router-dom';
 
 import './listtrailer.scss';
 
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
 const ListTrailers = () => {
-
+    const history = useHistory();
     const [loading ,setLoading] = useState(true);
     const [trailers, setTrailers] = useState([]);
 
@@ -32,6 +33,13 @@ const ListTrailers = () => {
         const newPage = (e.selected * itemPerPge)  % trailers.length;
         setItemPage(newPage);
     }
+    const handleEdit = (id) => {
+        const data = trailers.find((data) => data.id === id)
+        history.push({
+            pathname: '/admin/detail/trailer/'+ id,
+            state: {data: data}
+        });
+    }
 
     var viewDisplay = '';
     if(loading){
@@ -47,7 +55,7 @@ const ListTrailers = () => {
                     <td>{data.key}</td>
                     <td>
                         <button >
-                            <FontAwesomeIcon icon={faPenToSquare} className='movie-icon'/>
+                            <FontAwesomeIcon icon={faPenToSquare} className='movie-icon' onClick={() => handleEdit(data.id)}/>
                         </button>
 
                         <button>

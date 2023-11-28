@@ -50,6 +50,10 @@ const webApi = {
         const url = 'api/' + getType[type] + '/create' + getType[type];
         return axiosWebClient.post(url, params);
     },
+    update: (type, params) => {
+        const url = 'api/' + getType[type] + '/update' + getType[type];
+        return axiosWebClient.post(url, params);
+    },
 
 
     // Action GET methods ==========================
@@ -62,9 +66,23 @@ const webApi = {
         const url = 'api/'+ getType[type] + '/getTrailer/'+id;
         return axiosWebClient.get(url);
     },
+    getAvailableRoom: () => {
+        const url = 'api/Room/getAvailable';
+        return axiosWebClient.get(url);
 
-
-
+    },
+    getSchedule:(room) => {
+        const url = 'api/Schedule/getSchedule/' + room;
+        return axiosWebClient.get(url);
+    },
+    getTypeMovie:(type) => {
+        const url = 'api/Movie/getType/' + type;
+        return axiosWebClient.get(url);
+    },
+    getContentMovie: (type) => {
+        const url = 'api/Movie/getContent/' + type;
+        return axiosWebClient.get(url);
+    },
     // get ALL =======================================
 
     getAll: (type, method) => {

@@ -10,7 +10,7 @@ export const apiWeb = {
 
 }
 // export const apiWeb = {
-//     baseUrl: 'https://apimovie.bkshop.site/public/',
+//     baseUrl: 'https://apimovie.bkshop.site',
 // }
 
 export default apiConfig;

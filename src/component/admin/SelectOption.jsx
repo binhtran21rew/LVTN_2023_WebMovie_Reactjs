@@ -37,6 +37,36 @@ const SelectOptionCasts = (props) => {
             isMulti={props.isMulti}
             placeholder={props.placeholder || 'Select'}
             styles={setStyle}
+
+            isClearable
+        />
+    )
+}
+
+export const SelectDefault = (props) => {
+    const filterOptions = (inputValue) => {
+        return props.data.filter((i) =>  (i.title||i.name).toLowerCase() .includes(inputValue.toLowerCase()))
+      };
+    const loadOptions = (searchValue, callback) =>{
+        if(searchValue){
+            setTimeout(() => {
+                callback(filterOptions(searchValue));
+            },2000)
+        }
+    }
+
+    return (
+        <AsyncSelect
+            isMulti
+            cacheOptions
+            defaultOptions
+            loadOptions={loadOptions}
+            getOptionLabel={e => e.name||e.title}
+            getOptionValue={e => e.id}
+            defaultValue={props.defaultValue}
+            name={props.name}
+            placeholder={props.placeholder || 'Select...'}
+
         />
     )
 }

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,7 +8,7 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
 const ListRoom = () => {
-
+    const history = useHistory();
     const [loading ,setLoading] = useState(true);
     const [Rooms, setRooms] = useState([]);
 
@@ -20,7 +21,6 @@ const ListRoom = () => {
 
         loadTrailer();
     }, []);
-
     const [itemPage, setItemPage] = useState(0);
     const itemPerPge = 5;
 
@@ -32,7 +32,13 @@ const ListRoom = () => {
         const newPage = (e.selected * itemPerPge)  % Rooms.length;
         setItemPage(newPage);
     }
-
+    const handleEdit = (id) => {
+        const data = Rooms.find((data) => data.id === id)
+        history.push({
+            pathname: '/admin/detail/room/'+ id,
+            state: {data: data}
+        });
+    }
     var viewDisplay = '';
     if(loading){
         return (
@@ -48,7 +54,7 @@ const ListRoom = () => {
 
                     <td>
                         <button >
-                            <FontAwesomeIcon icon={faPenToSquare} className='movie-icon'/>
+                            <FontAwesomeIcon icon={faPenToSquare} className='movie-icon' onClick={() => handleEdit(data.id)}/>
                         </button>
 
                         <button>

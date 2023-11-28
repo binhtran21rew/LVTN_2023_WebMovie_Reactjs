@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useHistory } from 'react-router-dom';
 
 import './listmovies.scss';
 
@@ -8,9 +9,10 @@ import './listmovies.scss';
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
 const ListMovies = () => {
+    const history = useHistory();
     const [loading ,setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
-
+    const [dataEdit, setDataEdit] = useState([]);
     useEffect(() => {
         const loadMovies = async () => {
             const result = await webApi.getMovieAdmin(getType.Movie);
@@ -31,6 +33,15 @@ const ListMovies = () => {
         const newPage = (e.selected * itemPerPge)  % movies.length;
         setItemPage(newPage);
     }
+
+    const handleEdit = (id) => {
+        const data = movies.find((data) => data.id === id)
+        history.push({
+            pathname: '/admin/detail/movie/'+ id,
+            state: {data: data}
+        });
+        setDataEdit(data);
+    }
     var viewDisplay = '';
     if(loading){
         return (
@@ -46,7 +57,7 @@ const ListMovies = () => {
                     <td>{data.status}</td>
                     <td>
                         <button >
-                            <FontAwesomeIcon icon={faPenToSquare} className='movie-icon'/>
+                            <FontAwesomeIcon name={data.id} icon={faPenToSquare} className='movie-icon' onClick={() => handleEdit(data.id)}/>
                         </button>
 
                         <button>

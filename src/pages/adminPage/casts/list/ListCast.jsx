@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useHistory } from 'react-router-dom';
 
 
 
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
 const ListCast = () => {
-
+    const history = useHistory();
     const [loading ,setLoading] = useState(true);
     const [casts, setCasts] = useState([]);
 
@@ -32,7 +33,13 @@ const ListCast = () => {
         const newPage = (e.selected * itemPerPge)  % casts.length;
         setItemPage(newPage);
     }
-
+    const handleEdit = (id) => {
+        const data = casts.find((data) => data.id === id)
+        history.push({
+            pathname: '/admin/detail/cast/'+ id,
+            state: {data: data}
+        });
+    }
     var viewDisplay = '';
     if(loading){
         return (
@@ -46,7 +53,7 @@ const ListCast = () => {
                     <td>{data.name}</td>
                     <td>
                         <button >
-                            <FontAwesomeIcon icon={faPenToSquare} className='movie-icon'/>
+                            <FontAwesomeIcon icon={faPenToSquare} className='movie-icon' onClick={() => handleEdit(data.id)}/>
                         </button>
 
                         <button>

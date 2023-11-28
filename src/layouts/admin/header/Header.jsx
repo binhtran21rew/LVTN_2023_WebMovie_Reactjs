@@ -76,7 +76,7 @@ const Header = () => {
                     </Link>
                 </span>
             </div>
-            <div className="content">
+            <div className="content__admin">
                 Welcom back: <span className='user-name'>{user.name}</span>
                 <div className="infomation">
                     <div className="search user">

@@ -1,0 +1,67 @@
+@use '../../../scss/' as *;
+
+.Calendar{
+    width: 100%;
+    padding: 1.5rem 2rem 1.5rem 2rem;
+
+    .custom-movieItem{
+        display: flex;
+        justify-content: center;
+    }
+    .header_calendar{
+        margin: 1rem 0;
+        h1{
+            text-transform: capitalize;
+        }
+        .switch{
+            display: flex;
+            align-items: center;
+            span{
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+            button{
+                margin-left: 1rem;
+            }
+        }
+    }
+}
+
+.mode__movie_content{
+    background-color: $white;
+    .modal__content__close{
+        background-color: unset;
+        transform: translateY(-25%) translateX(25%);
+    }
+    .custom-col{
+        input{
+            text-align: center;
+            min-height: 25px;
+            width: 100%;
+            padding: 1rem ;
+
+            &:hover{
+                cursor: pointer;
+                background-color: var(--bg-content-color-3);
+            }
+        }
+    }
+}
+
+#form-submit-schedule{
+
+    input{
+        margin: .4rem 0;
+        background-color: var(--bg-content-color-2);
+        max-width: calc($width-input - 80px);
+    }
+}
+
+
+.fc-col-header-cell,
+.fc-timegrid-slot-label,
+.fc-timegrid-axis-frame,
+.fc-timegrid-axis{
+    background-color: rgb(166, 166, 166);
+    color: var(--bg-color-content);
+}

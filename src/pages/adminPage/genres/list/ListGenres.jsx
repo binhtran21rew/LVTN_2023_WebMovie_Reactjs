@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -7,7 +8,7 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
 const ListGenre = () => {
-
+    const history = useHistory();
     const [loading ,setLoading] = useState(true);
     const [genres, setGenres] = useState([]);
 
@@ -32,7 +33,13 @@ const ListGenre = () => {
         const newPage = (e.selected * itemPerPge)  % genres.length;
         setItemPage(newPage);
     }
-
+    const handleEdit = (id) => {
+        const data = genres.find((data) => data.id === id)
+        history.push({
+            pathname: '/admin/detail/genre/'+ id,
+            state: {data: data}
+        });
+    }
     var viewDisplay = '';
     if(loading){
         return (
@@ -46,7 +53,7 @@ const ListGenre = () => {
                     <td>{data.name}</td>
                     <td>
                         <button >
-                            <FontAwesomeIcon icon={faPenToSquare} className='movie-icon'/>
+                            <FontAwesomeIcon icon={faPenToSquare} className='movie-icon' onClick={() => handleEdit(data.id)}/>
                         </button>
 
                         <button>

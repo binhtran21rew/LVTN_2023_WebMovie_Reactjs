@@ -18,14 +18,13 @@ const Carousel = (props) => {
     useEffect(() => {
         const getMovies = async () =>{
             try{
-                const response = await webApi.getMoviePage(getType.Movie, 1);
+                const response = await webApi.getAll(getType.Movie, getMethod.getAll);
                 setMovies(response);
             }catch(e){
             }
         }
         getMovies();
     }, []);
-
     return (
         <div className="hero-slide">
             <Swiper

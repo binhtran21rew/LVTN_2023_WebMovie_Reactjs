@@ -89,6 +89,9 @@ const Movies = () =>{
         e.preventDefault();
         try{
             const data = new FormData(document.getElementById('form-submit'))
+            for(var d of data.entries()){
+                console.log(d);
+            }
             const result = await webApi.create(getType.Movie, data);
             if(result.status === 200){
                 swal('Success',"Create movie success", 'success')
@@ -184,18 +187,14 @@ const Movies = () =>{
                                 </div>
 
                                 <div className="section mb-3">
-                                    <label htmlFor="">Input runtime movie:</label>
+                                    <label htmlFor="">Input runtime movie (minutes):</label>
                                     <Input 
-                        
                                         type='number'
                                         name='time'
                                         onChange={handleInputTime}
                                         value={time}
                                         min="1"
-                                        // max="12:00"
-                                    />
-                                    
-                                    
+                                    /> 
                                 </div>
                                
                             </div>

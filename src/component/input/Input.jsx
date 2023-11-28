@@ -34,6 +34,8 @@ export const InputDefault = React.forwardRef((props,ref) => {
             name={props.name}
             className={props.className ? props.className : ''}
             min={props.min ? props.min : null}
+            readOnly={props.readOnly || false}
+            disabled={props.disabled || false}
             />
     )
 })
@@ -49,6 +51,9 @@ export const InputRadio = (props) => {
         />
     )
 }
+
+
+
 
 
 export default Input;

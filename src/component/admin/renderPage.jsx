@@ -17,6 +17,13 @@ import ListCast from '../../pages/adminPage/casts/list/ListCast';
 import ListGenres from '../../pages/adminPage/genres/list/ListGenres';
 import ListRoom from '../../pages/adminPage/rooms/list/ListRoom';
 import ListSchedule from '../../pages/adminPage/schedules/list/ListSchedule';
+
+
+import EditMovie from '../../pages/adminPage/movies/edit/EditMovie';
+import EditTrailer from '../../pages/adminPage/trailers/edit/EditTrailer';
+import EditCast from '../../pages/adminPage/casts/edit/EditCast';
+import EditGenres from '../../pages/adminPage/genres/edit/EditGenres';
+import EditRoom from '../../pages/adminPage/rooms/edit/EditRoom';
 const RenderPage = ({...props}) => {
     switch (props.page) {
         case 'movies':
@@ -77,9 +84,28 @@ const RenderPage = ({...props}) => {
             )
         case 'list_schedule':
             return(
-                < ListSchedule/>
+                <ListSchedule/>
             )
-           
+        case 'detail_movie':
+            return(
+                <EditMovie />
+            )
+        case 'detail_trailer':
+            return(
+                <EditTrailer />
+            )
+        case 'detail_cast':
+            return(
+                <EditCast />
+            )
+        case 'detail_genre':
+            return(
+                <EditGenres />
+            )
+        case 'detail_room':
+            return(
+                <EditRoom />
+            )
     }
 }
 

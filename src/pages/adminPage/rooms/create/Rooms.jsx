@@ -41,36 +41,36 @@ const Rooms = () =>{
     console.log(roomInput.name);
     return (
         <div className="Room-form">
-        <form onSubmit={handleSubmit}>
-            <div className="section mb-3">
-                <label htmlFor="">Room name:</label>
-                <div className="input_title">
-                    <Input 
-                        placeholder='Input room name...'
-                        type='text'
-                        name='name'
-                        onChange={handleInput}
-                        value={roomInput.name}
-                    />
+            <form onSubmit={handleSubmit}>
+                <div className="section mb-3">
+                    <label htmlFor="">Room name:</label>
+                    <div className="input_title">
+                        <Input 
+                            placeholder='Input room name...'
+                            type='text'
+                            name='name'
+                            onChange={handleInput}
+                            value={roomInput.name}
+                        />
+                    </div>
                 </div>
-            </div>
-            <div className="section mb-3">
-                <label htmlFor="">Number of Seats: </label>
-                <div className="input_title">
-                    <Input 
-                        placeholder='Input number...'
-                        type='number'
-                        name='number_seat'
-                        min="1"
-                        onChange={handleInput}
-                        value={roomInput.number_seat}
-                    />
+                <div className="section mb-3">
+                    <label htmlFor="">Number of Seats: </label>
+                    <div className="input_title">
+                        <Input 
+                            placeholder='Input number...'
+                            type='number'
+                            name='number_seat'
+                            min="1"
+                            onChange={handleInput}
+                            value={roomInput.number_seat}
+                        />
+                    </div>
                 </div>
-            </div>
-            <Button className="movie_btn_create">Create</Button>
-            
-        </form>
-    </div>
+                <Button className="movie_btn_create">Create</Button>
+                
+            </form>
+        </div>
     )
 }
 

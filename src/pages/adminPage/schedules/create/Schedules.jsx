@@ -2,115 +2,71 @@ import React, {useState, useEffect} from 'react';
 import swal from "sweetalert";
 
 import './schedule.scss';
-
-import {InputDefault as Input} from '../../../../component/input/Input';
-import Button from '../../../../component/button/Button';
-import SelectOptionCasts from '../../../../component/admin/SelectOption';
+import AsyncSelect from 'react-select/async';
 
 import webApi, {getType, getMethod} from '../../../../api/webApi';
+import Calendar from '../../../../component/admin/calendar/Calendar';
+
 const Schedules = () => {
-    // const [movie, setMovie] = useState([]);
-    // const [room, setRoom] = useState([]);
-    // const [scheduleInput, setScheduleInput] = useState({
-    //     room_id: '',
-    //     movie_id: '',
-    //     date:'',
-    //     time_start: '',
-    //     price: ''
-    // });
+    const [room, setRoom] = useState([]);
+    const [selectValue, setSelectValue] = useState(null)
+    const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        const roomData = async () => {
+            const result = await webApi.getAvailableRoom();
+            setRoom(result);
+        }
+        roomData();
+    }, []);
+
+    const handleChange = (selectOption) => {
+        setSelectValue(selectOption);
+        setShowModal(true);
+    }
+    const filterOptions = (inputValue) => {
+        return room.filter((i) =>  (i.title||i.name).toLowerCase() .includes(inputValue.toLowerCase()))
+    }
+    const loadOption = (searchValue, callback) =>{
+        if(searchValue){
+            setTimeout(() => {
+                callback(filterOptions(searchValue));
+            },2000)
+        }
+    }
+    const setStyle = {
+        control: (styles) => ({...styles, backgroundColor: "white"}),
+        option: (styles) => {
+            return {...styles, color: 'black'}
+        }
+    }
 
 
-    // useEffect(() => {
-    //     const roomData = async () => {
-    //         const result = await webApi.getAvailableRoom();
-    //         setRoom(result);
-    //     }
-    //     const movieData = async () => {
-    //         const result = await webApi.getAll(getType.Movie, getMethod.getAll);
-    //         setMovie(result);
-    //     }
-    //     roomData();
-    //     movieData();
-    // }, []);
-
-    // const handleInput = (e) => {
-    //     setScheduleInput({...scheduleInput, [e.target.name]: e.target.value});
-    // }
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-    //     try{
-    //         const form = document.getElementById('form-submit-schedule')
-    //         const data = new FormData(form);
-    //         const result = await webApi.createSchedule(data);
-    //         if(result.status === 200){
-    //             swal('Success', result.message, 'success');
-    //         }else{
-    //             swal('Warning', result.message +  " \n date: "  +  result.data.date + " room: " + result.data.room
-    //                 + "\n time_start: " + result.data.time_start + " time_end: " + result.data.time_end
-    //             , 'warning')
-    //         }
-    //     }catch(e){
-
-    //     }
-    // }
+    let show = '';
+    if(showModal) {
+        show = <Calendar room_id = {selectValue}/>;
+    }
     return (
         <div className="Schedule-page">
-            {/* <form onSubmit={handleSubmit} method='POST' id="form-submit-schedule">
-                <div className="schedule__wrapper">
-                    <div className="section mb-3">
-                        <label htmlFor="">Select Date show:</label>
-                        <div className="input_date">
-                            <Input 
-                                type='date'
-                                name='date'
-                                onChange={handleInput}
-                                value={scheduleInput.date}
-                            />
-                        </div>
-                    </div>
-                    <div className="section mb-3">
-                        <label htmlFor="">Select time start:</label>
-                        <div className="input_time">
-                            <Input 
-                                type='time'
-                                name='time_start'
-                                onChange={handleInput}
-                                value={scheduleInput.time_start}
-                            />
-                        </div>
-                    </div>
-                    <div className="section mb-3">
-                        <label htmlFor="">Input price</label>
-                        <div className="input_time">
-                            <Input 
-                                type='number'
-                                name='price'
-                                onChange={handleInput}
-                                value={scheduleInput.price}
-                            />
-                        </div>
-                    </div>
-                    <div className="section mb-3">
-                        <label htmlFor="">Select room:</label>
-                        <SelectOptionCasts 
-                            data= {room} 
-                            name="room_id"
-                            placeholder="Select room..."
-                            isMulti={false}
-                        />
-                    </div>
-                    <div className="section mb-3">
-                        <label htmlFor="">Select movie:</label>
-                        <SelectOptionCasts 
-                            data= {movie} 
-                            name="movie_id"
-                            placeholder="Select room..."
-                            isMulti={false}
-                        />
-                    </div>
-                    <Button className="movie_btn_create">Create</Button>
-                </div>
-            </form> */}
+            <div className="section mb-3 selectRoom">
+                <label htmlFor="">Select room:</label>
+                <AsyncSelect 
+                    cacheOptions={false}
+                    defaultOptions
+                    value={selectValue}
+                    getOptionLabel={e => e.name||e.title}
+                    getOptionValue={e => e.id}
+                    loadOptions={loadOption} 
+                    onChange={handleChange} 
+                    name="room_id"
+                    placeholder="Select room..."
+                    styles={setStyle}
+                    isClearable
+                    
+                />
+                {show && show}
+            </div>
+
         </div>
     )
 }

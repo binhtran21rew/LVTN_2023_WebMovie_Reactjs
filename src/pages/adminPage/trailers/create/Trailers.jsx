@@ -53,7 +53,7 @@ const Trailers = () =>{
             <form onSubmit={handleSubmit} id='trailer_formSubmit'>
                 <div className="Trailer_wrapper">
                     <div className="section mb-3">
-                        <label htmlFor="">Title:</label>
+                        <label htmlFor="">Key:</label>
                         <div className="input_title">
                             <Input 
                                 placeholder='Input key trailer movie...'

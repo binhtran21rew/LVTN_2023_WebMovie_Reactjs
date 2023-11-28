@@ -3,31 +3,77 @@
 :root{
     --height: 571px;
 }
+.content__movie{
+    margin-top: 10rem;
 
+    .sub-tab{
+        margin-bottom: 2px;
+        ul{
+            display: flex;
+            justify-content: center;
+            
+            li{
+                position: relative;
+                padding: 10px;
+                font-size: 2rem;
+                text-transform: uppercase;
+                background-color: $bg-content;
+                padding: 6px 25px;
+                transition: all .3s ease-in-out;
+                cursor: pointer;
+
+                &:first-child{
+                    border-top-left-radius: 14px;
+                }
+                &:last-child{
+                    border-top-right-radius: 14px;
+                }
+
+
+                &.active{
+                    color: $black;
+                    font-weight: 600;
+                    background: rgba(254, 207, 6, 1);
+                    box-shadow: 10px 0 0 rgba(0,0,0,0.2);
+                }
+            }
+        }
+    }
+}
 .movie-content{
     position: relative;
     width: 100%;
     height: auto;
     background:  $bg-content;
     padding: 30px 0 10px 0;
-    min-height: var(--height);
-    margin-top: 10rem;
+    min-height: calc( var(--height ) - 220px);
+
+
     @include tablet{
-        min-height: calc( var(--height ) - 100px);
+        // min-height: calc( var(--height ) - 100px);
 
     }
     @include mobile{
-        min-height: calc( var(--height ) - 250px);
+        min-height: calc( var(--height ) - 320px);
 
     }
+
+    // .sub-tab{
+    //     position: absolute;
+    //     top: 0;
+    //     transform: translateY(-100%) translateX(calc(width/2));
+    // }
     .movie-wrap{
-        width: 90%;
+        width: 70%;
         display: block;
         margin: 0 auto;
+        .movie_load{
+            display: none;
+        }
     }
 
     .swiper-slide{
-        width: 17%;
+        width: 16%;
 
         @include tablet{
             width: 20%;

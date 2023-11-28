@@ -34,10 +34,10 @@ export const ModalContent = props => {
     }
 
     return(
-        <div ref = {contentRef} className="modal__content" onClick={closeModal}>
+        <div ref = {contentRef} className={`modal__content ${props.className || ''}`} >
             {props.children}
             <div className="modal__content__close">
-                <FontAwesomeIcon icon={faCircleXmark} />
+                <FontAwesomeIcon icon={faCircleXmark} onClick={closeModal}/>
             </div>
         </div>
     )
