@@ -1,0 +1,115 @@
+@use '../../../scss/' as *;
+
+.cart-content{
+    @include tablet{
+       height: 156px;
+    }
+    background-color: rgb(217, 239, 250);
+    position: relative;
+    width: 100%;
+    height: auto;
+    z-index: 5;
+
+    .cart-wrap{
+        display: block;
+        width: 90%;
+        height: 136px;
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        color: $black;
+        text-transform: uppercase;
+    }
+
+    .title{
+
+        @include mobile{
+            line-height: 40px;
+            padding-top: 1rem;
+            height: auto;
+        }
+        @include tablet{
+            display: block;
+            line-height: 40px;
+            padding-top: 5px;
+            height: auto;
+        }
+
+        display: inline-block;
+        vertical-align: middle;
+        width: auto;
+        height: 100%;
+        position: relative;
+        line-height: 144px;
+        z-index: 1;
+
+
+        color: #e00d7a;
+        font-size: 2rem;
+        font-weight: 600;
+        text-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+    }
+    .list{
+        @include tablet{
+            margin-top: 3px;
+            width: 100%;
+        }
+        display: inline-block;
+        vertical-align: middle;
+        width: 70%;
+        margin-top: 12px;
+        max-width: 910px;
+        text-align: center;
+        color: $black;
+
+
+
+        .select-item{
+            @include mobile{
+                height: 38px;
+                width: 47%;
+
+            }
+            @include tablet{
+                height: 38px;
+                width: 47%;
+            }
+            position: relative;
+            width: 290px;
+            height: 48px;
+            margin: 0 5px 12px 5px;
+            display: inline-block;
+            &.none{
+                .select-header{
+                    background-color: unset;
+                }
+            }
+
+            .select-header{
+                background-color: rgba(0,0,0,0.7);
+                width: 100%;
+                height: 45px;
+                cursor: pointer;
+                position: absolute;
+                left: 0;
+                top: 0;
+                border: 2px solid rgba(255,255,255,0);
+                border-radius: 30px;
+
+                padding: 0 40px 0 20px;
+                font-weight: normal;
+                font-size: 15px;
+                color: #fff;
+                line-height: 44px;
+                text-align: left;
+                white-space: nowrap;
+                overflow: hidden;
+                text-transform: uppercase;
+
+                .custom_time{
+                    
+                }
+            }
+        }
+    }
+}

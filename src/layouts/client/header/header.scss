@@ -43,7 +43,7 @@
 .header{
     background: url('https://cinestar.com.vn/catalog/view/theme/default/images/bg-body.png') repeat-y left top;
     height: $header-height;
-    position: fixed;
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;

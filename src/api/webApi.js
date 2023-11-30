@@ -39,7 +39,10 @@ const webApi = {
         return axiosWebClient.post(url, params);
     },
 
-
+    getBookingSchedule: ($movie) => {
+        const url = 'api/Schedule/getBookingSchedule/' + $movie;
+        return axiosWebClient.get(url);
+    },
 
 
 

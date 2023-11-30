@@ -7,7 +7,7 @@ import './home.scss';
 import MovieContent from '../../component/client/movieContent/MovieContent';
 const Home = () => {
     return(
-        <div className="Home container">
+        <div className="Home">
             <Carousel />
             <MovieContent />
            

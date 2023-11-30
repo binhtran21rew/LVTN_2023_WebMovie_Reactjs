@@ -188,7 +188,6 @@ function Calendar({...props}) {
               price: e.event.extendedProps.price,
               time_start: time_start
             }
-            console.log(data);
             const result = await webApi.update(getType.Schedule, data);
             if(result.status === 200){
                 swal('Success', result.message, 'success');
