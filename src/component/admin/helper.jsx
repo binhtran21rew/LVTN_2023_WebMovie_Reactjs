@@ -7,3 +7,6 @@ export const splitTime = (timeString) => {
     const split = timeString.split(/[:]/);
     return split;
 }
+
+
+  

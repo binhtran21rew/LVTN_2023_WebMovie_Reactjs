@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import moment from 'moment'
 
 import './tiketOnline.scss';
 import webApi from '../../../api/webApi';
-import { render } from '@testing-library/react';
-const TiketOnline = () => {
+
+const TicketOnline = () => {
+    const history = useHistory();
     const [movies, setMovies] = useState([]);
     const [schedules, setSchedules] = useState([]);
     const [maphim, setMaphim] = useState('DEFAULT');
@@ -41,7 +43,11 @@ const TiketOnline = () => {
             setCheckSelectDay(false)
         }
     }, [day]);
-
+    useEffect(() => {
+        if(time !== 'DEFAULT'){
+            history.push(`/booking/` + time);
+        }
+    }, [time]);
     const handleInputMovie = (e) => {
         setMaphim(e.target.value);
     }
@@ -51,6 +57,7 @@ const TiketOnline = () => {
     const handleInputSchedule = (e) => {
         setTime(e.target.value);
     }
+    console.log(time);
     const groupBy = (array, key) => {
         return array.reduce((result, currentValue) => {
           (
@@ -121,12 +128,12 @@ const TiketOnline = () => {
             if(day === data.date){
                 if(data.date === momenDay && data.time_start < momenTime){
                     return (
-                        <option value={data.time_start} disabled key={i} className='custom_time'>
+                        <option value={data.id} disabled key={i} className='custom_time'>
                             {data.time_start}
                         </option>
                     )
                 }else{
-                    return (<option value={data.time_start}  key={i} className='custom_time'>
+                    return (<option value={data.id}  key={i} className='custom_time'>
                         {data.time_start}
                     </option>)
                 }
@@ -135,7 +142,6 @@ const TiketOnline = () => {
         })
         
     }
-
 
     return (
         <div className="cart-content">
@@ -188,4 +194,4 @@ const TiketOnline = () => {
     )
 }
 
-export default TiketOnline
+export default TicketOnline;

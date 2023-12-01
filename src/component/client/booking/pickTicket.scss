@@ -1,0 +1,119 @@
+@use '../../../scss/' as *;
+
+
+.PickTicket{
+    perspective: 400px;
+    margin: 25px;
+    display: grid;
+    place-items: center;
+    grid-gap: 24px;
+    .screen{
+        height: 70px;
+        width: 65%;
+        background: rgb(199, 198, 198);
+        transform: rotateX(-30deg) scale(1.1);
+        box-shadow: 0 3px 10px 2px;
+    }
+    .slot__picking{
+        margin-top: 75px;
+        text-align: center;
+        padding: 0 spacing(5);
+        margin-bottom: spacing(3);
+
+       
+        .slot__row{
+            display: grid;
+            grid-gap: 6px;
+            grid-template-columns: repeat(8, min-content);
+            align-items: center;
+
+            .item_seat:nth-of-type(8n + 2){
+                margin-right: 48px;
+            }
+            .item_seat:nth-of-type(8n + 6) {
+                margin-right: 48px;
+              }
+
+
+            .slot__item{
+                margin-bottom: spacing(1);
+                margin-right: spacing(1);
+                font-size: 25px;
+                font-weight: 600;
+                cursor: pointer;
+                color: $seat-blank;
+                
+                &:not(.item_picked):hover,
+                :not(.item_picked):focus{
+                    cursor: pointer;
+                    color: #c1eac5;
+                    transform: scale(1.2);
+                }
+                &.item_chosen{
+                    color: $seat-chosen;
+                }
+    
+                &.item_picked{
+                    color: $seat-block;
+                    cursor: no-drop;
+                }
+            }
+
+        }
+    }
+
+    .ShowCase {
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        background: #3b3b3b;
+        padding: 12px;
+        margin: 0 0 48px;
+        border-radius: 4px;
+        color: #7e7e7e;
+
+        li{
+            margin: 0 12px;
+            .slot__item{
+                font-size: 25px;
+            }
+            span{
+                color: $white;
+                text-transform: capitalize;
+                font-size: 15px;
+                margin-left: 10px;
+            }
+            .blank{
+                color: $seat-blank;
+            }
+            .chosen{
+                color: $seat-chosen;
+            }
+            .block{
+                color: $seat-block;
+            }
+        }
+
+    }
+
+    .Ticket_input{
+        display: flex;
+
+        .ticket-btn{
+            margin-right: 25px;
+            padding: 0.9rem 2rem;
+            font-size: 16px;
+            text-transform: uppercase;
+            background-color: #f37520;
+            color: $white;
+            cursor: pointer;
+            border: none;
+
+            &:hover{
+                background-color: rgb(253, 146, 74);
+                transition: all 0.3s ease-in-out;
+            }
+        }
+    }
+
+}

@@ -16,7 +16,7 @@ import Modal, { ModalContent } from '../../../component/modal/Modal';
 
 
 import webApi, {getType, getMethod} from '../../../api/webApi'
-import warning from 'antd/es/_util/warning'
+
 
 
 const layout = {
@@ -364,17 +364,17 @@ const MovieItem = (props) => {
     const time_end = splitCalendar(item.end)[1];
 
     return (
-        <Modal active={false} id={`modal_${item.id}_item`}>
-          <ModalContent className="mode__movie_content  custom-movieItem">
-            <Row gutter={[16, 24]}>
-                <ul>
-                    <li>Phim: {item.title}</li>
-                    <li>Date: {date}</li>
-                    <li>Start: {time_start}</li>
-                    <li>End: {time_end}</li>
-                </ul>
-            </Row>
-          </ModalContent>
+      <Modal active={false} id={`modal_${item.id}_item`}>
+        <ModalContent className="mode__movie_content  custom-movieItem">
+          <Row gutter={[16, 24]}>
+              <ul>
+                  <li>Phim: {item.title}</li>
+                  <li>Date: {date}</li>
+                  <li>Start: {time_start}</li>
+                  <li>End: {time_end}</li>
+              </ul>
+          </Row>
+        </ModalContent>
       </Modal>
     )
 }

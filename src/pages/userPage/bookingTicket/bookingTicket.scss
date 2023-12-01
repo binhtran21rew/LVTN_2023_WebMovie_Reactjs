@@ -1,0 +1,205 @@
+@use '../../../scss/' as *;
+
+
+.booking-page{
+    width: 100%;
+    height: auto;
+    .booking-title{
+        width: 100%;
+        display: block;
+        padding: 10px 25px;
+        text-align: center;
+        background-color: #5b3a4b;
+
+        & > div{
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .booking-overview{
+            width: 700px;
+            @include tablet{
+                width: 76%;
+                margin-right: 0;
+            }
+            @include mobile2{
+                width: auto;
+                display: block;
+                margin: 0;
+            }
+            h2{
+                @include tablet{
+                    font-size: 26px;
+
+                }
+
+                @include mobile2{
+                    text-align: center;
+                }
+                font-weight: normal;
+                font-size: 30px;
+                color: #fff;
+                margin-bottom: 10px;
+                line-height: 30px;
+                text-align: left;
+
+
+                strong{
+                    font-weight: normal;
+                    font-size: 15px;
+                    color: #fff;
+                    text-transform: uppercase;
+                }
+                span{
+                    text-transform: uppercase;
+                }
+            }
+
+            .about-schedule{
+                width: 100%;
+                display: table;
+                border-spacing: 1px;
+
+                @include mobile2{
+                    width: 100%;
+                    display: table;
+                    margin-top: 15px
+                }
+                li{
+                    
+                    @include mobile2{
+                        height: auto;
+                        text-align: left;
+                        margin-bottom: 2px;
+                        width: 100%;
+                        display: table-row;
+                        padding: 10px 20px;
+                        float: left;
+                    }
+
+
+                    display: table-cell;
+                    text-align: center;
+                    vertical-align: middle;
+                    height: 70px;
+                    padding: 0 20px;
+
+                    .option{
+                        @include tablet{
+                            font-size: 14px;
+                        }
+                        text-transform: capitalize;
+                        font-size: 14px;
+                        color: #fff;
+                        margin-bottom: 5px;
+                        text-align: left;
+                    }
+                    .value{
+                        @include tablet{
+                            font-size: 20px;
+                        }
+                        font-weight: normal;
+                        font-size: 22px;
+                        text-align: left;
+
+
+                        sub{
+                            margin-left: 5px;
+                            font-size: 65%;
+                        }
+                    }
+                }
+                
+                li:nth-child(1){
+                    @include mobile2{
+                        width: 100%;
+
+                    }
+                    width: 150px;
+                }
+                li:nth-child(1),
+                li:nth-child(2){
+                    background-color: #f18720;
+                }
+
+                li:nth-child(3),
+                li:nth-child(4){
+                    span{
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+                    background-color: $txt-color2;
+                    font-size: 28px;
+                    font-weight: bold;
+                }
+            }
+
+            .about-seat{
+                width: 100%;
+                display: table;
+                text-align: center;
+                border-spacing: 1px;
+                li{
+                    display: table-cell;
+                    height: 70px;
+                    vertical-align: middle;
+                    background-color: #450828;
+                    font-size: 14px;
+                    color: #fff;
+                    line-height: 18px;
+                }
+                li:nth-child(1) {
+                    width: 150px;
+                }
+
+                .seat-number {
+                    text-align: left;
+                    padding: 5px 15px;
+
+                    span{
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+
+        .booking-time{
+
+            @include tablet{
+                bottom: auto;
+                vertical-align: middle;
+                margin: 10px 20px 0 0;
+            }
+            vertical-align: bottom;
+            width: auto;
+            max-width: 170px;
+            position: relative;
+            bottom: 38px;
+
+            .title{
+                font-size: 20px;
+                color: #fff;
+                display: block;
+                text-align: center;
+            }
+
+            span{
+                font-size: 24px;
+            }
+        }
+    }
+
+    .booking-body{
+        width: 100%;
+        height: auto;
+        display: block;
+        padding: 10px 25px;
+
+        .booking-wrap{
+            width: 100%;
+            display: block;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 10px 0;
+        }
+    }
+}

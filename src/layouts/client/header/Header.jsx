@@ -12,7 +12,6 @@ import webApi from '../../../api/webApi';
 import {optionUser as option, optionWeb as headerNav} from '../../../component/content/Content';
 import SideBar from '../../../component/sideBar/SideBar';
 import Search from '../../../component/client/search/Search';
-import TiketOnline from '../../../component/client/cardContent/TiketOnline';
 const Header = () => {
     
     const history = useHistory();
@@ -129,7 +128,7 @@ const Header = () => {
 
             </div>
 
-            <TiketOnline />
+            
         </>
         
 

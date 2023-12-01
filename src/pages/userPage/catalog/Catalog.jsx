@@ -3,10 +3,10 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import './catalog.scss';
 
-import tmdbApi from '../../api/tmdbApi';
-import apiConfig from '../../api/apiConfig';
+import tmdbApi from '../../../api/tmdbApi';
+import apiConfig from '../../../api/apiConfig';
 
-import MovieItem from '../../component/client/movieItem/MovieItem';
+import MovieItem from '../../../component/client/movieItem/MovieItem';
 const Catalog = props => {
     const {keyword} = useParams();
 

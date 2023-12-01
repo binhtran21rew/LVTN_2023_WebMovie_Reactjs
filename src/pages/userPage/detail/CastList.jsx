@@ -2,8 +2,8 @@ import React, {useEffect, useState} from 'react';
 import { useParams } from 'react-router';
 
 
-import webApi, {getType, getMethod} from '../../api/webApi';
-import {apiWeb} from '../../api/apiConfig';
+import webApi, {getType, getMethod} from '../../../api/webApi';
+import {apiWeb} from '../../../api/apiConfig';
 const CastList = props => {
     const [casts, setCasts] = useState([]);
     useEffect(() => {

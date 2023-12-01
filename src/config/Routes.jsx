@@ -1,8 +1,10 @@
 import Login from '../pages/login/Login';
 import Register from '../pages/register/Register';
-import Home from '../pages/home/Home';
-import Catalog from '../pages/catalog/Catalog';
-import Detail from '../pages/detail/Detail';
+import Home from '../pages/userPage/home/Home';
+import Catalog from '../pages/userPage/catalog/Catalog';
+import Detail from '../pages/userPage/detail/Detail';
+import BookingTicket from '../pages/userPage/bookingTicket/BookingTicket';
+
 
 // import Header from '../layouts/admin/header/Header';
 import HomeAdmin from '../pages/adminPage/home/HomeAdmin'
@@ -12,6 +14,7 @@ const publicClientRoute = [
     {path: '/', exact: true, component: Home, name: 'Home'},
     {path: '/movie/search/:keyword', exact: true, component: Catalog, name: 'Catalog'},
     {path: '/movie/chitiet/:id', exact: true, component: Detail, name: 'Detail'},
+    {path: '/booking/:schedule', exact: true, component: BookingTicket, name: 'Book'}
 ]
 
 

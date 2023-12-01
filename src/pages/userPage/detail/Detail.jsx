@@ -4,9 +4,9 @@ import { useParams } from 'react-router-dom';
 import './detail.scss';
 
 import CastList from './CastList';
-import webApi, {getType, getMethod} from '../../api/webApi';
+import webApi, {getType, getMethod} from '../../../api/webApi';
 
-import {apiWeb} from '../../api/apiConfig';
+import {apiWeb} from '../../../api/apiConfig';
 const Detail = () => {
     const {id} = useParams();
 

@@ -87,3 +87,23 @@ img{
         color: $main-color;
     }
 }
+
+.row{
+    display: flex;
+    position: relative;
+    /* margin-left: -5%; */
+}
+
+.column{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 50px;
+    left: -11%;
+}
+
+.row-no{
+    width: 0;
+    height: 20px;
+    margin: 5px;
+}

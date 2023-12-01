@@ -43,6 +43,10 @@ const webApi = {
         const url = 'api/Schedule/getBookingSchedule/' + $movie;
         return axiosWebClient.get(url);
     },
+    getTicketSchedule: ($schedule) => {
+        const url = 'api/Schedule/getTicket/' + $schedule;
+        return axiosWebClient.get(url);
+    },
 
 
 
