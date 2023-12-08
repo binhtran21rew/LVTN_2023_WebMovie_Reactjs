@@ -328,7 +328,8 @@ const ModalTypeMovie = (props) => {
 
   useEffect(() => {
     const load = async () => {
-      const result = await webApi.getTypeMovie(item.status);
+      const result = await webApi.getContentMovie(item.status);
+
       setMovies(result);
     }
     load()

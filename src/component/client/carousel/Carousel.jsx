@@ -96,7 +96,7 @@ const HeroSlideItem = props => {
                         {item.overview}
                     </div>
                     <div className="btns">
-                        <Button onClick = {() => history.push('/movie/' + item.id)} className='btn__primary'>
+                        <Button onClick = {() => history.push('/lichchieu/' + item.id)} className='btn__primary'>
                             Watch now
                         </Button>
                         <OutlineButton onClick={setModalActive}>

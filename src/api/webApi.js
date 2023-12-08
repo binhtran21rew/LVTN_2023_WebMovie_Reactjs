@@ -6,12 +6,17 @@ export const getType= {
     Trailer: 'Trailer',
     Room: 'Room',
     Schedule: 'Schedule',
+    Booking: 'Booking',
 }
 
 
 export const getMethod={
     getAll: 'getAll',
     detail: 'detail'
+}
+
+export const getPayment = {
+    momo: 'momo'
 }
 
 
@@ -39,15 +44,24 @@ const webApi = {
         return axiosWebClient.post(url, params);
     },
 
-    getBookingSchedule: ($movie) => {
-        const url = 'api/Schedule/getBookingSchedule/' + $movie;
+    getBookingSchedule: (movie) => {
+        const url = 'api/Schedule/getBookingSchedule/' + movie;
         return axiosWebClient.get(url);
     },
-    getTicketSchedule: ($schedule) => {
-        const url = 'api/Schedule/getTicket/' + $schedule;
+    getTicketSchedule: (schedule) => {
+        const url = 'api/Schedule/getTicket/' + schedule;
         return axiosWebClient.get(url);
     },
 
+
+    bookingTicket: (params) => {
+        const url = 'api/Booking/BookingTicket';
+        return axiosWebClient.post(url, params);
+    },
+    payment: (payment, params) => {
+        const url = 'api/Payment/' + payment;
+        return axiosWebClient.post(url, params)
+    },
 
 
     //admin=============
@@ -64,6 +78,10 @@ const webApi = {
 
 
     // Action GET methods ==========================
+    getId: (type, id) => {
+        const url = 'api/' + getType[type] + '/get' + getType[type] + '/' + id;
+        return axiosWebClient.get(url);
+    },
     getDetails: (type, method, id) => {
         const url = 'api/' + getType[type] + '/' + getMethod[method] + '/' + id;
         return axiosWebClient.get(url);
@@ -82,14 +100,11 @@ const webApi = {
         const url = 'api/Schedule/getSchedule/' + room;
         return axiosWebClient.get(url);
     },
-    getTypeMovie:(type) => {
-        const url = 'api/Movie/getType/' + type;
-        return axiosWebClient.get(url);
-    },
     getContentMovie: (type) => {
         const url = 'api/Movie/getContent/' + type;
         return axiosWebClient.get(url);
     },
+
     // get ALL =======================================
 
     getAll: (type, method) => {
@@ -104,8 +119,8 @@ const webApi = {
 
 
     //Get page======================================
-    getMoviePage: (type, $page) => {
-        const url = 'api/'+ getType[type]  +'/page/'+$page;
+    getMoviePage: (type, page) => {
+        const url = 'api/'+ getType[type]  +'/page/'+ page;
         return axiosWebClient.get(url);
     }
 

@@ -1,16 +1,23 @@
-import React,{ useState } from 'react'
-import { NavLink } from "react-router-dom";
-
-
-import { Fragment } from 'react';
+import React,{ useState, Fragment  } from 'react'
+import { NavLink, useHistory } from 'react-router-dom';
+import moment from 'moment'
+import swal from "sweetalert";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch } from '@fortawesome/free-solid-svg-icons';
 
+
+
 import './pickTicket.scss';
+
+
 import Button from '../../button/Button';
 import Food from './food/Food';
 
+
+import webApi, {getPayment, getType} from '../../../api/webApi';
+
 const PickTicket = (props) => {
+  const history = useHistory(); 
     const {
         countTicket,
         totalPrice,
@@ -20,11 +27,13 @@ const PickTicket = (props) => {
         setListBookingSeat,
         data
     } = props
+
     const [listticketId, setListTicketId] = useState([]);
-    const listSeat = (sold, seat) => {
+    const listSeat = (sold, seat ,i) => {
+      
       if(sold === 1){
         return (
-          <Fragment>
+          <Fragment key={i}>
             <FontAwesomeIcon icon={faCouch}  className={`slot__item item_picked item_seat_${seat.seat_id}`}> </FontAwesomeIcon>
           </Fragment>
         )
@@ -39,7 +48,7 @@ const PickTicket = (props) => {
         }
         
         return (
-          <Fragment>
+          <Fragment key={i}>
               <FontAwesomeIcon 
               icon={faCouch} 
               className={`slot__item ${setSeatBooking} item_seat_${seat.seat_id}`}
@@ -55,10 +64,11 @@ const PickTicket = (props) => {
         )
       }
     }
+
     const handleBookingSeat = (seat) => {
       const seat_id = document.querySelector(`.item_seat_${seat.seat_id}`);
       let index = listBookingSeat.findIndex(
-        (booking) => booking === seat.seat_id
+        (booking) => booking === seat.seat.number
       );
       let index_ticket = listticketId.findIndex(
         (ticket) => ticket === seat.id
@@ -78,7 +88,7 @@ const PickTicket = (props) => {
         setCountTicket(prev => (prev -1));
         setTotalPrice(prev => (prev - data.price));
       }else{
-        setListBookingSeat([...listBookingSeat, seat.seat_id]);
+        setListBookingSeat([...listBookingSeat, seat.seat.number]);
         seat_id.classList.add('item_chosen');
         setCountTicket(prev => (prev + 1));
         setTotalPrice(prev => (prev + data.price));
@@ -89,7 +99,7 @@ const PickTicket = (props) => {
       const {ticket} = data;
 
       return ticket?.map((seat, i) => {
-        return <div key={i} className='item_seat'>{listSeat(seat.status, seat)}</div>
+        return <div key={i} className='item_seat'>{listSeat(seat.status, seat, i)}</div>
       })
 
     }
@@ -109,17 +119,56 @@ const PickTicket = (props) => {
         </li>
       </ul>
     )
+    
     const handleShowFood = (e) => {
       const modal = document.querySelector(`#modal_food`);
       modal.classList.toggle('active');
     }
-    const handleTT = (e) => {
-      const data = {
-        ticket: listticketId,
-      }
-      console.log(data);
+
+
+    const handleTT = async (e) => {
+      try{
+        const today = new Date();
+        const momenDay = moment(today).format("YYYY-MM-DD hh:mm");
+        const dataMovie = {
+          schedule_id: data.id,
+          movie: data.movie,
+          time: data.time_start,
+          date: data.date,
+          img: data.post_path,
+          ticket: listticketId,
+          total_price: totalPrice,
+          price: data.price,
+          count: countTicket,
+        }
+        history.push({
+          pathname: '/checkout',
+          state: {data: dataMovie}
+        });
+
+      }catch(e){}
+      
 
     }
+    var btnPayment = ''
+    if(listBookingSeat.length === 0){
+      btnPayment = (
+        <Button 
+              className={"ticket-btn"}
+              onClick={handleTT}
+              disabled= {true}
+        >thanh toán</Button>
+      )
+    }else{
+      btnPayment = (
+        <Button 
+              className={"ticket-btn"}
+              onClick={handleTT}
+              disabled={false}
+        >thanh toán</Button>
+      )
+    }
+    
     return (
         <div className="PickTicket row">
           <div className="screen" ></div>
@@ -139,10 +188,7 @@ const PickTicket = (props) => {
               className={"ticket-btn"}
               onClick={handleShowFood}
             >chọn thức ăn</Button>
-            <Button 
-              className={"ticket-btn"}
-              onClick={handleTT}
-            >thanh toán</Button>
+            {btnPayment}
           </div>
 
           <Food />

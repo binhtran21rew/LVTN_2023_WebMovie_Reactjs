@@ -36,7 +36,7 @@ const SideBar = React.forwardRef((props,ref) => {
             </header>
             <ul>
                 <div className="nav__header">
-                    {
+                    {/* {
                         localStorage.getItem('auth_token') ? 
                         <li>
                             <Link to='/customer/account'>
@@ -46,7 +46,7 @@ const SideBar = React.forwardRef((props,ref) => {
     
                             </Link>
                         </li> : ''
-                    }
+                    } */}
                     
                 {
                     

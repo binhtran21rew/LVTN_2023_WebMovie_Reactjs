@@ -89,9 +89,6 @@ const Movies = () =>{
         e.preventDefault();
         try{
             const data = new FormData(document.getElementById('form-submit'))
-            for(var d of data.entries()){
-                console.log(d);
-            }
             const result = await webApi.create(getType.Movie, data);
             if(result.status === 200){
                 swal('Success',"Create movie success", 'success')

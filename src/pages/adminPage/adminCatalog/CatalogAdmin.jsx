@@ -13,7 +13,8 @@ const CatalogAdmin = () => {
         <div className='Admin-catalog'>
             <div className="Catalog">
                 <div className="Catalog__header">
-                    <span>{name}</span>
+                    {name === 'foods' ? <span>Danh mục {name}</span> : <span>{name}</span>}
+                    
                     <div className='LinkTo'>
                         <Link to={`/admin/${list}/${name}`}>go to {list} </Link>
                     </div>

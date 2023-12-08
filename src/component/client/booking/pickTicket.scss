@@ -108,7 +108,16 @@
             color: $white;
             cursor: pointer;
             border: none;
+            &:disabled{
+                cursor: no-drop;
+                background-color: #3b3b3b;
 
+                &:hover{
+                    background-color: #3b3b3b;
+                }
+                
+            }
+            
             &:hover{
                 background-color: rgb(253, 146, 74);
                 transition: all 0.3s ease-in-out;

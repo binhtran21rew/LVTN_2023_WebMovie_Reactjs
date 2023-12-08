@@ -4,6 +4,7 @@ import moment from 'moment'
 
 import './tiketOnline.scss';
 import webApi from '../../../api/webApi';
+import {groupBy} from '../../admin/helper';
 
 const TicketOnline = () => {
     const history = useHistory();
@@ -14,6 +15,7 @@ const TicketOnline = () => {
     const [time, setTime] = useState('DEFAULT');
     const [checkSelectMovie, setCheckSelectMovie] = useState(false);
     const [checkSelectDay, setCheckSelectDay] = useState(false);
+
     useEffect(() => {
         const getMovies = async () => {
             const result = await webApi.getContentMovie(1);
@@ -57,17 +59,7 @@ const TicketOnline = () => {
     const handleInputSchedule = (e) => {
         setTime(e.target.value);
     }
-    console.log(time);
-    const groupBy = (array, key) => {
-        return array.reduce((result, currentValue) => {
-          (
-            result[currentValue[key]] =
-            result[currentValue[key]] || []).push(
-            currentValue
-          );
-          return result;
-        }, {});
-      };
+
 
     const renderMovies = () => {
         return movies?.map((data,i) => {
@@ -84,6 +76,7 @@ const TicketOnline = () => {
                 schedules,
                 "date"
             );
+
             let entries = Object.entries(listLichChieu);
             if(schedules.length > 0){
                 return entries.map(([value], i) => {

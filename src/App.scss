@@ -46,6 +46,7 @@ body{
     color: $txt-color;
     background-color: $body-bg;
 
+
     @include mobile{
         margin-bottom: 3rem;
       }

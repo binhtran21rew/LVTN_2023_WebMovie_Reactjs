@@ -9,7 +9,7 @@ import Bookings from '../../pages/adminPage/bookings/Bookings';
 import Accounts from '../../pages/adminPage/accounts/create/Accounts';
 import Profile from '../../pages/adminPage/profile/Profile';
 import Schedules from '../../pages/adminPage/schedules/create/Schedules';
-
+import Food from '../../pages/adminPage/food/create/Food';
 
 import ListMovies from '../../pages/adminPage/movies/list/ListMovies';
 import ListTrailers from '../../pages/adminPage/trailers/list/ListTrailers';
@@ -61,6 +61,10 @@ const RenderPage = ({...props}) => {
         case 'profile':
             return (
                 <Profile />
+            )
+        case 'foods':
+            return (
+                <Food/>
             )
         case 'list_movie':
             return(
