@@ -32,7 +32,7 @@ const EditMovie = (props) => {
     const location = useLocation();
     const data = location.state.data;
     const fileRef = useRef(null);
-
+    console.log(data);
     const [casts, setCasts] = useState([]);
     const [genres, setGenres] = useState([]);
     const [checkBox, setCheckBox] = useState(data.status)
@@ -93,7 +93,7 @@ const EditMovie = (props) => {
 
             const result = await webApi.update(getType.Movie, data)
             if(result.status === 200){
-                swal('Success',"Create movie success", 'success')
+                swal('Success',"Update movie success", 'success')
             }else{
                 swal('Error',"sai", 'error')
             }

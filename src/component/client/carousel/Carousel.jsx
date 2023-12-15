@@ -43,6 +43,7 @@ const Carousel = (props) => {
             navigation={true}
             >
                 {
+                    movies.length > 0 ?
                     movies.map((item, i) => (
                         <SwiperSlide key={i}>
                             {({ isActive})  => (
@@ -50,12 +51,14 @@ const Carousel = (props) => {
                             )}
 
                         </SwiperSlide>
-                    ))
+                    )) : ''
                 }
 
             </Swiper>
             {
+                movies.length > 0 ?
                 movies.map((item, i) => <TrailerModal key={i} item={item}></TrailerModal> )
+                : ''
             }
 
         </div>

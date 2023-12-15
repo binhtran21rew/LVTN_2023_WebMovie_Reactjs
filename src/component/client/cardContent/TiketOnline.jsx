@@ -62,13 +62,15 @@ const TicketOnline = () => {
 
 
     const renderMovies = () => {
-        return movies?.map((data,i) => {
-            return (
-                <option value={data.id} key={i}>
-                    {data.title}
-                </option>
-            )
-        })
+        if(movies.length > 0){
+            return movies.map((data,i) => {
+                return (
+                    <option value={data.id} key={i}>
+                        {data.title}
+                    </option>
+                )
+            })
+        }
     }
     const renderDay = () => {
         if(checkSelectMovie){

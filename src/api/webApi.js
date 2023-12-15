@@ -7,6 +7,9 @@ export const getType= {
     Room: 'Room',
     Schedule: 'Schedule',
     Booking: 'Booking',
+    Food: 'Food',
+    ComboFood: 'ComboFood',
+    Account: 'Account',
 }
 
 
@@ -75,8 +78,17 @@ const webApi = {
         const url = 'api/' + getType[type] + '/update' + getType[type];
         return axiosWebClient.post(url, params);
     },
+    delete: (type, {...param}) => {
+        var url = '';
+        if(type === 'Movie'){
+            url = 'api/' + getType[type] + '/delete' + getType[type]+'?type='+param.type+'&id='+param.id+'&id_detail='+param.id_detail;
+        }else{
+            url = 'api/' + getType[type] + '/delete' + getType[type]+'?type='+param.type+'&id='+param.id;
+        }
+        return axiosWebClient.delete(url);
+    },
 
-
+    
     // Action GET methods ==========================
     getId: (type, id) => {
         const url = 'api/' + getType[type] + '/get' + getType[type] + '/' + id;
@@ -116,7 +128,11 @@ const webApi = {
         const url = 'api/'+ getType[type] + '/get' + getType[type];
         return axiosWebClient.get(url);
     },
-
+ 
+    getTrashed: (type) => {
+        const url = 'api/' + getType[type] + '/getTrashed/' + getType[type];
+        return axiosWebClient.get(url);
+    },
 
     //Get page======================================
     getMoviePage: (type, page) => {

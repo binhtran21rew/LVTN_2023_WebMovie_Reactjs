@@ -26,7 +26,7 @@ const SelectOptionCasts = (props) => {
     }
     return (
         <AsyncSelect 
-            cacheOptions={false}
+            cacheOptions={true}
             defaultOptions
             value={selectValue}
             getOptionLabel={e => e.name||e.title}

@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faRotateRight, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useHistory, Link } from 'react-router-dom';
 import swal from "sweetalert";
 
-import './listmovies.scss';
+
 
 
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
-const ListMovies = () => {
+
+const GarbageMovie = () => {
     const history = useHistory();
     const [loading ,setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
@@ -18,7 +19,7 @@ const ListMovies = () => {
 
     useEffect(() => {
         const loadMovies = async () => {
-            const result = await webApi.getMovieAdmin(getType.Movie);
+            const result = await webApi.getTrashed(getType.Movie);
             setMovies(result)
             setLoading(false);
         }
@@ -28,20 +29,21 @@ const ListMovies = () => {
 
     useEffect(() => {
         const loadMovies = async () => {
-            const result = await webApi.getMovieAdmin(getType.Movie);
+            const result = await webApi.getTrashed(getType.Movie);
             setMovies(result)
             setLoading(false);
         }
 
         loadMovies();
+        setPayload(false);
     }, [payload]);
+
+
     const [itemPage, setItemPage] = useState(0);
     const itemPerPge = 5;
+
     const endPage = itemPage + itemPerPge;
-    var currentItems= '';
-    if(movies.length > 0){
-        currentItems = movies?.slice(itemPage, endPage);
-    }
+    const currentItems = movies.slice(itemPage, endPage);
     const pageCount = Math.ceil(movies.length / itemPerPge);
 
     const handleClick = (e) => {
@@ -49,19 +51,39 @@ const ListMovies = () => {
         setItemPage(newPage);
     }
 
-    const handleEdit = (id) => {
-        const data = movies.find((data) => data.id === id)
-        history.push({
-            pathname: '/admin/detail/movie/'+ id,
-            state: {data: data}
-        });
-        setDataEdit(data);
+    const handleRestore = (id, id_detail) => {
+        const param = {
+            id,
+            id_detail,
+            type: 'restore',
+          }
+          swal({
+            title: "Are you sure?",
+            text: "Restore your data",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then(async (willDelete) => {
+            if (willDelete) {
+              const result = await webApi.delete(getType.Movie, param);
+              if(result.status === 200){
+                swal(result.message, {
+                  icon: "success",
+                });
+                setPayload(true);
+              }else{
+                  swal('Error',result.message, 'error')
+              }
+            } else {
+            }
+          });
     }
     const handleDelete = async (id, id_detail) => {
         const param = {
             id,
             id_detail,
-            type: "Delete"
+            type: "delete"
         }
         swal({
             title: "Are you sure?",
@@ -95,20 +117,19 @@ const ListMovies = () => {
             viewDisplay = currentItems.map((data, i) => {
                 return (
                     <tr key={i}>
-                        <td>{data.id_movie}</td>
+                        <td>{data.movie_id}</td>
                         <td>{data.title}</td>
-                        <td>{data.time}</td>
-                        <td>{data.status}</td>
+                        <td>{data.status ? 'upcoming' : 'now playing'}</td>
                         <td>
                             <button >
-                                <FontAwesomeIcon name={data.id} icon={faPenToSquare} className='movie-icon' onClick={() => handleEdit(data.id)}/>
+                                <FontAwesomeIcon name={data.id} icon={faRotateRight} className='movie-icon' onClick={() => handleRestore(data.movie_id, data.id)}/>
                             </button>
     
                             <button>
-                                <FontAwesomeIcon icon={faTrash} className='movie-icon' onClick={() => handleDelete(data.id_movie, data.id)}/>
+                                <FontAwesomeIcon icon={faTrash} className='movie-icon' onClick={() => handleDelete(data.movie_id, data.id)}/>
                             </button>
+
                         </td>
-    
                     </tr>
                 )
             })
@@ -130,7 +151,6 @@ const ListMovies = () => {
                             <tr>
                                 <th>id</th>
                                 <th>title</th>
-                                <th>time</th>
                                 <th>status</th>
                                 <th>option</th>
 
@@ -144,10 +164,9 @@ const ListMovies = () => {
 
                 </section>
             </div>
-            <Link className='trash' to="/admin/movie_Trashed/Movie">go to trash storage</Link>
 
         </div>
     )
-} 
+}
 
-export default ListMovies;
+export default GarbageMovie

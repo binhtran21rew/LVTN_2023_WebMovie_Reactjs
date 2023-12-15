@@ -334,18 +334,22 @@ const ModalTypeMovie = (props) => {
     }
     load()
   }, []);
-  const render = movies.map((data, i) => {
-    return (
-          <Col className="gutter-row custom-col" span={6} key={i}>
-            <input 
-                type='button'
-                value={data.title}
-                name={data.id}
-                onClick={props.onClick}
-            />
-          </Col>
-    )
-  })
+
+  var render = '';
+  if(movies.length > 0){
+    render = movies.map((data, i) => {
+      return (
+            <Col className="gutter-row custom-col" span={6} key={i}>
+              <input 
+                  type='button'
+                  value={data.title}
+                  name={data.id}
+                  onClick={props.onClick}
+              />
+            </Col>
+      )
+    })
+  }
   return (
       <Modal active={false} id={`modal_${item.status}`}>
           <ModalContent className="mode__movie_content">

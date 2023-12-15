@@ -17,11 +17,12 @@ const Trailers = () =>{
     const [movies, setMovies] = useState([]);
     useEffect(() => {
         const getMovies = async () => {
-            const result = await webApi.getAll(getType.Movie, getMethod.getAll);
+            const result = await webApi.getMovieAdmin(getType.Movie);
             setMovies(result);
         }
         getMovies();
     }, []);
+
     const handleInput = (e) => {
         setTrailerInput({...trailerInput, [e.target.name]: e.target.value});
     }

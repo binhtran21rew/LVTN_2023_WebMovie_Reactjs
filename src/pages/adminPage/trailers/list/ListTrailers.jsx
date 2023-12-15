@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import swal from "sweetalert";
 
 import './listtrailer.scss';
 
@@ -11,6 +12,8 @@ const ListTrailers = () => {
     const history = useHistory();
     const [loading ,setLoading] = useState(true);
     const [trailers, setTrailers] = useState([]);
+    const [payload, setPayload] = useState(false);
+
 
     useEffect(() => {
         const loadTrailer = async () => {
@@ -21,6 +24,17 @@ const ListTrailers = () => {
 
         loadTrailer();
     }, []);
+
+    useEffect(() => {
+        const loadTrailer = async () => {
+            const result = await webApi.getAll(getType.Trailer, getMethod.getAll);
+            setTrailers(result)
+            setLoading(false);
+        }
+
+        loadTrailer();
+        setPayload(false)
+    }, [payload]);
 
     const [itemPage, setItemPage] = useState(0);
     const itemPerPge = 5;
@@ -40,6 +54,20 @@ const ListTrailers = () => {
             state: {data: data}
         });
     }
+    const handleDelete = async (id) => {
+        const param = {
+            id,
+            type: 'softDelete'
+        }
+        const result = await webApi.delete(getType.Trailer, param);
+        if(result.status === 200){
+            swal('Success',result.message, 'success')
+            setPayload(true)
+        }else{
+            swal('Error',result.message, 'error')
+            
+        }
+    }
 
     var viewDisplay = '';
     if(loading){
@@ -47,25 +75,32 @@ const ListTrailers = () => {
             <h4>Loading...</h4>
         )
     }else{
-        viewDisplay = currentItems.map((data, i) => {
-            return (
-                <tr key={i}>
-                    <td>{data.id}</td>
-                    <td>{data.name_movie}</td>
-                    <td>{data.key}</td>
-                    <td>
-                        <button >
-                            <FontAwesomeIcon icon={faPenToSquare} className='movie-icon' onClick={() => handleEdit(data.id)}/>
-                        </button>
-
-                        <button>
-                            <FontAwesomeIcon icon={faTrash} className='movie-icon'/>
-                        </button>
-                    </td>
-
-                </tr>
+        if(currentItems.length > 0){
+            viewDisplay = currentItems.map((data, i) => {
+                return (
+                    <tr key={i}>
+                        <td>{data.id}</td>
+                        <td>{data.name_movie}</td>
+                        <td>{data.key}</td>
+                        <td>
+                            <button >
+                                <FontAwesomeIcon icon={faPenToSquare} className='movie-icon' onClick={() => handleEdit(data.id)}/>
+                            </button>
+    
+                            <button>
+                                <FontAwesomeIcon icon={faTrash} className='movie-icon' onClick={() => handleDelete(data.id)}/>
+                            </button>
+                        </td>
+                    </tr>
+                )
+            })
+        }else{
+            viewDisplay = (
+              <tr className='nodata'>
+                  <td colSpan={4}> No data in here!</td>
+              </tr>
             )
-        })
+        }
     }
     return (
         <div className="ListTrailer-page">
@@ -88,6 +123,8 @@ const ListTrailers = () => {
 
                 </section>
             </div>
+
+            <Link className='trash' to="/admin/trailer_Trashed/Trailer">go to trash storage</Link>
         </div>
         
     )

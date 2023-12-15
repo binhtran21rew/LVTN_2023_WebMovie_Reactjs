@@ -84,11 +84,13 @@ const ContentItem = (props) => {
             navigation={true}
             >
                 {
+                    movies.length > 0 ? 
                     movies.map((item, i) => (
                         <SwiperSlide key={i}>
                             <MovieItem item={item}/>
                         </SwiperSlide>
                     ))
+                    : ''
                 }
 
         </Swiper>

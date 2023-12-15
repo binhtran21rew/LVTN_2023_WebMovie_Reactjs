@@ -1,0 +1,12 @@
+@use '../../../../scss/' as *;
+
+.ListFood-page{
+    & > div {
+        margin-bottom: 25px;
+    }
+    .food_title{
+        text-align: center;
+        font-size: 25px;
+        margin: 15px;
+    }
+}

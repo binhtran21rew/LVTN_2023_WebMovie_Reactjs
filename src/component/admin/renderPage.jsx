@@ -17,13 +17,22 @@ import ListCast from '../../pages/adminPage/casts/list/ListCast';
 import ListGenres from '../../pages/adminPage/genres/list/ListGenres';
 import ListRoom from '../../pages/adminPage/rooms/list/ListRoom';
 import ListSchedule from '../../pages/adminPage/schedules/list/ListSchedule';
-
+import ListFood from '../../pages/adminPage/food/list/ListFood';
+import ListAccount from '../../pages/adminPage/accounts/list/ListAccount';
 
 import EditMovie from '../../pages/adminPage/movies/edit/EditMovie';
 import EditTrailer from '../../pages/adminPage/trailers/edit/EditTrailer';
 import EditCast from '../../pages/adminPage/casts/edit/EditCast';
 import EditGenres from '../../pages/adminPage/genres/edit/EditGenres';
 import EditRoom from '../../pages/adminPage/rooms/edit/EditRoom';
+import EditFood from '../../pages/adminPage/food/edit/EditFood';
+
+
+import GarbageTrailer from '../../pages/adminPage/trailers/garbage/GarbageTrailer';
+import GarbageCast from '../../pages/adminPage/casts/garbage/GarbageCast';
+import GarbageMovie from '../../pages/adminPage/movies/garbage/GarbageMovie';
+import GarbageGenre from '../../pages/adminPage/genres/garbage/GarbageGenre';
+import GarbageRoom from '../../pages/adminPage/rooms/garbage/GarbageRoom';
 const RenderPage = ({...props}) => {
     switch (props.page) {
         case 'movies':
@@ -52,7 +61,7 @@ const RenderPage = ({...props}) => {
             )
         case 'bookings':
             return(
-                <Bookings/>
+                <Bookings />
             )
         case 'accounts':
             return(
@@ -90,6 +99,14 @@ const RenderPage = ({...props}) => {
             return(
                 <ListSchedule/>
             )
+        case 'list_food':
+            return(
+                <ListFood />
+            )
+        case 'list_account':
+            return(
+                <ListAccount />
+            )
         case 'detail_movie':
             return(
                 <EditMovie />
@@ -109,6 +126,31 @@ const RenderPage = ({...props}) => {
         case 'detail_room':
             return(
                 <EditRoom />
+            )
+        case 'detail_food':
+            return(
+                <EditFood />
+            )
+
+        case 'trailer_Trashed':
+            return(
+                <GarbageTrailer />
+            )
+        case 'cast_Trashed':
+            return(
+                <GarbageCast />
+            )
+        case 'movie_Trashed':
+            return(
+                <GarbageMovie />
+            )
+        case 'genre_Trashed':
+            return(
+                <GarbageGenre />
+            )
+        case 'room_Trashed':
+            return(
+                <GarbageRoom />
             )
     }
 }

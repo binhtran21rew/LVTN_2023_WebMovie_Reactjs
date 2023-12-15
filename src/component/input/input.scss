@@ -27,3 +27,137 @@ input{
     width: 5%;
     margin: 1rem;
 }
+
+.SelesctCustom{
+    .Select-wrapper{
+        position: relative;
+        // max-width: 320px;
+        width: 100%;
+
+        .select-btn{
+            display: flex;
+            height: 50px;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #fff;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+
+
+            .btn-text{
+                font-size: 17px;
+                font-weight: 400;
+                z-index: 0;
+                color: #333;
+            }
+
+            .arrow-dwn{
+                display: flex;
+                height: 21px;
+                width: 21px;
+                color: #fff;
+                font-size: 14px;
+                border-radius: 50%;
+                background: #6e93f7;
+                align-items: center;
+                justify-content: center;
+                transition: 0.3s;
+            }
+
+            &.open .arrow-dwn{
+                transform: rotate(-180deg);
+            }
+
+            &.open ~ .list-items{
+                display: block;
+            }
+        }
+
+        .list-items{
+            position: relative;
+            margin-top: 15px;
+            border-radius: 8px;
+            padding: 16px;
+            background-color: #fff;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+
+
+            .item{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                list-style: none;
+                height: 50px;
+                cursor: pointer;
+                transition: 0.3s;
+                padding: 0 15px;
+                border-radius: 8px;
+                .title{
+                    display: flex;
+                    align-items: center;
+                }
+                &:hover{
+                    background-color: #e7edfe;
+                }
+
+                .item-text{
+                    font-size: 16px;
+                    font-weight: 400;
+                    color: #333;
+                }
+                svg{
+                    display: none;
+                }
+                .selectCount{
+                    font-size: 15px;
+                    svg{
+                        display: block;
+                        color: #333;
+                    }
+                    
+                }
+                &.checked .selectCount > svg{
+                    display: block !important;
+                    color: #333;
+
+                }
+                .checkbox{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 16px;
+                    width: 16px;
+                    border-radius: 4px;
+                    margin-right: 12px;
+                    border: 1.5px solid #c0c0c0;
+                    transition: all 0.3s ease-in-out;
+
+                    .check-icon{
+                        color: #fff;
+                        font-size: 11px;
+                        transform: scale(0);
+                        transition: all 0.2s ease-in-out;
+                    }
+                }
+
+                &.checked .checkbox{
+                    background-color: #4070f4;
+                    border-color: #4070f4;
+                }
+
+                &.checked svg{
+                    display: block !important;
+                    color: white;
+                }
+
+                &.checked .check-icon{
+                    transform: scale(1);
+                }
+            }
+        }
+    }
+
+}

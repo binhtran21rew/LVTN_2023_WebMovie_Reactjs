@@ -55,10 +55,8 @@ const PickTicket = (props) => {
               onClick={() => {
                 handleBookingSeat(seat)
               }}
-            
             > 
             </FontAwesomeIcon>
-
           </Fragment>
 
         )

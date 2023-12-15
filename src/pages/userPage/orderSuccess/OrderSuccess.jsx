@@ -24,7 +24,7 @@ const OrderSuccess = () => {
     paymentInfo = queryParameters.get("orderInfo");
     paymentCount = queryParameters.get("amount");
     const dataPayment = JSON.parse(atob(extraData));
-    // message=Successful
+  
     useEffect(() => {
         if(checkPayment){
             if(message === "Successful."){

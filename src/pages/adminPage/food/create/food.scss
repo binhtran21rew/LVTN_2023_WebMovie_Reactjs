@@ -13,5 +13,124 @@
             margin-top: .6rem;
             max-width: $width-input;
         }
+        
+        .input_status{
+
+            .status_item{
+                padding-top: .4rem;
+                vertical-align: middle;
+                @include mobile{
+                    display: inline-block;
+                    text-align: center;
+                }
+                // display: flex;
+                // align-items: center;
+                span{
+                    font-size: 1.4rem;
+                    text-transform: capitalize;
+                }
+                .input_checkbox{
+                    width: 50px;
+                    height: 25px;
+                }
+            }
+        }
+        .image{
+            width: 50%;
+            .poster_image{
+                width: 150px;
+                max-width: 200px;
+                @include mobile{
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+
+.TypeFood-page{
+    width: 100%;
+    padding: 1.5rem 2.187rem 1.5rem 3.5rem;
+    background-color: var(--bg-content-color);
+    color: var(--txt-color);
+
+    .Food{
+        &__header{
+            text-align: center;
+            span{
+                font-size: 2rem;
+                text-transform: uppercase;
+            }
+            
+            .link_food{
+                display: flex;
+                justify-content: flex-end;
+                margin: 15px 0;
+            }
+            .LinkTo{
+                display: flex;
+                justify-content: flex-end;
+
+                a{
+                    margin: 0 2rem 10px 0;
+                    padding: .4rem;
+                    text-transform: capitalize;
+                    border: 1px solid var(--bg-content-color-2);
+                    background-color: var(--bg-content-color-2);
+
+                }
+            }
+        }
+
+        &__body{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-content-color-2);
+
+            form{
+                padding: 1rem;
+
+                input{
+                    margin-top: .6rem;
+                    max-width: $width-input;
+
+                    &[type='text']:read-only{
+                        background-color: rgba($color: #000000, $alpha: .2);
+
+                        &:hover{
+                            border: unset;
+                        }
+                    }
+                }
+                .image{
+                    width: 50%;
+                    .poster_image{
+                        width: 150px;
+                        max-width: 200px;
+                        @include mobile{
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+        label{
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .movie_btn_create{
+            float: right;
+            transform: translateX(-50%);
+            margin: 1rem 0;
+
+            &:hover{
+                color: $main-color;
+            }
+        }
     }
 }

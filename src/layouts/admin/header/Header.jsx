@@ -7,6 +7,7 @@ import './admin-header.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket, faBars, faInfo, faUser} from '@fortawesome/free-solid-svg-icons';
 import webApi from '../../../api/webApi';
+import Button from '../../../component/button/Button';
 
 import {InputDefault as Input} from '../../../component/input/Input';
 const Header = () => {
@@ -61,7 +62,19 @@ const Header = () => {
 
         }
     }, []);
+    const handleLogout = async () => {
+        try{
+            const logout = await webApi.logout();
+            if(logout.status === 200){
+                localStorage.removeItem('auth_token');
 
+                window.location.reload();
+            }
+        }catch(e){
+            console.log(e);
+        }
+
+    }
 
     return (
 
@@ -96,20 +109,19 @@ const Header = () => {
                             </div>
                             <div className="dropdown__profile">
                                 <ul>
-                                        {
-                                            options.map((item, i) => (
-                                            <li key={i}>
-                                                <Link to={item.path ? item.path : '/'}> 
-                                                    <div className="dropdown__profile-icon">
-                                                        <FontAwesomeIcon icon={item.icon}/>
-                                                    </div>
-                                                    <span className='dropdown__profile-text'>
-                                                        {item.display}
-                                                    </span>
-                                                </Link>
-                                            </li>
-                                        ))
-                                        }
+                                    <li>
+                                        <Link to={'/admin/profile/user'}> 
+                                            <div className="dropdown__profile-icon">
+                                            <FontAwesomeIcon icon={faInfo}/>
+                                            </div>
+                                            <span className='dropdown__profile-text'>
+                                                My Profile
+                                            </span>
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Button className='dropdown__profile-btn' onClick={handleLogout}>Logout</Button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

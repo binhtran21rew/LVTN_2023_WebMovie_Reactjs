@@ -41,9 +41,7 @@ const Header = () => {
             const logout = await webApi.logout();
             if(logout.status === 200){
                 localStorage.removeItem('auth_token');
-                localStorage.removeItem('role');
-    
-                history.push('/');
+                window.location.reload();
             }
         }catch(e){
             console.log(e);

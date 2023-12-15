@@ -1,0 +1,22 @@
+@use '../../../../scss/' as * ;
+.ListAccount-page{
+    position: relative;
+    & > div {
+        margin-bottom: 25px;
+    }
+
+    .title{
+        font-size: 25px;
+        margin: 25px;
+    }
+
+    .table_movie{
+        &::after{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background-color: rgb(59, 59, 59);
+        }
+    }
+}

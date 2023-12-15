@@ -105,9 +105,6 @@ const Login = () => {
                                     {showEye ? <FontAwesomeIcon icon={faEye} onClick={showText} className='input__password__display'/> : 
                                     
                                     <FontAwesomeIcon icon={faEyeSlash} onClick={showText} className='input__password__display'/>}
-                                    
-                                    
-
                                 </div>
                                 
                             </div>

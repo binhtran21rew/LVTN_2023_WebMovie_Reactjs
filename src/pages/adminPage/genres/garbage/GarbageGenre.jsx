@@ -1,13 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import { useHistory, Link  } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faRotateRight, faTrash } from '@fortawesome/free-solid-svg-icons';
 import swal from "sweetalert";
 
 
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
-const ListGenre = () => {
+
+const GarbageGenre = () => {
     const history = useHistory();
     const [loading ,setLoading] = useState(true);
     const [genres, setGenres] = useState([]);
@@ -15,7 +16,7 @@ const ListGenre = () => {
 
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getAll(getType.Genre, getMethod.getAll);
+            const result = await webApi.getTrashed(getType.Genre);
             setGenres(result)
             setLoading(false);
         }
@@ -24,7 +25,7 @@ const ListGenre = () => {
     }, []);
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getAll(getType.Genre, getMethod.getAll);
+            const result = await webApi.getTrashed(getType.Genre);
             setGenres(result)
             setLoading(false);
         }
@@ -44,26 +45,59 @@ const ListGenre = () => {
         const newPage = (e.selected * itemPerPge)  % genres.length;
         setItemPage(newPage);
     }
-    const handleEdit = (id) => {
-        const data = genres.find((data) => data.id === id)
-        history.push({
-            pathname: '/admin/detail/genre/'+ id,
-            state: {data: data}
+    const handleRestore = (id) => {
+        const param = {
+          id,
+          type: 'restore',
+        }
+        swal({
+          title: "Are you sure?",
+          text: "Restore your data",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then(async (willDelete) => {
+          if (willDelete) {
+            const result = await webApi.delete(getType.Genre, param);
+            if(result.status === 200){
+              swal(result.message, {
+                icon: "success",
+              });
+              setPayload(true);
+            }else{
+                swal('Error',result.message, 'error')
+            }
+          } else {
+          }
         });
-    }
+      }
     const handleDelete = async (id) => {
         const param = {
             id,
-            type: 'softDelete'
+            type: 'delete',
         }
-        const result = await webApi.delete(getType.Genre, param);
-        if(result.status === 200){
-            swal('Success',result.message, 'success')
-            setPayload(true)
-        }else{
-            swal('Error',result.message, 'error')
-            
-        }
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then(async (willDelete) => {
+            if (willDelete) {
+              const result = await webApi.delete(getType.Genre, param);
+              if(result.status === 200){
+                swal(result.message, {
+                  icon: "success",
+                });
+                setPayload(true);
+              }else{
+                  swal('Error',result.message, 'error')
+              }
+            } else {
+            }
+          });
     }
     var viewDisplay = '';
     if(loading){
@@ -79,7 +113,8 @@ const ListGenre = () => {
                         <td>{data.name}</td>
                         <td>
                             <button >
-                                <FontAwesomeIcon icon={faPenToSquare} className='movie-icon' onClick={() => handleEdit(data.id)}/>
+                                <FontAwesomeIcon icon={faRotateRight} className='movie-icon' onClick={() => handleRestore(data.id)}/>
+    
                             </button>
     
                             <button>
@@ -97,6 +132,7 @@ const ListGenre = () => {
                 </tr>
             )
         }
+       
     }
     return (
         <div className="ListGenre-page">
@@ -118,12 +154,10 @@ const ListGenre = () => {
 
                 </section>
             </div>
-            <Link className='trash' to="/admin/genre_Trashed/genre">go to trash storage</Link>
 
         </div>
         
     )
 }
 
-
-export default ListGenre;
+export default GarbageGenre

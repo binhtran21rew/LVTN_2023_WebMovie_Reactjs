@@ -14,10 +14,13 @@ const Movies = () =>{
         {
             display: 'now playing',
             name: 'now_playing',
+            status: 1
         },
         {
             display: 'upcoming',
             name: 'upcoming',
+            status: 0
+
         },
     ];
     const fileRef = useRef(null);
@@ -91,10 +94,10 @@ const Movies = () =>{
             const data = new FormData(document.getElementById('form-submit'))
             const result = await webApi.create(getType.Movie, data);
             if(result.status === 200){
-                swal('Success',"Create movie success", 'success')
+                swal('Success',result.message, 'success')
                 resetValue();
             }else{
-                swal('Error',"sai", 'error')
+                swal('Warn',result.message, 'warning')
             }
 
 
@@ -140,7 +143,7 @@ const Movies = () =>{
                                                     onChange={handleCheckbox}
                                                     className="input_checkbox"
                                                     name="status"
-                                                    value={item.name}
+                                                    value={item.status}
                                                 />
                                                 <span>{item.display}</span>
                                             </div>

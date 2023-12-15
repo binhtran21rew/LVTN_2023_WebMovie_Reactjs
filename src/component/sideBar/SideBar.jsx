@@ -17,8 +17,6 @@ const SideBar = React.forwardRef((props,ref) => {
         const logout = await webApi.logout();
         if(logout.status === 200){
             localStorage.removeItem('auth_token');
-            localStorage.removeItem('role');
-
             history.push('/');
         }
     }

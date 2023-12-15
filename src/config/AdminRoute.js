@@ -17,6 +17,8 @@ const AdminRoute = ({...rest}) => {
             const result =await  webApi.checkLogin();
             if(result.status === 200){
                 setAuthen(true);
+            }else{
+                localStorage.removeItem('auth_token');
             }
             setLoading(false)
         }catch(err){

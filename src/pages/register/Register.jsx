@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useRef,} from 'react';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
+import swal from 'sweetalert';
 
 import webApi from '../../api/webApi';
 
@@ -9,7 +10,7 @@ import Input from '../../component/input/Input';
 import Button from '../../component/button/Button';
 import { faCheck, faTimes, faInfoCircle, faIceCream, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {axiosWebClient} from "../../api/axiosClient";
+
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{6,}$/;
@@ -99,6 +100,14 @@ const Register = () => {
             }
 
             const result = await webApi.userRegister(params);
+
+            if(result.status === 200){
+                swal('Success', result.message, 'success');
+                localStorage.setItem('auth_token', result.data.token);
+                history.push('/');
+            }else{
+                swal('Warn', result.message, 'Warning');
+            }
             setEmail('');
             setPwd('');
             setUser('');
@@ -118,7 +127,7 @@ const Register = () => {
                 <div className="register">
                     <h2>
                         <span className="register__content">
-                            Đăng nhập
+                            Đăng Ký
                         </span>
                     </h2>
                     <form onSubmit={handleRegister}>
