@@ -1,0 +1,10 @@
+@use '../../../../scss/' as *;
+
+.Permission-page{
+    width: 100%;
+    height: auto;
+
+    padding: 1.5rem 2.187rem 1.5rem 3.5rem;
+    background-color: var(--bg-content-color);
+    color: var(--txt-color);
+}

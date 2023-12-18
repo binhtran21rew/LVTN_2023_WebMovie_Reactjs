@@ -19,9 +19,13 @@ const GarbageMovie = () => {
 
     useEffect(() => {
         const loadMovies = async () => {
-            const result = await webApi.getTrashed(getType.Movie);
-            setMovies(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getTrashed(getType.Movie);
+                setMovies(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadMovies();
@@ -29,9 +33,13 @@ const GarbageMovie = () => {
 
     useEffect(() => {
         const loadMovies = async () => {
-            const result = await webApi.getTrashed(getType.Movie);
-            setMovies(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getTrashed(getType.Movie);
+                setMovies(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadMovies();

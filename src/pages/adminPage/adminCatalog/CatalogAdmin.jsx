@@ -37,7 +37,7 @@ const CatalogAdmin = () => {
                             <div>
                                 <span>Danh mục {name}</span>
 
-                                <div className='link_food'>
+                                <div className='link_custom'>
                                     <div className='LinkTo'>
                                         <Link to={`/admin/${list}/${name}`}>go to {listname}</Link>
                                     </div>
@@ -62,8 +62,35 @@ const CatalogAdmin = () => {
                 <div className="Catalog">
                     <div className="Catalog__header">
                         <span>Create {name.replace('_', ' ')}</span>
-                        <div className='LinkTo'>
-                            <Link to={`/admin/${list}/${name}`}>go to {listname}</Link>
+                        <div className="link_custom">
+                            <div className='LinkTo'>
+                                <Link to={`/admin/${list}/${name}`}>go to {listname}</Link>
+                            </div>
+                            <div className='LinkTo'>
+                                <Link to={`/admin/role`}>go to list role</Link>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div className="Catalog__body">
+                        <RenderPage page={name} list={list}/>
+                    </div>
+                </div>
+            </div>
+            )
+        case 'list_account':
+            return (
+                <div className='Admin-catalog'>
+                <div className="Catalog">
+                    <div className="Catalog__header">
+                        <span>{name.replace('_', ' ')}</span>
+                        <div className="link_custom">
+                            <div className='LinkTo'>
+                                <Link to={`/admin/${list}/${name}`}>go to {listname}</Link>
+                            </div>
+                            <div className='LinkTo'>
+                                <Link to={`/admin/role`}>go to list role</Link>
+                            </div>
                         </div>
                     </div>
                     <div className="Catalog__body">
@@ -92,56 +119,6 @@ const CatalogAdmin = () => {
                 </div>
             )
     }
-    // return (
-    //     <div className='Admin-catalog'>
-    //         <div className="Catalog">
-    //             <div className="Catalog__header">
-    //                 {name === 'foods' ? (
-    //                     <div>
-    //                         <span>Danh mục {name}</span>
-
-    //                         <div className='link_food'>
-    //                             <div className='LinkTo'>
-    //                                 <Link to={`/admin/${list}/${name}`}>go to {list} </Link>
-    //                             </div>
-    //                             <div className='LinkTo'>
-    //                                 <Link to={`/admin/combo_${name}`}>create combo {name} </Link>
-    //                             </div>
-    //                         </div>
-                            
-    //                     </div>
-                        
-    //                 ):(
-    //                     <>
-    //                         <span>{name.replace('_', ' ')}</span>
-    //                         <div className='LinkTo'>
-    //                             <Link to={`/admin/${list}/${name}`}>go to {list} </Link>
-    //                         </div>
-    //                     </>
-    //                 )}
-
-    //                 {checkViewTrash ? (
-    //                     <>
-    //                         <span>{name.replace('_', ' ')}</span>
-    //                         <div className='LinkTo'>
-    //                             <Link to={`/admin/${list}/${name}`}>go to {list} </Link>
-    //                         </div>
-    //                     </>
-
-    //                 ) : (
-    //                     <></>
-                        
-    //                 )}
-
-                    
-    //             </div>
-    //             <div className="Catalog__body">
-
-    //                 <RenderPage page={name} list={list}/>
-    //             </div>
-    //         </div>
-    //     </div>
-    // )
 }
 
 export default CatalogAdmin;

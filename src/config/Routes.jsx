@@ -7,6 +7,8 @@ import BookingTicket from '../pages/userPage/bookingTicket/BookingTicket';
 import Account from '../pages/userPage/customer/Account';
 import BookingMovie from '../pages/userPage/bookingMovie/bookingMovie';
 import AccountPermission from '../pages/adminPage/accounts/permission/AccountPermission';
+import RoleAccount from '../pages/adminPage/accounts/role/RoleAccount';
+import CreateRole from '../pages/adminPage/accounts/role/create/CreateRole';
 
 
 // import Header from '../layouts/admin/header/Header';
@@ -16,6 +18,7 @@ import CatalogDetailAdmin from '../pages/adminPage/adminDetailCatalog/CatalogDet
 import CheckOut from '../pages/userPage/checkout/CheckOut';
 import OrderSuccess from '../pages/userPage/orderSuccess/OrderSuccess';
 import TypeFood from '../pages/adminPage/food/create/TypeFood';
+import EditAccount from '../pages/adminPage/accounts/edit/EditAccount';
 const publicClientRoute = [
     {path: '/', exact: true, component: Home, name: 'Home'},
     {path: '/movie/search/:keyword', exact: true, component: Catalog, name: 'Catalog'},
@@ -32,10 +35,13 @@ export const adminRoutes = [
     { path: '/admin', exact: true, component: HomeAdmin, name: 'Admin'},
     { path: "/admin/home",  exact: true,  component: HomeAdmin, name: 'adminHome'},
 
-    { path: "/admin/account/permission/:id",  exact: true,  component: AccountPermission, name: 'adminPermission'},
-    { path: "/admin/:name/:list",  exact: true,  component: CatalogAdmin, name: 'adminCatalog'},
+    { path: "/admin/account/permisson/:id",  exact: true,  component: EditAccount, name: 'adminPermission'},
+    { path: "/admin/role",  exact: true,  component: RoleAccount, name: 'adminRoleAccount'},
+    { path: "/admin/create/role",  exact: true,  component: CreateRole, name: 'adminRoleAccount'},
     { path: "/admin/combo_foods",  exact: true,  component: TypeFood, name: 'adminFood'},
-
+    
+    
+    { path: "/admin/:name/:list",  exact: true,  component: CatalogAdmin, name: 'adminCatalog'},
     { path: "/admin/detail/:name/:id", exact: true, component: CatalogDetailAdmin, name: 'adminCatelogDetail'}
 ]
 

@@ -15,9 +15,13 @@ const ListRoom = () => {
 
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getAll(getType.Room, getMethod.getAll);
-            setRooms(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getAll(getType.Room, getMethod.getAll);
+                setRooms(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadTrailer();
@@ -25,9 +29,13 @@ const ListRoom = () => {
 
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getAll(getType.Room, getMethod.getAll);
-            setRooms(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getAll(getType.Room, getMethod.getAll);
+                setRooms(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadTrailer();

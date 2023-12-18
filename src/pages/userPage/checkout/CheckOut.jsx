@@ -28,7 +28,6 @@ const CheckOut = () => {
     const img = `${apiWeb.baseUrl}${data.img}`
 
     const [payment, setPayment] = useState('');
-    console.log(payment);
 
     const handleCheckbox = (e) => {
         setPayment(e.target.value)
@@ -42,7 +41,6 @@ const CheckOut = () => {
             ticket: data.ticket,
             type: payment
         }
-        console.log(dataPayment);
 
         try{
             const result = await webApi.payment(payment, dataPayment);
@@ -52,7 +50,7 @@ const CheckOut = () => {
         }catch(e){
 
         }
-        console.log(payment);
+        
     }
     return (
         <div className="CheckOut-page">

@@ -16,9 +16,13 @@ const GarbageRoom = () => {
 
   useEffect(() => {
       const loadTrailer = async () => {
-          const result = await webApi.getTrashed(getType.Room);
-          setRooms(result)
-          setLoading(false);
+        try{
+            const result = await webApi.getTrashed(getType.Room);
+            setRooms(result)
+            setLoading(false);
+        }catch(e){
+  
+        }
       }
 
       loadTrailer();
@@ -26,9 +30,13 @@ const GarbageRoom = () => {
 
   useEffect(() => {
       const loadTrailer = async () => {
-          const result = await webApi.getTrashed(getType.Room);
-          setRooms(result)
-          setLoading(false);
+        try{
+            const result = await webApi.getTrashed(getType.Room);
+            setRooms(result)
+            setLoading(false);
+        }catch(e){
+  
+        }
       }
 
       loadTrailer();

@@ -38,7 +38,7 @@ const Rooms = () =>{
 
         }
     }
-    console.log(roomInput.name);
+
     return (
         <div className="Room-form">
             <form onSubmit={handleSubmit}>

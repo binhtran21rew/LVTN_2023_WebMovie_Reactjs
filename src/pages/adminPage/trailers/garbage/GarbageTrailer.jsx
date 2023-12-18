@@ -17,18 +17,26 @@ const GarbageTrailer = () => {
 
   useEffect(() => {
       const loadTrailer = async () => {
+        try{
           const result = await webApi.getTrashed(getType.Trailer);
           setTrailers(result)
           setLoading(false);
+        }catch(e){
+  
+        }
       }
 
       loadTrailer();
   }, []);
   useEffect(() => {
     const loadTrailer = async () => {
+      try{
         const result = await webApi.getTrashed(getType.Trailer);
         setTrailers(result)
         setLoading(false);
+      }catch(e){
+
+      }
     }
 
     loadTrailer();

@@ -14,9 +14,13 @@ const Bookings = ({list}) =>{
 
     useEffect(() => {
         const loadData = async () => {
-            const result = await webApi.getAll(getType.Booking, getMethod.getAll);
-            setBookings(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getAll(getType.Booking, getMethod.getAll);
+                setBookings(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadData();
@@ -24,9 +28,13 @@ const Bookings = ({list}) =>{
 
     useEffect(() => {
         const loadData = async () => {
-            const result = await webApi.getAll(getType.Booking, getMethod.getAll);
-            setBookings(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getAll(getType.Booking, getMethod.getAll);
+                setBookings(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadData();

@@ -32,7 +32,7 @@ const EditMovie = (props) => {
     const location = useLocation();
     const data = location.state.data;
     const fileRef = useRef(null);
-    console.log(data);
+   
     const [casts, setCasts] = useState([]);
     const [genres, setGenres] = useState([]);
     const [checkBox, setCheckBox] = useState(data.status)
@@ -61,13 +61,21 @@ const EditMovie = (props) => {
     }
     useEffect(() => {
         const getCast = async () => {
-            const result = await webApi.getAll(getType.Cast, getMethod.getAll);
-            setCasts(result);
+            try{
+                const result = await webApi.getAll(getType.Cast, getMethod.getAll);
+                setCasts(result);
+            }catch(e){
+      
+            }
             
         }
         const getGenres = async () => {
-            const result = await webApi.getAll(getType.Genre, getMethod.getAll);
-            setGenres(result);
+            try{
+                const result = await webApi.getAll(getType.Genre, getMethod.getAll);
+                setGenres(result);
+            }catch(e){
+      
+            }
         }
 
         getCast();

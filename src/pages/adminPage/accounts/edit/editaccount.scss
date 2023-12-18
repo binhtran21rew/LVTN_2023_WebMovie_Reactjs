@@ -1,0 +1,73 @@
+@use '../../../../scss/' as *;
+
+.EditAccount-page{
+    width: 100%;
+    height: auto;
+    padding: 1.5rem 2.187rem 1.5rem 3.5rem;
+    background-color: var(--bg-content-color) !important;
+    color: var(--txt-color);
+
+    .EditAccount{
+        &_header{
+            text-align: center;
+            
+            span{
+                font-size: 2rem;
+                text-transform: uppercase;
+            }
+            .link_custom{
+                display: flex;
+                justify-content: flex-end;
+                margin: 15px 0;
+            }
+            .LinkTo{
+                display: flex;
+                justify-content: flex-end;
+
+                a{
+                    margin: 0 2rem 10px 0;
+                    padding: 0.4rem;
+                    text-transform: capitalize;
+                    border: 1px solid var(--bg-content-color-2);
+                    background-color: var(--bg-content-color-2);
+
+                }
+            }
+        }
+
+
+        &_body{
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-content-color-2);
+
+            form{
+                padding: 1rem;
+                input{
+                    margin-top: .6rem;
+                    max-width: $width-input;
+                }
+                .input_status{
+                    .status_item{
+                        padding-top: .4rem;
+                        vertical-align: middle;
+                        @include mobile{
+                            display: inline-block;
+                            text-align: center;
+                        }
+                        span{
+                            font-size: 1.4rem;
+                            text-transform: capitalize;
+                        }
+                        .input_checkbox{
+                            width: 50px;
+                            height: 25px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -70,16 +70,24 @@ function Calendar({...props}) {
     const [payload, setPayload] = useState(false);
     useEffect(() => {
       const movieData = async () => {
+        try{
           const result = await webApi.getAll(getType.Movie, getMethod.getAll);
           setMovie(result);
+        }catch(e){
+  
+        }
       }
       movieData();
     }, []);
 
     useEffect(() => {
       const scheduleDate = async () => {
-        const result = await webApi.getSchedule(room_id);
-        setCalendar(result);
+        try{
+          const result = await webApi.getSchedule(room_id);
+          setCalendar(result);
+        }catch(e){
+  
+        }
       }
 
       scheduleDate();
@@ -88,8 +96,12 @@ function Calendar({...props}) {
     
     useEffect(() => {
       const scheduleDate = async () => {
-        const result = await webApi.getSchedule(room_id);
-        setCalendar(result);
+        try{
+          const result = await webApi.getSchedule(room_id);
+          setCalendar(result);
+        }catch(e){
+  
+        }
       }
 
       scheduleDate();

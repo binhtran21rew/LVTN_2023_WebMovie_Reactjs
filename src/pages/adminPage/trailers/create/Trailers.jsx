@@ -17,8 +17,12 @@ const Trailers = () =>{
     const [movies, setMovies] = useState([]);
     useEffect(() => {
         const getMovies = async () => {
-            const result = await webApi.getMovieAdmin(getType.Movie);
-            setMovies(result);
+            try{
+                const result = await webApi.getMovieAdmin(getType.Movie);
+                setMovies(result);
+            }catch(e){
+      
+            }
         }
         getMovies();
     }, []);

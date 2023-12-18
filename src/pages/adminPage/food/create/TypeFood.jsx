@@ -4,7 +4,7 @@ import swal from "sweetalert";
 
 
 import './food.scss';
-import {InputDefault as Input, SelectCustom} from '../../../../component/input/Input';
+import {InputDefault as Input, SelectCountCustom} from '../../../../component/input/Input';
 import Button from '../../../../component/button/Button';
 import img from '../../../../file/image/empty.jpg';
 import webApi, {getType, getMethod} from '../../../../api/webApi';
@@ -25,8 +25,12 @@ const TypeFood = () => {
     });
     useEffect(() => {
         const getFood = async () => {
-            const result = await webApi.getAll(getType.Food, getMethod.getAll);
-            setListFood(result);
+            try{
+                const result = await webApi.getAll(getType.Food, getMethod.getAll);
+                setListFood(result);
+            }catch(e){
+      
+            }
         }
         getFood();
     }, []);
@@ -57,7 +61,6 @@ const TypeFood = () => {
             const data = new FormData(document.getElementById('formfood'));
             Object.keys(foodSelect).forEach(key => data.append('detailFood[]', foodSelect[key].name));
             Object.keys(foodSelectCount).forEach(key => data.append(`foodCount[${key}] `, foodSelectCount[key]));
-    
     
             const result = await webApi.create(getType.ComboFood, data);
             if(result.status === 200){
@@ -108,13 +111,14 @@ const TypeFood = () => {
                             <div className="section mb-3">
                                 <label htmlFor="">detail combo:</label>
                                 <div className="input_name">
-                                <SelectCustom 
+                                <SelectCountCustom
                                     data={listFood} 
                                     setListSelect={setFoodSelect}
                                     listSelect={foodSelect}
                                     isSelectCount={true}
                                     setSelectCount = {setFoodSelectCount}
                                     selectCount = {foodSelectCount}
+                                    name={'combo food'}
                                 />
                                 </div>
                             </div>

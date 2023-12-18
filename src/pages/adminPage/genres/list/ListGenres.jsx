@@ -15,18 +15,26 @@ const ListGenre = () => {
 
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getAll(getType.Genre, getMethod.getAll);
-            setGenres(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getAll(getType.Genre, getMethod.getAll);
+                setGenres(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadTrailer();
     }, []);
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getAll(getType.Genre, getMethod.getAll);
-            setGenres(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getAll(getType.Genre, getMethod.getAll);
+                setGenres(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadTrailer();

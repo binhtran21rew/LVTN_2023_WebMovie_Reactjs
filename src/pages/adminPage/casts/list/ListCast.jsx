@@ -16,9 +16,13 @@ const ListCast = () => {
 
     useEffect(() => {
         const loadCast = async () => {
-            const result = await webApi.getAll(getType.Cast, getMethod.getAll);
-            setCasts(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getAll(getType.Cast, getMethod.getAll);
+                setCasts(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadCast();
@@ -26,9 +30,13 @@ const ListCast = () => {
 
     useEffect(() => {
         const loadCast = async () => {
-            const result = await webApi.getAll(getType.Cast, getMethod.getAll);
-            setCasts(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getAll(getType.Cast, getMethod.getAll);
+                setCasts(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadCast();
@@ -58,13 +66,18 @@ const ListCast = () => {
             id,
             type: 'softDelete'
         }
-        const result = await webApi.delete(getType.Cast, param);
-        if(result.status === 200){
-            swal('Success',result.message, 'success')
-            setPayload(true)
-        }else{
-            swal('Error',result.message, 'error')
-            
+        try{
+            const result = await webApi.delete(getType.Cast, param);
+            if(result.status === 200){
+                swal('Success',result.message, 'success')
+                setPayload(true)
+            }else{
+                swal('Error',result.message, 'error')
+                
+            }
+
+        }catch(err){
+
         }
     }
     var viewDisplay = '';

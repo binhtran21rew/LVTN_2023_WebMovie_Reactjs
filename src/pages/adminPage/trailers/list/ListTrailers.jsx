@@ -17,9 +17,13 @@ const ListTrailers = () => {
 
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getAll(getType.Trailer, getMethod.getAll);
-            setTrailers(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getAll(getType.Trailer, getMethod.getAll);
+                setTrailers(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadTrailer();
@@ -27,9 +31,13 @@ const ListTrailers = () => {
 
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getAll(getType.Trailer, getMethod.getAll);
-            setTrailers(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getAll(getType.Trailer, getMethod.getAll);
+                setTrailers(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadTrailer();

@@ -10,7 +10,7 @@ import './account.scss';
 
 import Input, {InputRadio} from '../../../../component/input/Input';
 import Button from '../../../../component/button/Button';
-
+import { SelectCustom } from '../../../../component/input/Input';
 import webApi, { getType } from '../../../../api/webApi';
 
 
@@ -23,7 +23,8 @@ const Accounts = ({list}) =>{
     const userRef = useRef();
     const errRef = useRef();
 
-    
+    const [listRole, setListRole] = useState([]);
+    const [listSelectRole, setListSelectRole] = useState([]);
     const [showEye, setShowEye] = useState({
         pass: false,
         confirm : false
@@ -82,6 +83,17 @@ const Accounts = ({list}) =>{
         setErrMsg('');
     }, [user, email, pwd, matchPwd])
 
+    useEffect(() => {
+        const getRole = async () => {
+            try{
+                const result = await webApi.getRoleAndPermission(getType.Role);
+                setListRole(result);
+            }catch(e){
+
+            }
+        }
+        getRole();
+    }, []);
 
     const handleShowPass = () => {
         setShowEye({...showEye, pass: !showEye.pass});
@@ -110,25 +122,19 @@ const Accounts = ({list}) =>{
         const validPass = PWD_REGEX.test(pwd);
         const validEmail = EMAIL_REGEX.test(email);
         const validPhone = PHONE_REGEX.test(phone);
-        if(!validName || !validPass || !validEmail){
+        if(!validName || !validPass || !validEmail || !validPhone){
             setErrMsg("Invalid Enter");
             return;
 
         }
         try{
-            const params = {
-                name: user,
-                email: email,
-                password: pwd,
-                password_confirmation: matchPwd,
-                gender: checkbox,
-                phone: phone
-            }
+            const dataAccount = new FormData(document.getElementById('form-submit-account'));
+            Object.keys(listSelectRole).forEach(key => dataAccount.append('role[]', listSelectRole[key]));
 
-            const result = await webApi.create(getType.Account ,params);
-
+            const result = await webApi.create(getType.Account , dataAccount);
             if(result.status === 200){
                 swal('Success', result.message, 'success');
+                clearValue();
             }else{
                 swal('Warn', result.message, 'Warning');
             }
@@ -142,7 +148,7 @@ const Accounts = ({list}) =>{
     }
     return (
         <div className="Account-form">
-            <form onSubmit={handleRegister}>
+            <form onSubmit={handleRegister} id="form-submit-account">
                 <div className="section mb-3">
                     <label htmlFor="nameuser">
                         Username:
@@ -301,7 +307,7 @@ const Accounts = ({list}) =>{
                             onChange={(e) => setMatchPwd(e.target.value)}
                             value={matchPwd}
                             placeholder= "enter your name"
-                            name="comfirm_password"
+                            name="password_confirmation"
                             required
                             describedby="comfirmNote"
                             invalid={validMatch ? "false" : "true"}
@@ -343,6 +349,12 @@ const Accounts = ({list}) =>{
                             <span>female</span>
                         </div>
                     </div>
+                    <SelectCustom 
+                        data={listRole} 
+                        setListSelect={setListSelectRole}
+                        listSelect={listSelectRole}
+                        name={'role'}
+                    />
                 </div>
                 <div className="section mb-3">
                     <div className="tag">

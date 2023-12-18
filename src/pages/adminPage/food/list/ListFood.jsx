@@ -17,13 +17,21 @@ const ListFood = () => {
     const [listFood, setListFood] = useState([]);
     useEffect(() => {
         const getCombo = async () => {
-            const result = await webApi.getAll(getType.ComboFood, getMethod.getAll);
-            setListCombo(result);
+            try{
+                const result = await webApi.getAll(getType.ComboFood, getMethod.getAll);
+                setListCombo(result);
+            }catch(e){
+      
+            }
         }
 
         const getFood = async () => {
-            const result = await webApi.getAll(getType.Food, getMethod.getAll);
-            setListFood(result);
+            try{
+                const result = await webApi.getAll(getType.Food, getMethod.getAll);
+                setListFood(result);
+            }catch(e){
+      
+            }
         }
         getCombo();
         getFood();

@@ -13,14 +13,17 @@ const ListMovies = () => {
     const history = useHistory();
     const [loading ,setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
-    const [dataEdit, setDataEdit] = useState([]);
     const [payload, setPayload] = useState(false);
 
     useEffect(() => {
         const loadMovies = async () => {
-            const result = await webApi.getMovieAdmin(getType.Movie);
-            setMovies(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getMovieAdmin(getType.Movie);
+                setMovies(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadMovies();
@@ -28,9 +31,13 @@ const ListMovies = () => {
 
     useEffect(() => {
         const loadMovies = async () => {
-            const result = await webApi.getMovieAdmin(getType.Movie);
-            setMovies(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getMovieAdmin(getType.Movie);
+                setMovies(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadMovies();
@@ -55,7 +62,6 @@ const ListMovies = () => {
             pathname: '/admin/detail/movie/'+ id,
             state: {data: data}
         });
-        setDataEdit(data);
     }
     const handleDelete = async (id, id_detail) => {
         const param = {

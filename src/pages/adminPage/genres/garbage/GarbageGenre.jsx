@@ -16,18 +16,26 @@ const GarbageGenre = () => {
 
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getTrashed(getType.Genre);
-            setGenres(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getTrashed(getType.Genre);
+                setGenres(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadTrailer();
     }, []);
     useEffect(() => {
         const loadTrailer = async () => {
-            const result = await webApi.getTrashed(getType.Genre);
-            setGenres(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getTrashed(getType.Genre);
+                setGenres(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadTrailer();

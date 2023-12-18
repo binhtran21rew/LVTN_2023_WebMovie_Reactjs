@@ -18,5 +18,14 @@
             height: 1px;
             background-color: rgb(59, 59, 59);
         }
+
+        table{
+            td{
+                &:nth-child(8) button{
+                    background-color: red !important;
+                }
+
+            }
+        }
     }
 }

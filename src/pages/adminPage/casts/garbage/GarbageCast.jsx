@@ -17,9 +17,13 @@ const GarbageCast = () => {
 
     useEffect(() => {
         const loadCast = async () => {
-            const result = await webApi.getTrashed(getType.Cast);
-            setCasts(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getTrashed(getType.Cast);
+                setCasts(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadCast();
@@ -27,10 +31,13 @@ const GarbageCast = () => {
 
     useEffect(() => {
         const loadCast = async () => {
-            const result = await webApi.getTrashed(getType.Cast);
-
-            setCasts(result)
-            setLoading(false);
+            try{
+                const result = await webApi.getTrashed(getType.Cast);
+                setCasts(result)
+                setLoading(false);
+            }catch(e){
+      
+            }
         }
 
         loadCast();

@@ -84,7 +84,6 @@ const HeroSlideItem = props => {
         }
 
         modal.classList.toggle('active');
-        console.log(videos);
     }
     return(
         <div className={`hero-slide__item ${props.className}`}

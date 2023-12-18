@@ -16,7 +16,6 @@ import ListTrailers from '../../pages/adminPage/trailers/list/ListTrailers';
 import ListCast from '../../pages/adminPage/casts/list/ListCast';
 import ListGenres from '../../pages/adminPage/genres/list/ListGenres';
 import ListRoom from '../../pages/adminPage/rooms/list/ListRoom';
-import ListSchedule from '../../pages/adminPage/schedules/list/ListSchedule';
 import ListFood from '../../pages/adminPage/food/list/ListFood';
 import ListAccount from '../../pages/adminPage/accounts/list/ListAccount';
 
@@ -26,6 +25,7 @@ import EditCast from '../../pages/adminPage/casts/edit/EditCast';
 import EditGenres from '../../pages/adminPage/genres/edit/EditGenres';
 import EditRoom from '../../pages/adminPage/rooms/edit/EditRoom';
 import EditFood from '../../pages/adminPage/food/edit/EditFood';
+import EditRole from '../../pages/adminPage/accounts/role/edit/EditRole';
 
 
 import GarbageTrailer from '../../pages/adminPage/trailers/garbage/GarbageTrailer';
@@ -95,10 +95,6 @@ const RenderPage = ({...props}) => {
             return(
                 <ListRoom/>
             )
-        case 'list_schedule':
-            return(
-                <ListSchedule/>
-            )
         case 'list_food':
             return(
                 <ListFood />
@@ -131,7 +127,10 @@ const RenderPage = ({...props}) => {
             return(
                 <EditFood />
             )
-
+        case 'detail_role':
+            return(
+                <EditRole />
+            )
         case 'trailer_Trashed':
             return(
                 <GarbageTrailer />

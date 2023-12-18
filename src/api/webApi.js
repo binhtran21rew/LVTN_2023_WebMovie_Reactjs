@@ -10,12 +10,15 @@ export const getType= {
     Food: 'Food',
     ComboFood: 'ComboFood',
     Account: 'Account',
+    Permission: 'Permission',
+    Role: 'Role',
 }
 
 
 export const getMethod={
     getAll: 'getAll',
-    detail: 'detail'
+    detail: 'detail',
+
 }
 
 export const getPayment = {
@@ -121,6 +124,14 @@ const webApi = {
 
     getAll: (type, method) => {
         const url = 'api/' + getType[type]+ '/' + getMethod[method];
+        return axiosWebClient.get(url);
+    },
+    getAdminAll: (type, method) => {
+        const url = 'api/' + getType[type]+ '/' + getMethod[method] + getType[type];
+        return axiosWebClient.get(url);
+    },
+    getRoleAndPermission: (type) => {
+        const url ='api/RolePermission/getAll' + getType[type];
         return axiosWebClient.get(url);
     },
 

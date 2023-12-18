@@ -1,8 +1,19 @@
 import React from 'react'
 
+
+import './permission.scss';
+
+
 const AccountPermission = () => {
+
+
   return (
-    <div>AccountPermission</div>
+    <div className='Permission-page'>
+      <div className="Permission">
+
+      </div>
+      
+    </div>
   )
 }
 

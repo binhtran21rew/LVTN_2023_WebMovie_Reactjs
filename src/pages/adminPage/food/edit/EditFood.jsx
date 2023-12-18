@@ -5,7 +5,7 @@ import { useLocation, Link, useHistory } from "react-router-dom";
 
 import '../create/food.scss';
 
-import {InputDefault as Input, InputRadio, SelectCustom} from '../../../../component/input/Input';
+import {InputDefault as Input, InputRadio, SelectCountCustom} from '../../../../component/input/Input';
 import Button from '../../../../component/button/Button';
 
 import img_drink from '../../../../file/image/drink.jpg';
@@ -296,13 +296,14 @@ const ViewEditCombo = (props) => {
                         <div className="section mb-3">
                             <label htmlFor="">Change detail combo:</label>
                             <div className="input_name">
-                            <SelectCustom 
+                            <SelectCountCustom 
                                 data={listFood} 
                                 setListSelect={setFoodSelect}
                                 listSelect={foodSelect}
                                 isSelectCount={true}
                                 setSelectCount = {setFoodSelectCount}
                                 selectCount = {foodSelectCount}
+                                name={'combo food'}
                             />
                             </div>
                         </div>

@@ -1,0 +1,48 @@
+@use '../../../../scss/' as *;
+
+.RoleAccount-page{
+    width: 100%;
+    height: auto;
+
+    padding: 1.5rem 2.187rem 1.5rem 3.5rem;
+    background-color: var(--bg-content-color) !important;
+    color: var(--txt-color);
+
+    .RoleAccount{
+        &_header{
+            text-align: center;
+            
+            span{
+                font-size: 2rem;
+                text-transform: uppercase;
+            }
+            .link_custom{
+                display: flex;
+                justify-content: flex-end;
+                margin: 15px 0;
+            }
+            .LinkTo{
+                display: flex;
+                justify-content: flex-end;
+
+                a{
+                    margin: 0 2rem 10px 0;
+                    padding: 0.4rem;
+                    text-transform: capitalize;
+                    border: 1px solid var(--bg-content-color-2);
+                    background-color: var(--bg-content-color-2);
+
+                }
+            }
+        }
+
+
+        &_body{
+            width: 100%;
+            height: auto;
+            background-color: var(--bg-content-color-2);
+            overflow: hidden;
+
+        }
+    }
+}

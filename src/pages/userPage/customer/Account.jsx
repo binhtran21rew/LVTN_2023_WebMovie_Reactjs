@@ -29,12 +29,12 @@ const Account = () => {
 
     }, []);
     const handleDetail = (id) => {
-        console.log(id);
+        
     }
     const handleEdit = () => {
         setChangeInfo(!changeInfo);
     }
-    console.log(changeInfo);
+
     var viewTicket = '';
 
     if(booking.length > 0){

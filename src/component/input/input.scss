@@ -29,6 +29,7 @@ input{
 }
 
 .SelesctCustom{
+    margin: 25px 0;
     .Select-wrapper{
         position: relative;
         // max-width: 320px;
@@ -51,6 +52,7 @@ input{
                 font-weight: 400;
                 z-index: 0;
                 color: #333;
+                text-transform: capitalize;
             }
 
             .arrow-dwn{

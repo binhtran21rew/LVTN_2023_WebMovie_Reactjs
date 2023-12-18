@@ -14,8 +14,12 @@ const Schedules = () => {
 
     useEffect(() => {
         const roomData = async () => {
-            const result = await webApi.getAvailableRoom();
-            setRoom(result);
+            try{
+                const result = await webApi.getAvailableRoom();
+                setRoom(result);
+            }catch(e){
+      
+            }
         }
         roomData();
     }, []);

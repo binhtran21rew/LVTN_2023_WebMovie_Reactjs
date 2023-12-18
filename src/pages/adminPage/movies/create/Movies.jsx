@@ -40,16 +40,24 @@ const Movies = () =>{
 
     useEffect(() => {
         const getCast = async () => {
-            const result = await webApi.getAll(getType.Cast, getMethod.getAll);
-            setCasts(result);
+            try{
+                const result = await webApi.getAll(getType.Cast, getMethod.getAll);
+                setCasts(result);
+            }catch(e){
+      
+            }
         }
         getCast();
     }, []);
 
     useEffect(() => {
         const getGenre = async () => {
-            const result = await webApi.getAll(getType.Genre, getMethod.getAll);
-            setGenres(result);
+            try{
+                const result = await webApi.getAll(getType.Genre, getMethod.getAll);
+                setGenres(result);
+            }catch(e){
+      
+            }
         }
         getGenre();
     }, []);

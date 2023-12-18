@@ -1,0 +1,126 @@
+@use '../../../../../scss/' as *;
+
+.CreateRole-page{
+    width: 100%;
+    height: auto;
+
+    padding: 1.5rem 2.187rem 1.5rem 3.5rem;
+    background-color: var(--bg-content-color);
+    color: var(--txt-color);
+
+    .CreateRole{
+        &_header{
+            text-align: center;
+            
+            span{
+                font-size: 2rem;
+                text-transform: uppercase;
+            }
+            .link_custom{
+                display: flex;
+                justify-content: flex-end;
+                margin: 15px 0;
+            }
+            .LinkTo{
+                display: flex;
+                justify-content: flex-end;
+
+                a{
+                    margin: 0 2rem 10px 0;
+                    padding: .4rem;
+                    text-transform: capitalize;
+                    border: 1px solid var(--bg-content-color-2);
+                    background-color: var(--bg-content-color-2);
+
+                }
+            }
+        }
+
+
+        &_body{
+            width: 100%;
+            height: auto;
+            background-color: var(--bg-content-color-2);
+            overflow: hidden;
+
+            form{
+                padding: 1rem;
+                label{
+                    font-size: 18px;
+                    text-transform: capitalize;
+                }
+        
+                input{
+                    margin-top: .6rem;
+                    max-width: $width-input;
+                }
+
+                .list-permission{
+                    margin: 15px;
+                    background-color: rgb(238, 247, 255);
+                    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+                    border-radius: 8px 8px 0 0 ;
+
+
+                    .permission{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        text-transform: capitalize;
+                        font-size: 18px;
+                        padding: 10px 15px 0 25px;
+                        background-color: aquamarine;
+                        border-radius: 8px 8px 0 0 ;
+                        svg{
+                            padding: 15px;
+                        }
+                        input{
+                            width: 25px;
+                            padding: 10px;
+                            font-size: 10px;
+                            margin: 10px;
+                        }
+                    }
+
+                    &.open .list-checkbox{
+                        display: block;
+                        transition: height .5s ease-in;
+                    }
+                    .list-checkbox{
+                        padding: 10px;
+                        display: none;
+                        .item-checkbox{
+                            display: flex;
+                            align-items: center;
+                            margin-top: 5px;
+                            span{
+                                text-transform: capitalize;
+                                font-size: 15px;
+                            }
+    
+                            input{
+                                width: 25px;
+                                padding: 10px;
+                                font-size: 10px;
+                                margin: 10px;
+                            }
+                        }
+
+                    }
+                }
+                button{
+                    float: right;
+                    margin: 25px;
+                    transition: .3s ease;
+                    &:hover{
+                        background-color: $main-color;
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+
+
+
+}
