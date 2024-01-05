@@ -10,6 +10,7 @@
         color: $black;
         font-weight: 600;
         .table__body{
+            text-transform: capitalize;
             & > div {
                 font-size: 25px;
             }
@@ -70,7 +71,21 @@
 
 }
 
-.ListCast-page{
+.ListBooking-page{
+
+    .page-header{
+        display: flex;
+        align-items: center;
+
+        & > div{
+            width: 450px;
+            margin: 15px;
+        }
+
+        .select-custom{
+            width: 250px;
+        }
+    }
     .booking{
         @media only screen and (max-width: 760px),
         (min-device-width: 768px) and (max-device-width: 1024px)  {

@@ -44,7 +44,7 @@ const Header = () => {
                 window.location.href('/');
             }
         }catch(e){
-            console.log(e);
+           
         }
 
     }

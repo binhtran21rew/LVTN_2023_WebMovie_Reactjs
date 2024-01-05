@@ -4,9 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import swal from "sweetalert";
 
+import './listgenre.scss';
 
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
+import AdminSearch from '../../../../component/admin/search/AdminSearch';
+
 const ListGenre = () => {
     const history = useHistory();
     const [loading ,setLoading] = useState(true);
@@ -64,14 +67,17 @@ const ListGenre = () => {
             id,
             type: 'softDelete'
         }
-        const result = await webApi.delete(getType.Genre, param);
-        if(result.status === 200){
-            swal('Success',result.message, 'success')
-            setPayload(true)
-        }else{
-            swal('Error',result.message, 'error')
-            
-        }
+        try{
+            const result = await webApi.delete(getType.Genre, param);
+            if(result.status === 200){
+                swal('Success',result.message, 'success')
+                setPayload(true)
+            }else{
+                swal('Error',result.message, 'error')
+                
+            }
+
+        }catch(err){}
     }
     var viewDisplay = '';
     if(loading){
@@ -108,6 +114,11 @@ const ListGenre = () => {
     }
     return (
         <div className="ListGenre-page">
+            <div className="page-header">
+                <div className="title">filter genre name</div>
+                <AdminSearch type='genre' filter={'name'}/>
+
+            </div>
              <div className="table_movie">
                 <section className="table__body" >
                     <table>

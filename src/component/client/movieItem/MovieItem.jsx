@@ -6,7 +6,7 @@ import './movieItem.scss';
 const MovieItem = props => {
 
     const item = props.item;
-    const poster =  `${apiWeb.baseUrl}${item.poster_path}`;
+    const poster =  `${apiWeb.baseUrl}${item.post_path||item.poster_path}`;
     return(
         <div className="movie__item" id={`movie_${item.id}`}>
             <div className="movie__item-pic" style={{backgroundImage: `url(${poster})`}}>

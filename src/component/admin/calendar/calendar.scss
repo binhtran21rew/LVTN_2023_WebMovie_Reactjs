@@ -25,6 +25,10 @@
             }
         }
     }
+
+    .status_item{
+        display: flex;
+    }
 }
 
 .mode__movie_content{
@@ -54,6 +58,19 @@
         margin: .4rem 0;
         background-color: var(--bg-content-color-2);
         max-width: calc($width-input - 80px);
+    }
+
+    .custom-price{
+        
+    }
+
+    .custom_movie{
+        span{
+            text-transform: capitalize;
+            font-size: 20px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
     }
 }
 

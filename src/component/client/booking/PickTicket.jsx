@@ -1,9 +1,10 @@
-import React,{ useState, Fragment  } from 'react'
+import React,{ useState, Fragment, useEffect  } from 'react'
 import { NavLink, useHistory } from 'react-router-dom';
 import moment from 'moment'
 import swal from "sweetalert";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch } from '@fortawesome/free-solid-svg-icons';
+import { NumericFormat } from 'react-number-format';
 
 
 
@@ -12,6 +13,7 @@ import './pickTicket.scss';
 
 import Button from '../../button/Button';
 import Food from './food/Food';
+import image from '../../../file/image/combo.jpg';
 
 
 import webApi, {getPayment, getType} from '../../../api/webApi';
@@ -19,6 +21,8 @@ import webApi, {getPayment, getType} from '../../../api/webApi';
 const PickTicket = (props) => {
   const history = useHistory(); 
     const {
+        minutes,
+        second,
         countTicket,
         totalPrice,
         listBookingSeat,
@@ -29,6 +33,8 @@ const PickTicket = (props) => {
     } = props
 
     const [listticketId, setListTicketId] = useState([]);
+    const [selectFood, setSelectFood] = useState([]);
+
     const listSeat = (sold, seat ,i) => {
       
       if(sold === 1){
@@ -123,7 +129,6 @@ const PickTicket = (props) => {
       modal.classList.toggle('active');
     }
 
-
     const handleTT = async (e) => {
       try{
         const today = new Date();
@@ -138,6 +143,9 @@ const PickTicket = (props) => {
           total_price: totalPrice,
           price: data.price,
           count: countTicket,
+          selectFood,
+          minutes,
+          second
         }
         history.push({
           pathname: '/checkout',
@@ -166,7 +174,39 @@ const PickTicket = (props) => {
         >thanh toán</Button>
       )
     }
-    
+    const [price, setPrice] = useState(0)
+    useEffect(() => {
+      if(!!Object.keys(selectFood).length){
+        setPrice(0);
+        for(let key in selectFood){
+          setPrice(prev => {
+            return prev + selectFood[key].price
+          })
+        }
+      }else{
+        setPrice(0);
+      }
+
+      
+
+    }, [selectFood]);
+
+
+    const renderFood = () => {
+      if(!!Object.keys(selectFood).length){
+        return Object.entries(selectFood).map(([key, item], i) => {
+          return(
+            <Fragment key={i}>
+              <div className='food-item'>
+                {item.value} x {item.name}
+              </div>
+
+            </Fragment>
+          )
+        });
+      }
+    }
+
     return (
         <div className="PickTicket row">
           <div className="screen" ></div>
@@ -176,6 +216,24 @@ const PickTicket = (props) => {
             </div>
           </div>
           <Fragment>{renderDetail}</Fragment>
+          <div className="list-food">
+            
+            {!!Object.keys(selectFood).length && (
+              <div className="image">
+                <img src={image} alt="" />
+              </div>
+            )}
+            <div className="total">
+              { !!Object.keys(selectFood).length && (
+
+                <span>
+                  <NumericFormat value={price}  displayType={"text"} thousandSeparator={','} suffix={' vnd'}/>
+                </span>
+              ) }
+
+              {renderFood()}
+            </div>
+          </div>
           <div className="Ticket_input">
             <NavLink to={`/`}>
             <Button 
@@ -189,7 +247,7 @@ const PickTicket = (props) => {
             {btnPayment}
           </div>
 
-          <Food />
+          <Food selectFood= {selectFood} setSelectFood= {setSelectFood}/>
         </div>
 
     )

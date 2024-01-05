@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare, faRotateRight, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faRotateRight, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import { useHistory, Link } from 'react-router-dom';
+
 import swal from "sweetalert";
 
 
@@ -10,7 +10,7 @@ import swal from "sweetalert";
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
 const GarbageCast = () => {
-    const history = useHistory();
+
     const [loading ,setLoading] = useState(true);
     const [casts, setCasts] = useState([]);
     const [payload, setPayload] = useState(false);

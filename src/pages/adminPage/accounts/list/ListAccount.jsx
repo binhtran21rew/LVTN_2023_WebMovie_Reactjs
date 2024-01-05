@@ -10,6 +10,8 @@ import './listaccount.scss';
 
 import PaginationItem from '../../../../component/pagination/Pagination';
 import webApi, { getMethod, getType } from '../../../../api/webApi';
+import AdminSearch from '../../../../component/admin/search/AdminSearch';
+import {optionSearchAccount} from '../../../../component/content/Content';
 
 const optionRoles = [
     {
@@ -27,17 +29,11 @@ const optionRoles = [
 ]
 const ListAccount = () => {
     const history = useHistory();
-    const [listAccount, setListAccount] = useState([]);
     const [listUser, setListUser] = useState([]);
     const [listAdmin, setListAdmin] = useState([]);
-    const [selectRole, setSelectRole] = useState('');
     const [load, setLoad] = useState(true);
     const [payload, setPayload] = useState(false);
-
-
-    const queryParameters = new URLSearchParams(window.location.search);
-    const queryRole = queryParameters.get('role');
-
+    const [filter, setFilter] = useState('');
 
     useEffect(() => {
         const getList = async () => {
@@ -66,6 +62,8 @@ const ListAccount = () => {
         getList()
         setLoad(false);
     }, []);
+
+    
     useEffect(() => {
         const getList = async () => {
             try{
@@ -94,38 +92,10 @@ const ListAccount = () => {
         setLoad(false);
     }, [payload]);
 
-    // useEffect(() => {
-    //     if(queryRole === 'all'){
-    //         const getList = async () => {
-    //             const result = await webApi.getAll(getType.Account, getMethod.getAll);
-    //             setListAccount(result);
-    //         }
-    //         getList();
-    //         setListUser(
-    //             listAccount.filter((data) => {
-    //                 return data.roles.some(item => {
-    //                     if(item.name === 'user') return data;
-    //                 })
-    //             })
-    //         )
-    //         setListAdmin(
-    //             listAccount.filter((data) => {
-    //                 return data.roles.some(item => {
-    //                     if(item.name === 'admin') return data;
-    //                 })
-    //             })
-    //         )
-    //     }
-    // }, [queryRole]);
-    // const handleSelectRole = (selectOption) => {
-    //     setSelectRole(selectOption.value);
-    // }
-    // useEffect(() => {
-    //     if(selectRole !== ''){
-    //         history.push(`/admin/list_account/accounts?role=${selectRole}`)
-    //     }
-        
-    // }, [selectRole]);
+
+    const handleChangeFilter = (value) =>{
+        setFilter(value)
+    }
 
     const handleSetPermission = (id) => {
         const data = listAdmin.find((data) => data.id === id)
@@ -151,7 +121,7 @@ const ListAccount = () => {
             .then(async (willDelete) => {
                 try{
                     if (willDelete) {
-                            const result = await webApi.delete(getType.Role, param);
+                            const result = await webApi.delete(getType.Account, param);
                             if(result.status === 200){
                                 swal(result.message, {
                                 icon: "success",
@@ -194,68 +164,86 @@ const ListAccount = () => {
             <h4>Loading...</h4>
         )
     }else{
-        userDisplay = (
-            currentItemsUser.map((data, i) => {
-                return (
-                    <tr key={i}>
-                        <td>{data.id}</td>
-                        <td>{data.name}</td>
-                        <td>{data.email}</td>
-                        <td>{data.gender}</td>
-                        <td>{data.phone}</td>
-                        <td>
-                            {data.roles.map((item, i) => <Fragment key={i}> {item.name}</Fragment>)}
-    
-                        </td>
-                    </tr>
-                )
-            })           
-        )
+        if(currentItemsUser.length > 0){
+            userDisplay = (
+                currentItemsUser.map((data, i) => {
+                    return (
+                        <tr key={i}>
+                            <td>{data.id}</td>
+                            <td>{data.name}</td>
+                            <td>{data.email}</td>
+                            <td>{data.gender}</td>
+                            <td>{data.phone}</td>
+                            <td>
+                                {data.roles.map((item, i) => <Fragment key={i}> {item.name}</Fragment>)}
+        
+                            </td>
+                        </tr>
+                    )
+                })           
+            )
+        }else{
+            userDisplay = (
+                <tr className='nodata'>
+                    <td colSpan={6}> No data in here!</td>
+                </tr>
+            )
 
-        adminDisplay = (
-            currentItemsAdmin.map((data, i) => {
-                return (
-                    <tr key={i}>
-                        <td>{data.id}</td>
-                        <td>{data.name}</td>
-                        <td>{data.email}</td>
-                        <td>{data.gender}</td>
-                        <td>{data.phone}</td>
-                        <td>
-                            {data.roles.map((item, i) => <Fragment key={i}> {item.name}</Fragment>)}
-    
-                        </td>
-                        <td>
-                            <button>
-                                <FontAwesomeIcon icon={faEdit} className='movie-icon' onClick={() => handleSetPermission(data.id)}/>
-                            </button>
-                        </td>
-                        <td>
-    
-                            <button>
-                                <FontAwesomeIcon icon={faTrash} className='movie-icon' onClick={() => handleDelete(data.id)}/>
-                            </button>
-                        </td>
-    
-                    </tr>
-                )
-            })           
-        )
+        }
+        if(currentItemsAdmin.length > 0){
+            adminDisplay = (
+                currentItemsAdmin.map((data, i) => {
+                    return (
+                        <tr key={i}>
+                            <td>{data.id}</td>
+                            <td>{data.name}</td>
+                            <td>{data.email}</td>
+                            <td>{data.gender}</td>
+                            <td>{data.phone}</td>
+                            <td>
+                                {data.roles.map((item, i) => <Fragment key={i}> {item.name}</Fragment>)}
+        
+                            </td>
+                            <td>
+                                <button>
+                                    <FontAwesomeIcon icon={faEdit} className='movie-icon' onClick={() => handleSetPermission(data.id)}/>
+                                </button>
+                            </td>
+                            <td>
+        
+                                <button>
+                                    <FontAwesomeIcon icon={faTrash} className='movie-icon' onClick={() => handleDelete(data.id)}/>
+                                </button>
+                            </td>
+        
+                        </tr>
+                    )
+                })           
+            )
+        }else{
+            adminDisplay = (
+                <tr className='nodata'>
+                    <td colSpan={8}> No data in here!</td>
+                </tr>
+            )
+        }
     }
 
     
-        
-        
-        
-       
     return (
         <div className="ListAccount-page">
-            {/* <div className="navbar">
-                <div className="type-role">
-                    <span>Filter role: </span>
-                    <Select options={optionRoles}  onChange={handleSelectRole} />
-                </div>
-            </div> */}
+            <div className="page-header">
+                <Select
+                    defaultValue="Filter"
+                    style={{ width: 120 }}
+                    onChange={handleChangeFilter}
+                    options={optionSearchAccount}
+                    className='select-custom'
+                />
+
+                <AdminSearch type='account' filter={filter.value} disabled={filter === ''}/>
+
+            </div>
             <div className="table_movie">
                 <section className="table__body" >
                     <div className='title'>List account admin</div>

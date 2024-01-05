@@ -1,8 +1,10 @@
 import React, {useRef, useState, useEffect}from 'react';
 import { Link } from 'react-router-dom';
 import { useHistory} from 'react-router';
-import axios from 'axios';
+import swal from "sweetalert";
+
 import './login.scss';
+
 
 import Input from '../../component/input/Input';
 import Button from '../../component/button/Button';
@@ -44,16 +46,16 @@ const Login = () => {
                 password: password
             }
             const result = await webApi.userLogin(params);
-            if(result){
+            if(result) {
                 localStorage.setItem('auth_token', result.data.token);
-                // localStorage.setItem('role', result.data.roles);
-
                 history.push('/');
+            }else{
+                swal('Error',result.message, 'error')
             }
             setUser('');
             setPassword('');
         }catch(err){
-            console.log(err);
+           
         }
 
 

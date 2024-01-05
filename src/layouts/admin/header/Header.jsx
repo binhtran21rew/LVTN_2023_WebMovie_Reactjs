@@ -12,21 +12,6 @@ import Button from '../../../component/button/Button';
 import {InputDefault as Input} from '../../../component/input/Input';
 const Header = () => {
 
-    const options = [
-        {
-            display: 'My Profile',
-            path:'/admin/profile/user',
-            icon: faInfo
-        },
-        {
-            display: 'Log Out',
-            path:'/api/logout',
-            icon: faArrowRightFromBracket,
-        }
-
-    ]
-
-
     const [user, setUser] = useState([]);
     const token = localStorage.getItem('auth_token');
     const [toggle, setToggle] = useState(false);
@@ -71,7 +56,7 @@ const Header = () => {
                 window.location.reload();
             }
         }catch(e){
-            console.log(e);
+            
         }
 
     }
@@ -93,7 +78,6 @@ const Header = () => {
                 Welcom back: <span className='user-name'>{user.name}</span>
                 <div className="infomation">
                     <div className="search user">
-                        <Input />
                     </div>
                     <div className="user">
                         <FontAwesomeIcon icon={faUser} onClick={dropdown}/>

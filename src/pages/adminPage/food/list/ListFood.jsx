@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
+import swal from "sweetalert";
+import { Select} from 'antd';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -9,46 +11,77 @@ import './listfood.scss';
 
 import PaginationItem from '../../../../component/pagination/Pagination';
 import webApi, {getType, getMethod} from '../../../../api/webApi';
+import AdminSearch from '../../../../component/admin/search/AdminSearch';
+import {optionSearchFood} from '../../../../component/content/Content';
 
 const ListFood = () => {
     const history = useHistory();
     const [listCombo, setListCombo] = useState([]);
-    const [loading ,setLoading] = useState(true);
     const [listFood, setListFood] = useState([]);
+    const [loading ,setLoading] = useState(true);
+    const [payload, setPayload] = useState(false);
+    const [filter, setFilter] = useState('');
+
     useEffect(() => {
         const getCombo = async () => {
             try{
                 const result = await webApi.getAll(getType.ComboFood, getMethod.getAll);
                 setListCombo(result);
+                setListFood(result.filter((item) => item.food.length > 0 ));
             }catch(e){
-      
-            }
-        }
-
-        const getFood = async () => {
-            try{
-                const result = await webApi.getAll(getType.Food, getMethod.getAll);
-                setListFood(result);
-            }catch(e){
-      
+                
             }
         }
         getCombo();
-        getFood();
         setLoading(false);
+        
     }, []);
 
-    const [itemPage, setItemPage] = useState(0);
-    const itemPerPge = 5;
+    useEffect(() => {
+        const getCombo = async () => {
+            try{
+                const result = await webApi.getAll(getType.ComboFood, getMethod.getAll);
+                setListCombo(result);
+                setListFood(result.filter((item) => item.food.length > 0 ));
+            }catch(e){
+                
+            }
+        }
+        getCombo();
+        setLoading(false);
+        setPayload(false);
+        
+    }, [payload]);
 
-    const endPage = itemPage + itemPerPge;
-    const currentItems = listCombo.slice(itemPage, endPage);
-    const pageCount = Math.ceil(listCombo.length / itemPerPge);
 
-    const handleClick = (e) => {
-        const newPage = (e.selected * itemPerPge)  % listCombo.length;
-        setItemPage(newPage);
+    const handleChangeFilter = (value) =>{
+        setFilter(value)
     }
+
+
+
+
+    const [itemPageCombo, setItemPageCombo] = useState(0);
+    const itemPerPgeCombo = 5;
+    const endPageCombo = itemPageCombo + itemPerPgeCombo;
+    const currentItemsCombo = listCombo.slice(itemPageCombo, endPageCombo);
+    const pageCountCombo = Math.ceil(listCombo.length / itemPerPgeCombo);
+    const handleClickCombo = (e) => {
+        const newPage = (e.selected * itemPerPgeCombo)  % listCombo.length;
+        setItemPageCombo(newPage);
+    }
+
+    const [itemPageFood, setItemPageFood] = useState(0);
+    const itemPerPgeFood = 5;
+    const endPageFood = itemPageFood + itemPerPgeFood;
+    const currentItemsFood = listFood.slice(itemPageFood, endPageFood);
+    const pageCountFood = Math.ceil(listFood.length / itemPerPgeFood);
+    const handleClickFood = (e) => {
+        const newPage = (e.selected * itemPerPgeFood)  % listFood.length;
+        setItemPageFood(newPage);
+    }
+
+
     const handleEditCombo = (id, detail, name) => {
         if(detail === name){
             const data = listFood.find((data) => data.id === id)
@@ -65,7 +98,7 @@ const ListFood = () => {
         }
 
     }
-
+    
     const handleEditFood = (id) => {
         const data = listFood.find((data) => data.id === id)
         history.push({
@@ -73,6 +106,70 @@ const ListFood = () => {
             state: {data: data}
         });
     }
+    const handleDeleteFood = (id) => {
+        const param = {
+            id,
+            type: "Delete"
+        }
+        swal({
+            title: "Are you sure delete?",
+            text: "After deleted, this data is show in garbage store.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then(async (willDelete) => {
+            if (willDelete) {
+                    try{
+                        const result = await webApi.delete(getType.Food, param);
+                        if(result.status === 200){
+                            swal(result.message, {
+                            icon: "success",
+                        });
+                        setPayload(true);
+                        }else{
+                            swal('Error',result.message, 'error')
+                        }
+                    }catch(e){}
+            } else {
+            }
+                
+          });
+    }
+
+    const handleDeleteCombo = (idCombo, idFood) => {
+        const param = {
+            id: idFood,
+            idCombo,
+            type: "Delete"
+        }
+        swal({
+            title: "Are you sure delete?",
+            text: "After deleted, this data is show in garbage store.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then(async (willDelete) => {
+            if (willDelete) {
+                    try{
+                        const result = await webApi.delete(getType.Food, param);
+                        if(result.status === 200){
+                            swal(result.message, {
+                            icon: "success",
+                        });
+                        setPayload(true);
+                        }else{
+                            swal('Error',result.message, 'error')
+                        }
+                    }catch(e){}
+            } else {
+            }
+                
+          });
+    }
+
+
     var viewDisplayCombo = '';
     var viewDisplayFood = ''
     if(loading){
@@ -80,8 +177,30 @@ const ListFood = () => {
             <h4>Loading...</h4>
         )
     }else{
-        viewDisplayCombo = currentItems.map((data, i) => {
-            
+        viewDisplayFood = currentItemsFood.map((data, i) => {
+            const food = data.food[0];
+            return (
+                <tr key={i}>
+                    <td>{food.id}</td>
+                    <td>{food.name}</td>
+                    <td>
+                        <button >
+                            <FontAwesomeIcon name={data.id} icon={faPenToSquare} className='movie-icon' onClick={() => handleEditFood(data.id)}/>
+                        </button>
+
+                        <button>
+                            <FontAwesomeIcon icon={faTrash} className='movie-icon' onClick={() => handleDeleteFood(food.id)}/>
+                        </button>
+                    </td>
+                </tr>
+            )
+        })
+
+        viewDisplayCombo = currentItemsCombo.map((data, i) => {
+            var food = [];
+            if(data.food.length !== 0){
+                food = data.food[0];
+            }
             return (
                 <tr key={i}>
                     <td>{data.id}</td>
@@ -96,7 +215,7 @@ const ListFood = () => {
                         </button>
 
                         <button>
-                            <FontAwesomeIcon icon={faTrash} className='movie-icon'/>
+                        <FontAwesomeIcon icon={faTrash} className='movie-icon' onClick={() => handleDeleteCombo(data.id, food.id)}/>
                         </button>
                     </td>
 
@@ -104,26 +223,21 @@ const ListFood = () => {
             )
         })
 
-        viewDisplayFood = listFood.map((data, i) => {
-            return (
-                <tr key={i}>
-                    <td>{data.id}</td>
-                    <td>{data.name}</td>
-                    <td>
-                        <button >
-                            <FontAwesomeIcon name={data.id} icon={faPenToSquare} className='movie-icon' onClick={() => handleEditFood(data.id)}/>
-                        </button>
-
-                        <button>
-                            <FontAwesomeIcon icon={faTrash} className='movie-icon'/>
-                        </button>
-                    </td>
-                </tr>
-            )
-        })
     }
     return (
         <div className="ListFood-page">
+            <div className="page-header">
+                <Select
+                    defaultValue="Filter"
+                    style={{ width: 120 }}
+                    onChange={handleChangeFilter}
+                    options={optionSearchFood}
+                    className='select-custom'
+                />
+
+                <AdminSearch type='food' filter={filter} disabled={filter === ''}/>
+
+            </div>
             <div className="table_movie">
                 <section className="table__body" >
                     <table>
@@ -138,7 +252,7 @@ const ListFood = () => {
                         {viewDisplayFood}
                         </tbody>
                     </table>
-                    <PaginationItem handleClick={handleClick} pageCount={pageCount}/> 
+                    <PaginationItem handleClick={handleClickFood} pageCount={pageCountFood}/> 
 
                 </section>
             </div>
@@ -161,10 +275,11 @@ const ListFood = () => {
                         {viewDisplayCombo}
                         </tbody>
                     </table>
-                    <PaginationItem handleClick={handleClick} pageCount={pageCount}/> 
+                    <PaginationItem handleClick={handleClickCombo} pageCount={pageCountCombo}/> 
 
                 </section>
             </div>
+           
         </div>
     )
 }

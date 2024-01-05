@@ -1,0 +1,146 @@
+@use '../../../../scss/' as *;
+
+.food-picked{
+    width: 80%;
+    height: 100vh;
+    overflow: auto;
+    background-color: rgba($color: $white, $alpha: .8);
+    .Food_wrapper{
+        ul{
+            display: block;
+            width: 100%;
+            height: auto;
+            li{
+                h2{
+                    font-size: 25px;
+                    text-transform: uppercase;
+                    color: $white;
+                    padding: 15px;
+                    background-color: #e00d7a;
+                }
+                .combo-item{
+                    padding: 15px 0;
+                    position: relative;
+                    display: table;
+                    width: 100%;
+                    height: auto;
+                    &:nth-child(even) {
+                        background-color: #e8e7e7;
+                    }
+                    &:nth-child(odd) {
+                        background-color: #c2c2c2;
+                    }
+                    
+                    .combo{
+                        &-text{
+                            display: table-cell;
+                            width: auto;
+                            max-width: 560px;
+                            vertical-align: middle;
+                            text-align: left;
+                            padding: 10px 20px;
+
+                            h3{
+                                font-weight: bold;
+                                font-size: 16px;
+                                line-height: 20px;
+                                color: #000;
+                                text-transform: uppercase;
+                            }
+
+                            p{
+                                margin: 10px 0;
+                                font-size: 12px;
+                                line-height: 1.4;
+                                color: #000;
+                            }
+                            
+                            .combo-price{
+                                font-size: 16px;
+                                line-height: 1.6;
+                                color: #e00d7a;
+                                text-transform: uppercase;
+
+                                sup{
+                                    text-transform: lowercase;
+                                }
+                            }
+                        }
+
+                        &-image{
+                            display: table-cell;
+                            width: 120px;
+                            vertical-align: middle;
+
+                            & > * {
+                                width: 100px;
+                                height: 100px;
+                                vertical-align: middle;
+                            }
+                        }
+
+                        &-price{
+                            display: table-cell;
+                            width: 120px;
+                            padding: 0 20px 0 0;
+                            vertical-align: middle;
+                            text-align: right;
+                            .selectCount{
+                                input{
+                                    max-width: 150px;
+
+                                }
+                            }
+
+                        }
+                        
+                        &-total{
+                            display: table-cell;
+                            width: 120px;
+                            padding: 0 20px 0 0;
+                            vertical-align: middle;
+                            text-align: right;
+                            font-size: 18px;
+                            color: #e00d7a;
+                            font-weight: bold;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+    .Food_footer{
+        display: block;
+        width: 100%;
+        height: auto;
+        margin: 15px 0;
+        text-align: center;
+
+        & > button{
+            margin: 15px;
+            width: 150px;
+            color: $white;
+            text-transform: uppercase;
+            font-size: 18px;
+            transition: .3s ease;
+            &:nth-child(1){
+                background-color: rgb(253, 143, 65);
+            }
+            &:nth-child(2){
+                background-color: $txt-color2;
+            }
+            &:hover{
+                background-color: rgb(253, 143, 65);
+            }
+        }
+    }
+
+    .modal__content__close{
+        background-color: unset;
+        color: #000;
+        &:hover{
+            color: $main-color;
+        }
+    }
+}

@@ -1,16 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Fragment} from 'react';
 import { NumericFormat } from 'react-number-format';
+import { Select} from 'antd';
+import swal from "sweetalert";
+import moment from 'moment'
 
 import './booking.scss';
 
+import {groupBy} from '../../../component/admin/helper';
 import PaginationItem from '../../../component/pagination/Pagination';
 import webApi, {getType, getMethod} from '../../../api/webApi';
 import Modal, { ModalContent } from '../../../component/modal/Modal';
+import {optionSearchBooking} from '../../../component/content/Content';
+import AdminSearch from '../../../component/admin/search/AdminSearch';
+
 
 const Bookings = ({list}) =>{
     const [loading ,setLoading] = useState(true);
     const [bookings, setBookings] = useState([]);
     const [payload, setPayload] = useState(false);
+    const [filter, setFilter] = useState('');
 
     useEffect(() => {
         const loadData = async () => {
@@ -25,7 +33,6 @@ const Bookings = ({list}) =>{
 
         loadData();
     }, []);
-
     useEffect(() => {
         const loadData = async () => {
             try{
@@ -43,7 +50,6 @@ const Bookings = ({list}) =>{
 
     const [itemPage, setItemPage] = useState(0);
     const itemPerPge = 5;
-
     const endPage = itemPage + itemPerPge;
     const currentItems =bookings?.slice(itemPage, endPage);
     const pageCount = Math.ceil(bookings.length / itemPerPge);
@@ -55,6 +61,9 @@ const Bookings = ({list}) =>{
     const showModal = (id) => {
         const modal = document.querySelector(`#modal_${id}`);
         modal.classList.toggle('active');
+    }
+    const handleChangeFilter = (value) =>{
+        setFilter(value)
     }
     var viewDisplay = '';
     if(loading){
@@ -74,30 +83,29 @@ const Bookings = ({list}) =>{
                         </td>
                         <td>{data.date}</td>
                         <td>{data.status}</td>
-
-                        <td>
-                            {/* <button >
-                                <FontAwesomeIcon icon={faPenToSquare} className='movie-icon' onClick={() => handleEdit(data.id)}/>
-                            </button>
-    
-                            <button>
-                                <FontAwesomeIcon icon={faTrash} className='movie-icon' onClick={() => handleDelete(data.id)}/>
-                            </button> */}
-                        </td>
-    
                     </tr>
                 )
             })
         }else{
             viewDisplay = (
                 <tr className='nodata'>
-                    <td colSpan={4}> No data in here!</td>
+                    <td colSpan={6}> No data in here!</td>
                 </tr>
             )
         }
     }
     return (
-        <div className="ListCast-page">
+        <div className="ListBooking-page">
+            <div className="page-header">
+                <Select
+                    defaultValue="Filter"
+                    style={{ width: 120 }}
+                    onChange={handleChangeFilter}
+                    options={optionSearchBooking}
+                    className='select-custom'
+                />
+                <AdminSearch type='booking' filter={filter} disabled={filter === ''}/>
+            </div>
             <div className="table_movie">
                 <section className="table__body" >
                     <table className='booking'>
@@ -109,7 +117,6 @@ const Bookings = ({list}) =>{
                                 <th>price</th>
                                 <th>date</th>
                                 <th>status</th>
-                                <th>option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -120,7 +127,7 @@ const Bookings = ({list}) =>{
 
                 </section>
             </div>
-            {bookings.map((data, i) => <DetailBooking key={i} data={data}/>)}
+            {bookings.map((data, i) => <DetailBooking key={i} data={data} setPayload={setPayload}/>)}
         </div>
     )
 }
@@ -128,10 +135,63 @@ const Bookings = ({list}) =>{
 
 const DetailBooking = (props) => {
     const item = props.data;
-    const [ticket, setTicket] = useState(item.ticket);
-    const [payment, setPayment] = useState(item.payment);
-    const [user, setUser] = useState(item.user);
-    const [food, setFood] = useState(item.food);
+    const [ticket, setTicket] = useState([]);
+    const [payment, setPayment] = useState([]);
+    const [user, setUser] = useState([]);
+    const [food, setFood] = useState([]);
+
+    useEffect(() => {
+        var mounted = true;
+        if(mounted){
+            setTicket(item.ticket);
+            setPayment(item.payment);
+            setUser(item.user);
+            setFood(item.food);
+
+        }
+        return () => {
+            mounted = false;
+        }
+    }, [item]);
+    const handlePayment = (id) => {
+        const today = new Date();
+        const momenTime = moment(today).format("hh:mm");
+        const momenDay = moment(today).format("YYYY-MM-DD");
+        swal({
+            title: "Xác nhận thanh toán?",
+            text: "Sau khi xác nhận, giao dịch này sẽ được chấp thuận!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then(async (willDelete) => {
+            if (willDelete) {
+                try{
+
+                    const param = {
+                        id_booking: id,
+                        date: momenDay,
+                        time: momenTime,
+                        payment: 'tt',
+                        price: item.price,
+                        status: 'đã thanh toán'
+                    }
+                    const result = await webApi.changeBookingTicket(param);
+                    if(result.status === 200){
+                        swal(result.message, {
+                            icon: "success",
+                        });
+                        props.setPayload(true);
+                    }else{
+                        swal('Error',result.message, 'error')
+                        props.setPayload(true);
+                    }
+
+                }catch(err){}
+            } else {
+            }
+          });
+    }
 
     const userDisplay = (
         <table className='user'>
@@ -174,7 +234,7 @@ const DetailBooking = (props) => {
                             <tr key={i}>
                                 {(i < 1) ? <td rowSpan={i}>{data.seat.room.name}</td> : <td hidden></td>}
                                 <td>{data.id}</td>
-                                <td>{data.seat.id}</td>
+                                <td>{data.seat.id}, số {data.seat.number}</td>
                                 {(i < 1) ? 
                                 <td rowSpan={i}>
                                     <NumericFormat value={data.schedule.price} displayType={"text"} thousandSeparator={','} suffix={' vnd'}/>
@@ -228,25 +288,112 @@ const DetailBooking = (props) => {
                 </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>{payment.id}</td>
-                <td>{payment.type}</td>
-                <td>
-                <NumericFormat value={payment.price} displayType={"text"} thousandSeparator={','} suffix={' vnd'}/>
-                </td>
-                <td>{payment.date}</td>
-                <td>{payment.time}</td>
-            </tr>
+                {payment.length !== 0 ? (
+                    <tr>
+                        <td>{payment.id}</td>
+                        <td>{payment.type}</td>
+                        <td>
+                        <NumericFormat value={payment.price} displayType={"text"} thousandSeparator={','} suffix={' vnd'}/>
+                        </td>
+                        <td>{payment.date}</td>
+                        <td>{payment.time}</td>
+                    </tr>
+                ) : (
+                        <tr>
+                            <td colSpan={5} onClick={() => handlePayment(item.id)}> Chưa Thanh Toán</td>
+                        </tr>
+                )}
+
             </tbody>
         </table> 
     )
+    const foodOrderDisplay = () => {
+        if(food.length > 0){
+            const idFood = groupBy(
+                food,
+                'id',
+            )
     
-    
+            return (
 
+                <table className='ticket'>
+                    <thead>
+                        <tr>
+                            <th>name</th>
+                            <th>detail</th>
+                            <th>quantity</th>
+                            <th>price (per one)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {    
+                        Object.entries(idFood).map(([key, value], i) => 
+                            {
+                               
+                                return (
+                                    <tr>
+                                        <td>{value[0].name}</td>
+                                        <td>{value[0].detail}</td>
+                                        <td>{value.length}</td>
+                                        <td>
+                                            <NumericFormat value={value[0].price} displayType={"text"} thousandSeparator={','} suffix={' vnd'}/>
+                                        </td>
+                                    </tr>
+                                )
+                            }
+                           
 
+                        )
+                    }
+                    </tbody>
+                </table> 
 
+            )
+        }else{
+            return(
+                <table className='ticket'>
+                    <thead>
+                        <tr>
+                            <th>name</th>
+                            <th>detail</th>
+                            <th>quantity</th>
+                            <th>price (per one)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colSpan={4}> No data in here!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            )
+        }
+    }
+
+    const totalPrice = () => {
+        if(payment.length !== 0){
+            return (
+                <div>
+                    Đã thanh toán:
+                    <span>
+                        <NumericFormat value={item.price} displayType={"text"} thousandSeparator={','} suffix={' vnd'}/>
+                    </span>
+
+                </div>
+            )
+        }else{
+            return(
+                <div>
+                    Số tiền cần thanh toán:
+                    <span>
+                        <NumericFormat value={item.price} displayType={"text"} thousandSeparator={','} suffix={' vnd'}/>
+                    </span>
+                </div>
+            )
+        }
+    }
     return (
-        <Modal  active={false} id={`modal_${item.id}`}>
+        <Modal active={false} id={`modal_${item.id}`}>
             <ModalContent className="booking_modal">
                 <div className="table_movie">
                     <section className="table__body" >
@@ -260,16 +407,16 @@ const DetailBooking = (props) => {
                         <div>ticket</div>
                         {ticketDisplay}
 
+                        <div>food order</div>
+                        {foodOrderDisplay()}
+
                         <div>payment</div>
                         {paymentDisplay}
                     </section>
 
                     <div className="table_footer">
                         <div className='title'>
-                            total price:
-                            <span>
-                                <NumericFormat value={payment.price} displayType={"text"} thousandSeparator={','} suffix={' vnd'}/>
-                            </span>
+                            {totalPrice()}
                         </div>
                         
                     </div>

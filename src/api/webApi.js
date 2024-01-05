@@ -22,7 +22,8 @@ export const getMethod={
 }
 
 export const getPayment = {
-    momo: 'momo'
+    momo: 'momo',
+    vnpay: 'vnpay'
 }
 
 
@@ -44,6 +45,15 @@ const webApi = {
         const url = 'api/login';
         return axiosWebClient.post(url, params);
     },
+    loginGoogle: () => {
+        const url = 'api/auth';
+        return axiosWebClient.get(url);
+    },
+
+    verifiyEmail: ({...params}) => {
+        const url = 'api/' + params.name + '/' + params.id + '/' + params.hash;
+        return axiosWebClient.get(url);
+    },
 
     userRegister: (params) => {
         const url = 'api/register';
@@ -64,11 +74,26 @@ const webApi = {
         const url = 'api/Booking/BookingTicket';
         return axiosWebClient.post(url, params);
     },
+    changeBookingTicket: (params) => {
+        const url = 'api/Booking/ChangeBookingTicket';
+        return axiosWebClient.post(url, params);
+    },
     payment: (payment, params) => {
         const url = 'api/Payment/' + payment;
         return axiosWebClient.post(url, params)
     },
+    search: (params) => {
+        var url = '';
+        if(params.type === 'movie'){
+            url = 'api/search/movie?type='+params.type + '&query='+ params.query;
+        }
+        return axiosWebClient.post(url);
+    },
+    getFoodAvailable:()=>{
+        const url = 'api/Food/available';
+        return axiosWebClient.get(url);
 
+    },
 
     //admin=============
 
@@ -81,16 +106,30 @@ const webApi = {
         const url = 'api/' + getType[type] + '/update' + getType[type];
         return axiosWebClient.post(url, params);
     },
+    updateAccountRole: (params) => {
+        const url = 'api/Account/updateRole';
+        return axiosWebClient.post(url, params);
+    },
     delete: (type, {...param}) => {
         var url = '';
+
         if(type === 'Movie'){
             url = 'api/' + getType[type] + '/delete' + getType[type]+'?type='+param.type+'&id='+param.id+'&id_detail='+param.id_detail;
+        }else if(type === 'Food'){
+            url = 'api/' + getType[type] + '/delete' + getType[type]+'?type='+param.type+'&idFood='+param.id+'&idCombo='+param.idCombo+'&name='+param.name;
         }else{
             url = 'api/' + getType[type] + '/delete' + getType[type]+'?type='+param.type+'&id='+param.id;
         }
         return axiosWebClient.delete(url);
     },
-
+    changePassword: (param) => {
+        const url = 'api/change_password';
+        return axiosWebClient.post(url, param);
+    },
+    searchAdmin: (type, {...params}) => {
+        const url ='api/search/' + getType[type] +'?type=' + params.type + '&filter=' + params.filters + '&keyword=' +params.keyword;
+        return axiosWebClient.get(url);
+    },
     
     // Action GET methods ==========================
     getId: (type, id) => {
@@ -119,6 +158,10 @@ const webApi = {
         const url = 'api/Movie/getContent/' + type;
         return axiosWebClient.get(url);
     },
+    getDashboard: (type) => {
+        const url = 'api/Dashboard/' + getType[type];
+        return axiosWebClient.get(url);
+    },
 
     // get ALL =======================================
 
@@ -139,15 +182,31 @@ const webApi = {
         const url = 'api/'+ getType[type] + '/get' + getType[type];
         return axiosWebClient.get(url);
     },
- 
-    getTrashed: (type) => {
-        const url = 'api/' + getType[type] + '/getTrashed/' + getType[type];
+
+    getChartData: ( {...params}) => {
+        const url = 'api/Booking/getChartData?' + 'filter=' + params.filter;
         return axiosWebClient.get(url);
+    },
+ 
+    getTrashed: (type, {...params}) => {
+
+        if(type === 'Food'){
+            const url = 'api/' + getType[type] + '/getTrashed/' + getType[type];
+            return axiosWebClient.post(url, params);
+        }else{
+            const url = 'api/' + getType[type] + '/getTrashed/' + getType[type];
+            return axiosWebClient.get(url);
+        }
     },
 
     //Get page======================================
     getMoviePage: (type, page) => {
         const url = 'api/'+ getType[type]  +'/page/'+ page;
+        return axiosWebClient.get(url);
+    },
+
+    getAdminAccount: () => {
+        const url = 'api/Account/getUser';
         return axiosWebClient.get(url);
     }
 

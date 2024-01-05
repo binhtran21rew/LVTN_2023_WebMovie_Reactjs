@@ -4,10 +4,12 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useHistory, Link } from 'react-router-dom';
 import swal from "sweetalert";
 
-
+import './listcast.scss';
 
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
+import AdminSearch from '../../../../component/admin/search/AdminSearch';
+
 const ListCast = () => {
     const history = useHistory();
     const [loading ,setLoading] = useState(true);
@@ -115,6 +117,11 @@ const ListCast = () => {
     }
     return (
         <div className="ListCast-page">
+            <div className="page-header">
+                <div className="title">filter cast name</div>
+                <AdminSearch type='cast' filter={'name'}/>
+
+            </div>
              <div className="table_movie">
                 <section className="table__body" >
                     <table>

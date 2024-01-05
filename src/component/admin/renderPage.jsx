@@ -33,6 +33,15 @@ import GarbageCast from '../../pages/adminPage/casts/garbage/GarbageCast';
 import GarbageMovie from '../../pages/adminPage/movies/garbage/GarbageMovie';
 import GarbageGenre from '../../pages/adminPage/genres/garbage/GarbageGenre';
 import GarbageRoom from '../../pages/adminPage/rooms/garbage/GarbageRoom';
+
+import SearchMovie from '../../pages/adminPage/movies/search/SearchMovie';
+import SearchTrailer from '../../pages/adminPage/trailers/search/SearchTrailer';
+import SearchCast from '../../pages/adminPage/casts/search/SearchCast';
+import SearchGenre from '../../pages/adminPage/genres/search/SearchGenre';
+import SearchRoom from '../../pages/adminPage/rooms/search/SearchRoom';
+import SearchFood from '../../pages/adminPage/food/search/SearchFood';
+import SearchAccount from '../../pages/adminPage/accounts/search/SearchAccount';
+import SearchBooking from '../../pages/adminPage/bookings/search/SearchBooking';
 const RenderPage = ({...props}) => {
     switch (props.page) {
         case 'movies':
@@ -150,6 +159,38 @@ const RenderPage = ({...props}) => {
         case 'room_Trashed':
             return(
                 <GarbageRoom />
+            )
+        case 'search_movie':
+            return(
+                <SearchMovie />
+            )
+        case 'search_trailer':
+            return(
+                <SearchTrailer />
+            )
+        case 'search_cast':
+            return(
+                <SearchCast />
+            )
+        case 'search_genre':
+            return(
+                <SearchGenre />
+            )
+        case 'search_room':
+            return(
+                <SearchRoom />
+            )
+        case 'search_food':
+            return(
+                <SearchFood />
+            )
+        case 'search_account':
+            return(
+                <SearchAccount />
+            )
+        case 'search_booking': 
+            return(
+                <SearchBooking />
             )
     }
 }

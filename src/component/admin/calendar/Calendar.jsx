@@ -11,11 +11,13 @@ import './calendar.scss';
 
 // import {InputDefault as Input} from '../../../component/input/Input';
 import { splitCalendar } from '../helper';
-import {InputDefault as Input} from '../../../component/input/Input';
+
+import {InputDefault as Input,InputRadio} from '../../../component/input/Input';
 import Modal, { ModalContent } from '../../../component/modal/Modal';
 
 
 import webApi, {getType, getMethod} from '../../../api/webApi'
+import moment from 'moment'
 
 
 
@@ -51,46 +53,40 @@ const movieType = [
 ]
 
 function Calendar({...props}) {
-    const formRef = React.useRef(null);
     const [calendar, setCalendar] = useState([]);
-    const [movie, setMovie] = useState([]);
-    const [typeMovie, setTypeMovie] = useState([]);
+    const [selectMovie, setSelectMovie] = useState('');
+    const [selectNameMovie, setSelectNameMovie] = useState('');
+    const [selectPriceMovie, setSelectPriceMovie] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [priceWithTime, setPriceWithTime] = useState('');
     const [value, setValue] = useState({
       start: '',
-      room_id: '',
-      movie_id: '',
       date:'',
-      price: ''
     })
     const [editTable, setEditTable] = useState(false);
     const room_id = props.room_id.id;
     const date = splitCalendar(value.start)[0];
     const time_start = splitCalendar(value.start)[1];
     const [payload, setPayload] = useState(false);
-    useEffect(() => {
-      const movieData = async () => {
-        try{
-          const result = await webApi.getAll(getType.Movie, getMethod.getAll);
-          setMovie(result);
-        }catch(e){
-  
-        }
-      }
-      movieData();
-    }, []);
 
     useEffect(() => {
+      let mounted = true ;
       const scheduleDate = async () => {
-        try{
-          const result = await webApi.getSchedule(room_id);
-          setCalendar(result);
-        }catch(e){
-  
+        if(mounted){
+          try{
+            const result = await webApi.getSchedule(room_id);
+            setCalendar(result);
+          }catch(e){
+    
+          }
         }
       }
 
       scheduleDate();
+
+      return () => {
+        mounted = false;
+      }
     }, [room_id]);
 
     
@@ -122,35 +118,37 @@ function Calendar({...props}) {
     const handleCancel = () => {
       setIsModalOpen(false);
     };
+
+
+    const resetValue = () => {
+      setSelectMovie('');
+      setSelectNameMovie('');
+      setPriceWithTime('')
+    }
     const handleSelect = (e) => {
       showModal();
       setValue({
-        ...value,
         start: e.startStr,
-        end: e.endStr
+        price: 0
       })
+
+      resetValue();
     }
    //=====================================
-  
+
     const handleInput = (e) =>{
       setValue({...value, [e.target.name]: e.target.value})
     }
-    const resetValue = () => {
-      setValue({
-        ...value,
-        price: ''
-      })
-    }
     const handleSubmit = async (e) => {
       try{
+
           const data = {
             room_id: room_id,
-            movie_id: typeMovie,
+            movie_id: selectMovie,
             date: date,
-            price: value.price,
+            price: priceWithTime,
             time_start: time_start
           }
-
           const result = await webApi.create(getType.Schedule, data);
           if(result.status === 200){
               swal('Success', result.message, 'success');
@@ -178,9 +176,7 @@ function Calendar({...props}) {
     }
 
 
-    const handleSelectMovie  = (e) => {
-        setTypeMovie(e.target.name)    
-    }
+
     const handleDropItem = async (e) => {
       const date = splitCalendar(e.event.startStr)[0];
       const time_start = splitCalendar(e.event.startStr)[1];
@@ -227,6 +223,7 @@ function Calendar({...props}) {
     const range = {
       'start': new Date()
     }
+
   return (
     <div className='Calendar'>
       <Row>
@@ -297,29 +294,41 @@ function Calendar({...props}) {
                     />
                 </div>
               </div>
-              <div className="section mb-3">
-                <label htmlFor="">Input price</label>
-                <div className="input_time">
-                    <Input 
-                        type='number'
-                        name='price'
-                        onChange={handleInput}
-                        value={value.price}
-                        min={0}
-                    />
-                </div>
-              </div>
-              <div className="section mb-3">
-                <label htmlFor="">Select movie:</label>
+
+              <div className="section mb-3 custom_movie">
+                <label htmlFor="">Select movie:  <span>{selectNameMovie}</span></label>
                 {
                   movieType.map(e => 
                     <input type='button'  value={e.display} name={e.status} onClick={handleShowMovie} key={e.id}/>
                 )}
               </div>
+
+              <div className="section mb-3">
+                <label htmlFor="">Price</label>
+                <div className="input_time">
+                    <Input 
+                        type='text'
+                        name='price'
+                        value={priceWithTime}
+                        readOnly={true}
+                        onChange={handleInput}
+                    />
+                </div>
+              </div>
+
             </form>
             {
               movieType.map((item,i) => 
-                <ModalTypeMovie  key={i} item={item} value={value.movie_id}  onClick={handleSelectMovie}></ModalTypeMovie>
+                <ModalTypeMovie  
+                  key={i} 
+                  item={item} 
+                  setSelectMovie={setSelectMovie}
+                  setSelectNameMovie={setSelectNameMovie}
+                  setSelectPriceMovie={setSelectPriceMovie}
+                  selectPriceMovie={selectPriceMovie}
+                  time_start={time_start}
+                  setPriceWithTime={setPriceWithTime}
+                ></ModalTypeMovie>
             )}
           </ModalAnt>
         </Col>
@@ -337,7 +346,6 @@ function Calendar({...props}) {
 const ModalTypeMovie = (props) => {
   const item = props.item;
   const [movies, setMovies] = useState([]);
-
   useEffect(() => {
     const load = async () => {
       const result = await webApi.getContentMovie(item.status);
@@ -346,6 +354,32 @@ const ModalTypeMovie = (props) => {
     }
     load()
   }, []);
+  const selectMovie = (e) =>{
+    movies.map(item => {
+      if(item.id === parseInt(e.target.name)){
+        props.setSelectPriceMovie(item.price)
+
+        if(props.time_start >= '06:00:00' && props.time_start <= '11:30:00'){
+          props.setPriceWithTime(Math.floor((item.price * 1.0)  / 1000) *1000)
+    
+        }else if(props.time_start >= '12:00:00' && props.time_start <= '17:30:00'){
+          props.setPriceWithTime(Math.floor((item.price * 1.2)  / 1000) *1000)
+    
+        }else if(props.time_start >= '18:00:00' && props.time_start <= '23:30:00'){
+          props.setPriceWithTime(Math.floor((item.price * 1.5)  / 1000) *1000) 
+        }else{
+          props.setPriceWithTime(Math.floor((item.price * 0.7)  / 1000) *1000)
+        }
+      }
+
+    })
+
+    props.setSelectMovie(e.target.name);
+    props.setSelectNameMovie(e.target.value)
+
+
+
+  }
 
   var render = '';
   if(movies.length > 0){
@@ -356,7 +390,7 @@ const ModalTypeMovie = (props) => {
                   type='button'
                   value={data.title}
                   name={data.id}
-                  onClick={props.onClick}
+                  onClick={selectMovie}
               />
             </Col>
       )

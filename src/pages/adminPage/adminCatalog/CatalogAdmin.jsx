@@ -78,6 +78,25 @@ const CatalogAdmin = () => {
                 </div>
             </div>
             )
+        case 'bookings':
+            return (
+                <div className='Admin-catalog'>
+                    <div className="Catalog">
+                        <div className="Catalog__header">
+                            <span>{name.replace('_', ' ')}</span>
+                            <div className="link_custom">
+                                <div className='LinkTo'>
+                                    <Link to={`/admin/${list}/statistics`}>data statistics</Link>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div className="Catalog__body">
+                            <RenderPage page={name} list={list}/>
+                        </div>
+                    </div>
+                </div>
+            )
         case 'list_account':
             return (
                 <div className='Admin-catalog'>

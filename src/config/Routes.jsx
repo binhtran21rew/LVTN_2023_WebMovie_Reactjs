@@ -19,8 +19,16 @@ import CheckOut from '../pages/userPage/checkout/CheckOut';
 import OrderSuccess from '../pages/userPage/orderSuccess/OrderSuccess';
 import TypeFood from '../pages/adminPage/food/create/TypeFood';
 import EditAccount from '../pages/adminPage/accounts/edit/EditAccount';
+import CatalogSearch from '../pages/adminPage/CatalogSearch/PageSeach';
+import ChartData from '../pages/adminPage/bookings/chart/ChartData';
+
 const publicClientRoute = [
     {path: '/', exact: true, component: Home, name: 'Home'},
+
+
+
+    {path: '/phimdangchieu', exact: true, component: Catalog, name: 'Catalog'},
+
     {path: '/movie/search/:keyword', exact: true, component: Catalog, name: 'Catalog'},
     {path: '/movie/chitiet/:id', exact: true, component: Detail, name: 'Detail'},
     {path: '/booking/:schedule', exact: true, component: BookingTicket, name: 'Book'},
@@ -34,6 +42,9 @@ const publicClientRoute = [
 export const adminRoutes = [
     { path: '/admin', exact: true, component: HomeAdmin, name: 'Admin'},
     { path: "/admin/home",  exact: true,  component: HomeAdmin, name: 'adminHome'},
+    { path: "/admin/search/",  exact: true,  component: CatalogSearch, name: 'pageSeach'},
+    { path: "/admin/list_booking/statistics",  exact: true,  component: ChartData, name: 'statisticsBooking'},
+
 
     { path: "/admin/account/permisson/:id",  exact: true,  component: EditAccount, name: 'adminPermission'},
     { path: "/admin/role",  exact: true,  component: RoleAccount, name: 'adminRoleAccount'},

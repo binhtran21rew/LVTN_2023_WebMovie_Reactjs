@@ -53,6 +53,7 @@ const Food = () => {
 
     try{
       const data = new FormData(document.getElementById('form-submit'))
+
       const result = await webApi.create(getType.Food, data);
       if(result.status === 200){
           swal('Success',result.message, 'success')

@@ -5,6 +5,7 @@ import './bookingTicket.scss';
 
 import PickTicket from '../../../component/client/booking/PickTicket';
 import webApi from '../../../api/webApi';
+import TimeBooking from '../../../component/client/timout/TimeBooking';
 const BookingTicket = () => {
   const {schedule} = useParams();
   const [scheduleTicket, setScheduleTicket] = useState([]);
@@ -15,17 +16,17 @@ const BookingTicket = () => {
   const [timeCountDown, setTimeCountDown] = useState(600);
   const minutes = Math.floor(timeCountDown / 60).toString().padStart(2, '0');
   const second = Math.floor(timeCountDown % 60).toString().padStart(2, '0');
-  // useEffect(() => {
-  //   const timer = setTimeout(() =>{
-  //     setTimeCountDown(timeCountDown -1);
+  useEffect(() => {
+    const timer = setTimeout(() =>{
+      setTimeCountDown(timeCountDown -1);
 
-  //   }, 1000);
-  //   if(timeCountDown === 0) {
-  //     setTimeout(() => {
-  //       window.location.reload();
-  //     },3000)
-  //   }
-  // }, [timeCountDown]);
+    }, 1000);
+    if(timeCountDown === 0) {
+      setTimeout(() => {
+        window.location.reload();
+      },3000)
+    }
+  }, [timeCountDown]);
   useEffect(() => {
     const getTicket = async () =>{
       const result = await webApi.getTicketSchedule(schedule);
@@ -74,13 +75,15 @@ const BookingTicket = () => {
           </ul>
         </div>
         <div className="booking-time">
-          <span className='title'>Thời gian giữ ghế</span>
+          <span className='title'>Thời gian đặt vé</span>
           <span> {minutes >= 0 ? minutes : '00'} : {second >= 0 ? second : '00'}</span>
         </div>
       </div>
       <div className="booking-body">
         <div className="booking-wrap">
-          <PickTicket 
+          <PickTicket
+            minutes={minutes} 
+            second={second}
             data={scheduleTicket}
             countTicket={countTicket}
             totalPrice={totalPrice}

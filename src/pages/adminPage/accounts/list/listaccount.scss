@@ -4,7 +4,19 @@
     & > div {
         margin-bottom: 25px;
     }
+    .page-header{
+        display: flex;
+        align-items: center;
 
+        & > div{
+            width: 450px;
+            margin: 15px;
+        }
+
+        .select-custom{
+            width: 250px;
+        }
+    }
     .title{
         font-size: 25px;
         margin: 25px;

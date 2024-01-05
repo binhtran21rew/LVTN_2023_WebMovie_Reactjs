@@ -17,7 +17,10 @@
     padding: 0;
     box-sizing: border-box;
 }
+.ant-select-dropdown{
+    width: 150px !important;
 
+}
 html{
     font-size: 100%;
 
@@ -107,4 +110,30 @@ img{
     width: 0;
     height: 20px;
     margin: 5px;
+}
+
+@media (min-width: 992px) {
+    .col-lg-3{
+        flex: 0 0 25% !important;
+        max-width: 25% !important;
+    } 
+}
+
+
+.col-6{
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.bg-info{
+    background-color: #41ac1d;
+}
+
+.bg-warning{
+    background-color: #ffc107;
+}
+
+.bg-danger{
+    background-color: #dc3545;
+
 }

@@ -1,0 +1,245 @@
+@use '../../../scss/' as *;
+:root{
+    --bg-form: rgb(129, 128, 128);
+}
+.AdminProfile-page{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    .table_form{
+        width: 100%;
+        height: auto;
+        background-color: var(--bg-content-color-2);
+        overflow: hidden;
+        border-collapse: collapse;
+        table{
+            width: 100%;
+            table-layout: fixed;
+            thead{
+
+                text-transform: capitalize;
+            }
+            tbody{
+                width: 100%;
+                .nodata{
+                    font-size: 18px;
+
+                    &:hover td{
+                        background-color: unset !important;
+                    }
+                }
+                tr{
+                    &:nth-child(even){
+                        background-color: var(--bg-table-even);
+                    }
+                }
+                td{
+                    button{
+                        outline: none;
+                        border: none;
+                        border-radius: 6px;
+                        cursor: pointer;
+                        margin: .4rem;
+                        color: $white;
+                        .movie-icon{
+                            padding: 10px;
+                        }
+                        &:nth-child(1){
+                            background-color: green;
+        
+                            }
+                        &:nth-child(2){
+                        background-color: red;
+    
+                        }
+                    }
+                }
+            }
+
+            
+            td,th{
+                border-bottom: 1px solid #dddd;
+                padding: 10px 20px;
+                word-break: keep-all;
+                text-align: center;
+            }
+            thead{
+                th{
+                    position: sticky;
+                    top: 0;
+                    background-color: var(--bg-content-color-3);
+                    color: var(--txt-color);
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+
+    .group{
+        display: flex;
+        button{
+            display: block;
+            margin: 25px;
+        }
+    }
+
+
+    .form-info{
+        background-color: var(--bg-form);
+
+        .form-header{
+            font-size: 18px;
+            text-align: center;
+            background-color: var(--bg-form);
+            padding: 15px;
+            color: $main-color;
+            font-weight: bold;
+        }
+
+        .form-body{
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-form);
+
+            form{
+                padding: 1rem;
+                text-transform: capitalize;
+                @include mobile {
+                    display: block;
+                    width: 100%;
+                }
+                width: var(--width-form);
+            
+                
+                a, a:visited {
+                    color: #fff;
+                }
+            
+                h2{
+                    @include mobile {
+                        margin: 1.2rem 2rem;
+                    }
+                    background-color: $red;
+                    display: grid;
+                    justify-content: center;
+                    margin-bottom: $margin-bottom;
+                }
+                button,
+                textarea {
+                font-family: 'Nunito', sans-serif;
+                font-size: 22px;
+                padding: 0.25rem;
+                border-radius: 0.5rem;
+                }
+            
+                input:focus{
+                    border: 2px solid #00ff00;
+                    
+                }
+            
+                .instructions {
+                    width: $width-input;
+                    font-size: 0.75rem;
+                    border-radius: 0.5rem;
+                    background: #000;
+                    color: #fff;
+                    padding: 0.25rem;
+                    position: relative;
+                    bottom: -10px;
+                    display: block;
+                }
+                
+                .instructions > svg {
+                    margin-right: 0.25rem;
+                }
+                
+                .offscreen {
+                    position: absolute;
+                    display: none;
+                }
+                
+                .hide {
+                    display: none;
+                }
+                
+                .valid {
+                    color: limegreen;
+                    margin-left: 0.25rem;
+                }
+                
+                .invalid {
+                    color: red;
+                    margin-left: 0.25rem;
+                }
+                
+                .errmsg {
+                    background-color: lightpink;
+                    color: firebrick;
+                    font-weight: bold;
+                    padding: 0.5rem;
+                    margin-bottom: 0.5rem;
+                }
+                
+                .line {
+                    display: inline-block;
+                }
+            
+                .input{
+                    
+                    &__password{
+                        display: flex;
+                        position: relative;
+        
+                        &__display{
+                            background-color: transparent;
+                            color: $black;
+                            cursor: pointer;
+                            position: absolute;
+                            right: calc($width_search-btn - 39px);
+                            top: 59%;
+                            transform: translateY(-60%);
+                            padding: 10px;
+                        }
+                    }
+                    
+                }
+            
+                .tag{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+            
+                    .link{
+                        font-size: 1.3rem;
+                        text-decoration: underline;
+                    }
+                }
+        
+                button:disabled{
+                    background-color: rgb(131, 131, 131);
+                    color: #fff;
+                }
+                .input_status{
+                    .status_item{
+                        padding-top: .4rem;
+                        vertical-align: middle;
+                        @include mobile{
+                            display: inline-block;
+                            text-align: center;
+                        }
+                        span{
+                            font-size: 1.4rem;
+                            text-transform: capitalize;
+                        }
+                        .input_checkbox{
+                            width: 50px;
+                            height: 25px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

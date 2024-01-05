@@ -5,6 +5,7 @@ import './detail.scss';
 
 import CastList from './CastList';
 import webApi, {getType, getMethod} from '../../../api/webApi';
+import TicketOnline from '../../../component/client/cardContent/TiketOnline';
 
 import {apiWeb} from '../../../api/apiConfig';
 const Detail = () => {
@@ -21,36 +22,42 @@ const Detail = () => {
         movieDetail();
 
     }, [id]);
-    return (
-        <div className="Detail container mb-3">
-            {
-                movie && (
-                <div className="content">
-                    <div className="content__poster">
-                        <div className="content__poster__img" style={{backgroundImage: `url(${apiWeb.baseUrl}${movie.backdrop_path})`}}>
 
-                        </div>
-                    </div>
-                    <div className="content__text">
-                        <h1 className="title">
-                            {movie.title || movie.name}
-                        </h1>
-                        <div className="genres">
-                            {genres && genres.map((genre, i)=>(
-                                <span key={i} className='genres__item'> {genre.name}</span>
-                            ))}
-                        </div>
-                        <p className="overview">{movie.overview.length > 0 ? movie.overview: 'Dang cap nhat'}</p>
-                        <div className="cast">
-                            <div className="cast__header">
-                                <h2>Casts</h2>
+    // lichchieu/6
+    return (
+        <div className="Detail_wrapper">
+            <TicketOnline />
+            <div className="Detail mb-3">
+                
+                {
+                    movie && (
+                    <div className="content">
+                        <div className="content__poster">
+                            <div className="content__poster__img" style={{backgroundImage: `url(${apiWeb.baseUrl}${movie.backdrop_path})`}}>
+
                             </div>
-                            <CastList id= {movie.id} />
+                        </div>
+                        <div className="content__text">
+                            <h1 className="title">
+                                {movie.title || movie.name}
+                            </h1>
+                            <div className="genres">
+                                {genres && genres.map((genre, i)=>(
+                                    <span key={i} className='genres__item'> {genre.name}</span>
+                                ))}
+                            </div>
+                            <p className="overview">{movie.overview.length > 0 ? movie.overview: 'Dang cap nhat'}</p>
+                            <div className="cast">
+                                <div className="cast__header">
+                                    <h2>Casts</h2>
+                                </div>
+                                <CastList id= {movie.id} />
+                            </div>
                         </div>
                     </div>
-                </div>
-                )
-            }
+                    )
+                }
+            </div>
         </div>
     )
 }

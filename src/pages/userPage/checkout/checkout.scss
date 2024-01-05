@@ -6,6 +6,24 @@
     height: auto;
     padding: 50px 0 ;
     background-color: #d6d4d4;
+    .booking-time{
+        font-size: 25px;
+        color: red;
+        margin: 0 auto 40px auto; 
+        max-width: 900px;
+        text-align: center;
+
+        .title{
+            font-size: 24px;
+            display: block;
+            color: $main-color;
+            text-align: center;
+        }
+
+        span{
+            font-size: 30px;
+        }
+    }
     .checkout-wrapper{
 
         .checkout-ticket{
@@ -146,20 +164,52 @@
                     
                     & > div{
                         width: 100%;
-                        margin: 0 0 10px 0;
+                        margin: 0 0 10px ;
                         padding: 5px 0 0 0;
+                        display: flex;
+                        align-items: center;
                     }
     
                     input{
-                        width: 50px;
+                        max-width: 18px;
                     }
                     span{
-                        font-size: 15px;
-
+                        padding-left: 20px;
+                        font-size: 20px;
+                        font-weight: 600;
                         text-transform: capitalize;
+
                     }
                 }
+                .payment-caution{
+                    padding: 15px;
+                    background-color: #fabf98;
+                    span{
+                        font-size: 1.4rem;
 
+                        strong{
+                            color: red;
+                        }
+                    }
+                }
+                .item-total{
+                    color: $black;
+                    margin: 25px 0 ;
+                    overflow: hidden;
+                    .title{
+                        float: right;
+                        font-size: 25px;
+                        text-transform: uppercase;
+                        font-weight: 500;
+                        margin-right: 15px;
+                    }
+                    span{
+                        float: right;
+                        font-size: 25px;
+                        font-weight: bold;
+                        color: $main-color;
+                    }
+                }
                 .payment_button{
                     margin: 35px 0 20px 0 ;
                     text-align: center;

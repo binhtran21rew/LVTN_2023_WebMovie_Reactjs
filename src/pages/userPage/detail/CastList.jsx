@@ -14,7 +14,7 @@ const CastList = props => {
             }
             getCredits();
         }catch(e){
-            console.log(e);
+            
         }
     }, [props.id]);
 

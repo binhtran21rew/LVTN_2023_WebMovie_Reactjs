@@ -102,7 +102,7 @@ const Register = () => {
             const result = await webApi.userRegister(params);
 
             if(result.status === 200){
-                swal('Success', result.message, 'success');
+                swal('Verifycation', result.message, 'success');
                 localStorage.setItem('auth_token', result.data.token);
                 history.push('/');
             }else{
@@ -114,7 +114,7 @@ const Register = () => {
             setMatchPwd('');
             
         }catch(err){
-            console.log(err);
+            
         }
         
         

@@ -5,8 +5,12 @@ import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import swal from "sweetalert";
 
 
+import './listroom.scss';
+
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
+import AdminSearch from '../../../../component/admin/search/AdminSearch';
+
 const ListRoom = () => {
     const history = useHistory();
     const [loading ,setLoading] = useState(true);
@@ -73,15 +77,17 @@ const ListRoom = () => {
           })
           .then(async (willDelete) => {
             if (willDelete) {
-              const result = await webApi.delete(getType.Room, param);
-              if(result.status === 200){
-                swal(result.message, {
-                  icon: "success",
-                });
-                setPayload(true);
-              }else{
-                  swal('Error',result.message, 'error')
-              }
+                try{
+                    const result = await webApi.delete(getType.Room, param);
+                    if(result.status === 200){
+                        swal(result.message, {
+                        icon: "success",
+                        });
+                        setPayload(true);
+                    }else{
+                        swal('Error',result.message, 'error')
+                    }
+                }catch(err){}
             } else {
             }
           });
@@ -124,6 +130,10 @@ const ListRoom = () => {
     }
     return (
         <div className="ListRoom-page">
+            <div className="page-header">
+                <div className="title">filter room name</div>
+                <AdminSearch type='room' filter={'name'}/>
+            </div>
              <div className="table_movie">
                 <section className="table__body" >
                     <table>

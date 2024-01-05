@@ -2,15 +2,13 @@
 
 
 .BookingMovie-page{
-    width: 100%;
-    height: auto;
-    // background-color: #a1a1a1;
-    padding-top: 25px;
+    background-color: #f8a14a;
     .booking-wrapper{
-        width: 100%;
-        height: auto;
-        margin: 0 50px;
-
+        max-width: 1260px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        padding: 0 2rem;
         .booking-header{
             text-align: center;
 
@@ -70,10 +68,21 @@
                 box-shadow: 10px 10px 10px 0 rgba(0,0,0,0.3), 0 0 50px 0 rgba(0,0,0,0.4) inset;
                 overflow: hidden;
                 .item-img{
+
+                    @include mobile2{
+                        width: 100%;
+                        text-align: center;
+                    }
+
                     float: left;
                     width: 300px;
 
                     img{
+                        @include mobile2{
+                            width: 34%;
+                            display: inline-block;
+                            box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
+                        }
                         width: 100%;
                         max-width: 100%;
                         height: auto;
@@ -82,6 +91,9 @@
                     }
                 }
                 .item-info{
+                    @include mobile2{
+                        margin-left: unset;
+                    }
                     display: block;
                     width: auto;
                     margin-left: 320px;

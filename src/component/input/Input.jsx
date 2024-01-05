@@ -20,6 +20,8 @@ const Input = React.forwardRef((props,ref) => {
             onFocus={props.onFocus ? () => props.onFocus() : null}
             onBlur={props.onBlur ? () => props.onBlur() : null}
             required={props.required}
+            disabled={props.disabled || false}
+            
         />
     )
 })
@@ -34,7 +36,8 @@ export const InputDefault = React.forwardRef((props,ref) => {
             value={props.value}
             name={props.name}
             className={props.className ? props.className : ''}
-            min={props.min ? props.min : null}
+            min={props.min}
+            max={props.max}
             readOnly={props.readOnly || false}
             disabled={props.disabled || false}
             />
@@ -66,17 +69,18 @@ export const SelectCountCustom = (props) => {
         name,
     } = props;
     const contentRef = useRef(null);
-    let itemRef = useRef([]);
 
+
+    let itemRef = useRef([]);
     const handleShow = () => {
         contentRef.current.parentNode.classList.toggle('open')
     }
-
 
     const onChangeCount = (index, value, name) => {
         const findValue = listSelect.findIndex(
             (select) => select.name === name
         );
+
         if(findValue !== -1){
             setSelectCount({...selectCount, [index]: value});
         }else{

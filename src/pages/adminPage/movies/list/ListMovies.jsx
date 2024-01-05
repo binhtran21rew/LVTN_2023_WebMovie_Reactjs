@@ -2,19 +2,23 @@ import React, {useState, useEffect} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useHistory, Link } from 'react-router-dom';
+import { Select} from 'antd';
 import swal from "sweetalert";
 
 import './listmovies.scss';
 
 
 import webApi, {getType, getMethod} from '../../../../api/webApi';
+import {optionsSearchMovie} from '../../../../component/content/Content';
 import PaginationItem from '../../../../component/pagination/Pagination';
+import AdminSearch from '../../../../component/admin/search/AdminSearch';
+
 const ListMovies = () => {
     const history = useHistory();
-    const [loading ,setLoading] = useState(true);
     const [movies, setMovies] = useState([]);
+    const [loading ,setLoading] = useState(true);
     const [payload, setPayload] = useState(false);
-
+    const [filter, setFilter] = useState('');
     useEffect(() => {
         const loadMovies = async () => {
             try{
@@ -56,6 +60,10 @@ const ListMovies = () => {
         setItemPage(newPage);
     }
 
+    const handleChangeFilter = (value) =>{
+        setFilter(value)
+    }
+
     const handleEdit = (id) => {
         const data = movies.find((data) => data.id === id)
         history.push({
@@ -78,15 +86,17 @@ const ListMovies = () => {
           })
           .then(async (willDelete) => {
             if (willDelete) {
-                const result = await webApi.delete(getType.Movie, param);
-                if(result.status === 200){
-                    swal(result.message, {
-                    icon: "success",
-                });
-                setPayload(true);
-              }else{
-                  swal('Error',result.message, 'error')
-              }
+                try{
+                    const result = await webApi.delete(getType.Movie, param);
+                    if(result.status === 200){
+                        swal(result.message, {
+                            icon: "success",
+                        });
+                        setPayload(true);
+                    }else{
+                        swal('Error',result.message, 'error')
+                    }
+                }catch(err){}
             } else {
             }
           });
@@ -127,8 +137,19 @@ const ListMovies = () => {
               )
         }
     }
+
     return (
         <div className="ListMovie-page">
+            <div className="page-header">
+                <Select
+                    defaultValue="Filter"
+                    style={{ width: 120 }}
+                    onChange={handleChangeFilter}
+                    options={optionsSearchMovie}
+                    className='select-custom'
+                />
+                <AdminSearch type='movie' filter={filter} disabled={filter === ''}/>
+            </div>
             <div className="table_movie">
                 <section className="table__body" >
                     <table>

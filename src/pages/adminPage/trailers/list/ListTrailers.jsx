@@ -3,11 +3,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useHistory, Link } from 'react-router-dom';
 import swal from "sweetalert";
+import { Select} from 'antd';
 
 import './listtrailer.scss';
 
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import PaginationItem from '../../../../component/pagination/Pagination';
+import AdminSearch from '../../../../component/admin/search/AdminSearch';
+
 const ListTrailers = () => {
     const history = useHistory();
     const [loading ,setLoading] = useState(true);
@@ -16,32 +19,44 @@ const ListTrailers = () => {
 
 
     useEffect(() => {
+        let mounted = true;
         const loadTrailer = async () => {
-            try{
-                const result = await webApi.getAll(getType.Trailer, getMethod.getAll);
-                setTrailers(result)
-                setLoading(false);
-            }catch(e){
-      
+            if(mounted){
+                try{
+                    const result = await webApi.getAll(getType.Trailer, getMethod.getAll);
+                    setTrailers(result)
+                    setLoading(false);
+                }catch(e){
+          
+                }
             }
         }
 
         loadTrailer();
+
+        return () => {
+            mounted = false;
+        }
     }, []);
 
     useEffect(() => {
+
         const loadTrailer = async () => {
-            try{
-                const result = await webApi.getAll(getType.Trailer, getMethod.getAll);
-                setTrailers(result)
-                setLoading(false);
-            }catch(e){
-      
+            if(payload){
+                try{
+                    const result = await webApi.getAll(getType.Trailer, getMethod.getAll);
+                    setTrailers(result)
+                    setLoading(false);
+                }catch(e){
+          
+                }
             }
         }
-
         loadTrailer();
-        setPayload(false)
+
+        return () => {
+            setPayload(false)
+        }
     }, [payload]);
 
     const [itemPage, setItemPage] = useState(0);
@@ -55,6 +70,7 @@ const ListTrailers = () => {
         const newPage = (e.selected * itemPerPge)  % trailers.length;
         setItemPage(newPage);
     }
+
     const handleEdit = (id) => {
         const data = trailers.find((data) => data.id === id)
         history.push({
@@ -67,14 +83,16 @@ const ListTrailers = () => {
             id,
             type: 'softDelete'
         }
-        const result = await webApi.delete(getType.Trailer, param);
-        if(result.status === 200){
-            swal('Success',result.message, 'success')
-            setPayload(true)
-        }else{
-            swal('Error',result.message, 'error')
-            
-        }
+        try{
+            const result = await webApi.delete(getType.Trailer, param);
+            if(result.status === 200){
+                swal('Success',result.message, 'success')
+                setPayload(true)
+            }else{
+                swal('Error',result.message, 'error')
+                
+            }
+        }catch(err){}
     }
 
     var viewDisplay = '';
@@ -112,6 +130,11 @@ const ListTrailers = () => {
     }
     return (
         <div className="ListTrailer-page">
+            <div className="page-header">
+                <div className="title">filter title movie</div>
+                <AdminSearch type='trailer' filter={'title'}/>
+
+            </div>
              <div className="table_movie">
                 <section className="table__body" >
                     <table>

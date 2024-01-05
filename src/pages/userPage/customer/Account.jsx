@@ -1,4 +1,9 @@
 import React, { useState, useEffect, Fragment } from 'react'
+
+
+import swal from "sweetalert";
+import { faCheck, faTimes, faInfoCircle, faIceCream, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { NumericFormat } from 'react-number-format';
 import moment from 'moment'
@@ -6,35 +11,36 @@ import moment from 'moment'
 
 import './account.scss';
 
-import webApi from '../../../api/webApi';
 import Button from '../../../component/button/Button';
+import { ChangeInfomation, ChangePassword } from '../../../component/changeInfo/ChangeInfo'
+import Input, { InputDefault, InputRadio } from '../../../component/input/Input';
+import webApi, { getType } from '../../../api/webApi';
+
 const Account = () => {
     const [account, setAccount] = useState([]);
     const [booking, setbooking] = useState([]);
-    const [ticket, setTicket] = useState([]);
     const [changeInfo, setChangeInfo] = useState(false);
-    // const momenDay = moment(today).format("YYYY-MM-DD hh:mm");
+    const [changePass, setChangePass] = useState(false);
+
     const istablet = useMediaQuery('(max-width:1140px');
     useEffect(() => {
         const getAccount = async () => {
             const result = await webApi.getUser();
             setAccount(result.data);
             setbooking(result.data.booking);
-
-           
         }
         getAccount();
-        setTicket(account.booking)
-
-
     }, []);
-    const handleDetail = (id) => {
-        
-    }
+
     const handleEdit = () => {
         setChangeInfo(!changeInfo);
-    }
+        setChangePass(false);
 
+    }
+    const handleEditPass = () => {
+        setChangePass(!changePass);
+        setChangeInfo(false);
+    }
     var viewTicket = '';
 
     if(booking.length > 0){
@@ -53,7 +59,7 @@ const Account = () => {
                 {
                     booking.map((dataBooking, i) => {
                         return (
-                            <tr onClick={() => handleDetail(dataBooking.id)} key={i}>
+                            <tr key={i}>
                                 <td>{dataBooking.id}</td>
                                 <td>
                                     {
@@ -96,12 +102,9 @@ const Account = () => {
                                         })
                                     }
                                 </td>
-
                                 <td>
                                     <NumericFormat value={dataBooking.total_price}  displayType={"text"} thousandSeparator={','} suffix={' vnd'}/>
                                 </td> 
-
-
                             </tr>
                         )
                     })
@@ -109,7 +112,6 @@ const Account = () => {
             </tbody>
         </table>
     }
-
 
     const tableInfo = (
         <section className="table__body" >
@@ -137,8 +139,13 @@ const Account = () => {
             className='btn_account_info'
             onClick={handleEdit}
             >Thay đổi thông tin </Button>
+            <Button 
+            className='btn_account_info'
+            onClick={handleEditPass}
+            >Thay đổi password </Button>
         </section>
     )
+
     return (
         <div className="Account-page section">
             <div className="account-wrapper">
@@ -178,11 +185,12 @@ const Account = () => {
                                     onClick={handleEdit}
                                     >Thay đổi thông tin 
                                 </Button>
+                                <Button 
+                                className='btn_account_info'
+                                onClick={handleEditPass}
+                                >Thay đổi password </Button>
                             </>
-                            
-                            
                         )}
-                        
                     </div>
                 </div>
                 <div className="content-body ">
@@ -198,14 +206,23 @@ const Account = () => {
                 </div>
             </div>
 
-            <div className="form-info">
-                <div className="form-header">
-                    Chỉnh sửa thông tin cá nhân
-                </div>
-                <div className="form-body">
-                    
-                </div>
-            </div>
+            {
+                <ChangeInfomation
+                    changeInfo = {changeInfo}
+                    id = {account.id}
+                    email = {account.email}
+                    phone = {account.phone}
+                    name = {account.name}
+                    checkBox = {account.gender}
+                /> 
+            }
+            {
+                <ChangePassword 
+                    changeInfo = {changePass}
+                    id = {account.id}
+                />
+            }
+
         </div>
     )
 }

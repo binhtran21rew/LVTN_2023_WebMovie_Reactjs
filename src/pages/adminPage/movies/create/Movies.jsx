@@ -30,6 +30,8 @@ const Movies = () =>{
         title: '',
         release:'',
         overview: '',
+        imdb: '',
+        price: '',
     });
     const [imageInput, setImageInput] = useState({
         post_path: null,
@@ -251,6 +253,29 @@ const Movies = () =>{
                                         : <img id='poster_image' src={img} alt="" />
                                     }
                                 </div>
+                            </div>
+
+                            <div className="section mb-3">
+                                <label htmlFor="">IMDB:</label>
+                                <Input 
+                                    type='number'
+                                    name='imdb'
+                                    onChange={handleInput}
+                                    value={movieInput.imdb}
+                                    min="0"
+                                    max="10"
+                                /> 
+                            </div>
+                            
+                            <div className="section mb-3">
+                                <label htmlFor="">price:</label>
+                                <Input 
+                                    type='number'
+                                    name='price'
+                                    onChange={handleInput}
+                                    value={movieInput.price}
+                                    min="0"
+                                /> 
                             </div>
                         </div>
                     </div>

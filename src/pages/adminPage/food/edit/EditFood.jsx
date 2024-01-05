@@ -20,7 +20,6 @@ const EditFood = () => {
     const data = location.state.data;
     const queryParameters = new URLSearchParams(window.location.search)
     const type = queryParameters.get('type');
-
     if(type === 'food'){
         return <ViewEditFood data={data}/>
     }else{
@@ -34,8 +33,7 @@ const EditFood = () => {
 const ViewEditFood = (props) => {
     const history = useHistory();
     const data = props.data;
-    const detail = data.combo[0];
-
+    const detail = data.food[0];
     const optionStatus = [
         {
             display: 'Drinks',
@@ -52,7 +50,7 @@ const ViewEditFood = (props) => {
     const price = optionStatus.filter((e) => e.name === checkbox);
     const [input, setInput] = useState({
         name: detail.name,
-        count: detail.count,
+        count: data.count,
     })
     const [pricerChange, setPricerChange] = useState('');
 
@@ -79,8 +77,10 @@ const ViewEditFood = (props) => {
 
         try{
             const dataUpdate = new FormData(document.getElementById('form-submit'))
-            dataUpdate.append('id', data.id)
-            dataUpdate.append('idCombo', detail.id)
+            dataUpdate.append('idCombo', data.id)
+            dataUpdate.append('id', detail.id)
+            dataUpdate.append('oldname', detail.name)
+
 
             const result = await webApi.update(getType.Food, dataUpdate);
             if(result.status === 200){
@@ -187,7 +187,9 @@ const ViewEditFood = (props) => {
                         }
                     </div>
                 </div>
-                <Button className="movie_btn_create">Create</Button>
+                <Button className="movie_btn_create"
+                     disabled = { input.count === '' || checkbox === '' ? true : false }
+                >Update</Button>
             </form>
       
         </div>
@@ -251,6 +253,7 @@ const ViewEditCombo = (props) => {
             Object.keys(foodSelect).forEach(key => dataEdit.append('detailFood[]', foodSelect[key].name));
             Object.keys(foodSelectCount).forEach(key => dataEdit.append(`foodCount[${key}] `, foodSelectCount[key]));
     
+
             const result = await webApi.update(getType.ComboFood, dataEdit);
             if(result.status === 200){
                 swal('Success', result.message, 'success');
@@ -353,7 +356,7 @@ const ViewEditCombo = (props) => {
                                 }
                             </div>
                         </div>
-                        <Button className="movie_btn_create">Create</Button>
+                        <Button className="movie_btn_create">Update</Button>
                     </form>
                 </div>
             </div>

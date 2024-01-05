@@ -1,0 +1,75 @@
+@use '../../../scss/' as *;
+
+:root{
+    --height-footer: 26px;
+}
+.small-box{
+    border-radius: 0.25rem;
+    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+    display: block;
+    margin-bottom: 20px;
+    position: relative;
+    text-transform: capitalize;
+    .inner{
+        padding: 10px;
+
+        h3{
+            color: $white;
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin: 0 0 10px;
+            padding: 0;
+            white-space: nowrap;
+        }
+
+        p{
+            color: $white;
+            font-size: 1rem;
+        }
+    }
+
+    .icon{
+        svg{
+            font-size: 90px;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+        }
+    }
+
+    .small-box-footer{
+        background-color: rgba(0,0,0,.1);
+        color: rgba(255,255,255,.8);
+        display: flex;
+        position: relative;
+        text-align: center;
+        justify-content: center;
+        text-decoration: none;
+        z-index: 10;
+        height: var(--height-footer);
+        span{
+            position: relative;
+            top: calc(var(--height-footer) / 2);
+            transform: translateY(-40%);
+        }
+        .icon-link{
+            position: relative;
+            top: calc(var(--height-footer) / 2);
+            margin-left: 10px;
+            transform: translateY(-30%);
+
+        }
+
+        input[type="button"]{
+            background-color: rgba(0,0,0,.1);
+            border: unset;
+            border-radius: unset;
+            height: 100%;
+            color: $white;
+            width: 100%;
+            cursor: pointer;
+        }
+        
+
+    }
+}

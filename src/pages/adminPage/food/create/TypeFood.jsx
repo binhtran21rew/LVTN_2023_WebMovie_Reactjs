@@ -132,6 +132,7 @@ const TypeFood = () => {
                                         onChange={handleInput}
                                         value={inputFood.count}
                                         min={0}
+
                                     />
                                 </div>
                             </div>

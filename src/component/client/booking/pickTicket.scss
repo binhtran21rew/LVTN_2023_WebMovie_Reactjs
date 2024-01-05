@@ -2,7 +2,6 @@
 
 
 .PickTicket{
-    perspective: 400px;
     margin: 25px;
     display: grid;
     place-items: center;
@@ -59,6 +58,25 @@
                 }
             }
 
+        }
+    }
+
+    .list-food{
+        position: relative;
+        width: 100%;
+        height: auto;
+        text-align: center;
+
+        .image{
+            width: 96px;
+            height: 112px;
+            margin: 0 auto 10px auto;
+            transition: all 0.3s ease-in-out;
+        }
+
+        span{
+            color: #f17b7b;
+            font-size: 25px;
         }
     }
 

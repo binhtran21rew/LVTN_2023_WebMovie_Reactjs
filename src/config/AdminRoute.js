@@ -22,7 +22,7 @@ const AdminRoute = ({...rest}) => {
             }
             setLoading(false)
         }catch(err){
-            console.log(err);
+            
         }
 
     }

@@ -3,39 +3,55 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import './catalog.scss';
 
-import tmdbApi from '../../../api/tmdbApi';
-import apiConfig from '../../../api/apiConfig';
-
 import MovieItem from '../../../component/client/movieItem/MovieItem';
+import TicketOnline from '../../../component/client/cardContent/TiketOnline';
+
+import webApi from '../../../api/webApi';
 const Catalog = props => {
     const {keyword} = useParams();
 
     const [movies, setMovies] = useState([]);
     useEffect(() => {
-        const search = async () => {
-            try{
-                const params = {
-                    query: keyword
+        if(keyword !== undefined){
+            const search = async () => {
+                try{
+                    const params = {
+                        type: 'movie',
+                        query: keyword
+                    }
+                    const response = await webApi.search(params);
+                    setMovies(response);
+                }catch(err){
                 }
-                const response = await tmdbApi.search({params});
-                setMovies(response.results);
-            }catch(err){
-                console.log(err);
             }
+            search();
+        }else{
+            const getMovie = async () => {
+                try{
+                    const response = await webApi.getContentMovie(1);
+                    setMovies(response);
+                }catch(err){
+                }
+            }
+            getMovie();
         }
-        search();
     }, [keyword]);
 
     return(
-        <div className='Catalog container'>
-            <div className="section mb-3">
-                <div className="movie-grid">
-                    {movies.map((item, i) => (
-                        <MovieItem item={item}/>
-                    ))}
+
+        <div className='Catalog'>
+            <TicketOnline />
+            <div className="wrapper  container">
+
+                <div className="section mb-3">
+                    <div className="movie-grid">
+                        {movies.map((item, i) => (
+                            <MovieItem item={item}/>
+                        ))}
+
+                    </div>
 
                 </div>
-
             </div>
         </div>
     )

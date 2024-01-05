@@ -1,0 +1,170 @@
+import React, {useState, useEffect} from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useHistory, Link } from 'react-router-dom';
+import { Select} from 'antd';
+import swal from "sweetalert";
+
+
+import webApi, {getType, getMethod} from '../../../../api/webApi';
+import {optionsSearchMovie} from '../../../../component/content/Content';
+import PaginationItem from '../../../../component/pagination/Pagination';
+import AdminSearch from '../../../../component/admin/search/AdminSearch';
+
+const SearchRoom = () => {
+    const queryParameters = new URLSearchParams(window.location.search)
+    const type = queryParameters.get("type");
+    const filters = queryParameters.get("filter");
+    const keyword = queryParameters.get("keyword");
+    const history = useHistory();
+
+    const [listRoom, setListRoom] = useState([]);
+    const [loading ,setLoading] = useState(true);
+    const [payload, setPayload] = useState(false);
+    useEffect(() => {
+        const getSearch = async () =>{
+            const params = {
+                type,
+                filters, 
+                keyword
+            }
+            const result = await webApi.searchAdmin(getType.Room, params);
+            setListRoom(result);
+            setLoading(false);
+        }
+
+        getSearch()
+
+    }, [type, filters, keyword]);
+
+    useEffect(() => {
+        const getSearch = async () =>{
+            const params = {
+                type,
+                filters, 
+                keyword
+            }
+            const result = await webApi.searchAdmin(getType.Room, params);
+            setListRoom(result);
+            setLoading(false);
+        }
+
+        getSearch();
+        setPayload(false);
+    }, [payload]);
+    const [itemPage, setItemPage] = useState(0);
+    const itemPerPge = 5;
+
+    const endPage = itemPage + itemPerPge;
+    const currentItems = listRoom.slice(itemPage, endPage);
+    const pageCount = Math.ceil(listRoom.length / itemPerPge);
+
+    const handleClick = (e) => {
+        const newPage = (e.selected * itemPerPge)  % listRoom.length;
+        setItemPage(newPage);
+    }
+    const handleEdit = (id) => {
+        const data = listRoom.find((data) => data.id === id)
+        history.push({
+            pathname: '/admin/detail/room/'+ id,
+            state: {data: data}
+        });
+    }
+    const handleDelete = async (id) => {
+        const param = {
+            id,
+            type: 'softDelete'
+        }
+        swal({
+            title: "Are you sure?",
+            text: "Restore your data",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then(async (willDelete) => {
+            if (willDelete) {
+                try{
+                    const result = await webApi.delete(getType.Room, param);
+                    if(result.status === 200){
+                        swal(result.message, {
+                        icon: "success",
+                        });
+                        setPayload(true);
+                    }else{
+                        swal('Error',result.message, 'error')
+                    }
+                }catch(err){}
+            } else {
+            }
+          });
+    }
+    var viewDisplay = '';
+    if(loading){
+        return (
+            <h4>Loading...</h4>
+        )
+    }else{
+        if(currentItems.length > 0){
+            viewDisplay = currentItems.map((data, i) => {
+                return (
+                    <tr key={i}>
+                        <td>{data.id}</td>
+                        <td>{data.name_room}</td>
+                        <td>{data.number_seat}</td>
+    
+                        <td>
+                            <button >
+                                <FontAwesomeIcon icon={faPenToSquare} className='movie-icon' onClick={() => handleEdit(data.id)}/>
+                            </button>
+    
+                            <button>
+                                <FontAwesomeIcon icon={faTrash} className='movie-icon' onClick={() => handleDelete(data.id)}/>
+                            </button>
+                        </td>
+    
+                    </tr>
+                )
+            })
+        }else{
+            viewDisplay = (
+                <tr className='nodata'>
+                    <td colSpan={4}> No data in here!</td>
+                </tr>
+            )
+        }
+    
+    }
+    return (
+        <div className="ListRoom-page">
+            <div className="page-header">
+                <div className="title">filter room name</div>
+                <AdminSearch type='room' filter={'name'}/>
+            </div>
+            <div className="table_movie">
+                <section className="table__body" >
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>name room</th>
+                                <th>number of seat</th>
+                                <th>option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {viewDisplay}
+                        </tbody>
+                    </table>
+                    <PaginationItem handleClick={handleClick} pageCount={pageCount}/> 
+
+                </section>
+            </div>
+
+            <Link className='trash' to="/admin/room_Trashed/room">go to trash storage</Link>
+
+        </div>
+    )
+}
+
+export default SearchRoom

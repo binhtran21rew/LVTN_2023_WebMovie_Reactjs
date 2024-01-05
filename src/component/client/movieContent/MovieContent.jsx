@@ -9,7 +9,6 @@ import 'swiper/css/pagination';
 import './movieContent.scss';
 
 
-import tmdbApi, {movieType} from '../../../api/tmdbApi';
 import MovieItem from '../movieItem/MovieItem';
 import webApi, {getType, getMethod} from '../../../api/webApi';
 

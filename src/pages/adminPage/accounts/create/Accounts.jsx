@@ -125,7 +125,6 @@ const Accounts = ({list}) =>{
         if(!validName || !validPass || !validEmail || !validPhone){
             setErrMsg("Invalid Enter");
             return;
-
         }
         try{
             const dataAccount = new FormData(document.getElementById('form-submit-account'));
@@ -141,7 +140,7 @@ const Accounts = ({list}) =>{
 
             
         }catch(err){
-            console.log(err);
+            
         }
         
         

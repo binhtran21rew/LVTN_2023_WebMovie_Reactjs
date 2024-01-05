@@ -15,7 +15,6 @@ const TicketOnline = () => {
     const [time, setTime] = useState('DEFAULT');
     const [checkSelectMovie, setCheckSelectMovie] = useState(false);
     const [checkSelectDay, setCheckSelectDay] = useState(false);
-
     useEffect(() => {
         const getMovies = async () => {
             const result = await webApi.getContentMovie(1);
@@ -78,7 +77,6 @@ const TicketOnline = () => {
                 schedules,
                 "date"
             );
-
             let entries = Object.entries(listLichChieu);
             if(schedules.length > 0){
                 return entries.map(([value], i) => {
@@ -103,7 +101,6 @@ const TicketOnline = () => {
     const date = new Date();
     const momenTime = moment(date).format("HH::mm::ss")
     const momenDay = moment(date).format("YYYY-MM-DD");
-
     const renderSchedule = () => {
         if(!checkSelectMovie){
             return (

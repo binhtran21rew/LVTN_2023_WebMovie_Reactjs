@@ -14,15 +14,15 @@ export const splitSpace = (timeString) => {
 }
 
 export const groupBy = (array, key) => {
-    return array.reduce((result, currentValue) => {
-      (
-        result[currentValue[key]] =
-        result[currentValue[key]] || []).push(
-        currentValue
-      );
-      return result;
-    }, {});
-  };
+  return array.reduce((result, currentValue) => {
+    (
+      result[currentValue[key]] =
+      result[currentValue[key]] || []).push(
+      currentValue
+    );
+    return result;
+  }, {});
+};
 
 export const groupByPermissions = (array, key) => {
     return array.reduce((result, currentValue) => {
