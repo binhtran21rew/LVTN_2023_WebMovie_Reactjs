@@ -10,6 +10,8 @@
     .Home-wrapper{
         .block-overview{
             display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             & > div{
                 padding-right: 7.5px;
                 padding-left: 7.5px;

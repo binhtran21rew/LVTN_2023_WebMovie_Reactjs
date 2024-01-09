@@ -18,7 +18,7 @@
         position: absolute;
         height: $search-height;
         right: 0;
-        top: 0;
+        top: -2.5px;
         transform: translateY(32%);
         border-radius: 0 $border-radius - 1px $border-radius - 1px 0;
         color: rgba($color: $black, $alpha: .8);

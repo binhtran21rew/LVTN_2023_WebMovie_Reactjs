@@ -21,7 +21,8 @@ import TypeFood from '../pages/adminPage/food/create/TypeFood';
 import EditAccount from '../pages/adminPage/accounts/edit/EditAccount';
 import CatalogSearch from '../pages/adminPage/CatalogSearch/PageSeach';
 import ChartData from '../pages/adminPage/bookings/chart/ChartData';
-
+import ChangeRoom from '../pages/adminPage/rooms/changeRoom/ChangeRoom';
+import AdminBookingTicket from '../pages/adminPage/bookingTicket/AdminBookingTicket';
 const publicClientRoute = [
     {path: '/', exact: true, component: Home, name: 'Home'},
 
@@ -44,12 +45,14 @@ export const adminRoutes = [
     { path: "/admin/home",  exact: true,  component: HomeAdmin, name: 'adminHome'},
     { path: "/admin/search/",  exact: true,  component: CatalogSearch, name: 'pageSeach'},
     { path: "/admin/list_booking/statistics",  exact: true,  component: ChartData, name: 'statisticsBooking'},
+    { path: "/admin/booking/ticket",  exact: true,  component: AdminBookingTicket, name: 'AdminBookingTicket'},
 
 
     { path: "/admin/account/permisson/:id",  exact: true,  component: EditAccount, name: 'adminPermission'},
     { path: "/admin/role",  exact: true,  component: RoleAccount, name: 'adminRoleAccount'},
     { path: "/admin/create/role",  exact: true,  component: CreateRole, name: 'adminRoleAccount'},
     { path: "/admin/combo_foods",  exact: true,  component: TypeFood, name: 'adminFood'},
+    { path: "/admin/room/seat/:id",  exact: true,  component: ChangeRoom, name: 'adminFood'},
     
     
     { path: "/admin/:name/:list",  exact: true,  component: CatalogAdmin, name: 'adminCatalog'},

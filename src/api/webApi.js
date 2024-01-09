@@ -74,6 +74,10 @@ const webApi = {
         const url = 'api/Booking/BookingTicket';
         return axiosWebClient.post(url, params);
     },
+    adminBookingTicket: (params) => {
+        const url = 'api/Booking/admin/BookingTicket';
+        return axiosWebClient.post(url, params);
+    },
     changeBookingTicket: (params) => {
         const url = 'api/Booking/ChangeBookingTicket';
         return axiosWebClient.post(url, params);
@@ -126,9 +130,9 @@ const webApi = {
         const url = 'api/change_password';
         return axiosWebClient.post(url, param);
     },
-    searchAdmin: (type, {...params}) => {
-        const url ='api/search/' + getType[type] +'?type=' + params.type + '&filter=' + params.filters + '&keyword=' +params.keyword;
-        return axiosWebClient.get(url);
+    changeRoom: (param) => {
+        const url = 'api/Room/change_room';
+        return axiosWebClient.post(url, param);
     },
     
     // Action GET methods ==========================
@@ -140,7 +144,6 @@ const webApi = {
         const url = 'api/' + getType[type] + '/' + getMethod[method] + '/' + id;
         return axiosWebClient.get(url);
     },
-
     getTrailer: (type, id) => {
         const url = 'api/'+ getType[type] + '/getTrailer/'+id;
         return axiosWebClient.get(url);
@@ -148,7 +151,6 @@ const webApi = {
     getAvailableRoom: () => {
         const url = 'api/Room/getAvailable';
         return axiosWebClient.get(url);
-
     },
     getSchedule:(room) => {
         const url = 'api/Schedule/getSchedule/' + room;
@@ -158,11 +160,18 @@ const webApi = {
         const url = 'api/Movie/getContent/' + type;
         return axiosWebClient.get(url);
     },
+    getMovieSchedule: () =>{
+        const url = 'api/Movie/getSchedule';
+        return axiosWebClient.get(url);
+    },
     getDashboard: (type) => {
         const url = 'api/Dashboard/' + getType[type];
         return axiosWebClient.get(url);
     },
-
+    searchAdmin: (type, {...params}) => {
+        const url ='api/search/' + getType[type] +'?type=' + params.type + '&filter=' + params.filters + '&keyword=' +params.keyword;
+        return axiosWebClient.get(url);
+    },
     // get ALL =======================================
 
     getAll: (type, method) => {
@@ -184,12 +193,11 @@ const webApi = {
     },
 
     getChartData: ( {...params}) => {
-        const url = 'api/Booking/getChartData?' + 'filter=' + params.filter;
+        const url = 'api/Booking/getChartData?' + 'filter=' + params.filter + '&time=' + params.filterTime + '&option=' + params.filterTimeCustom;
         return axiosWebClient.get(url);
     },
  
     getTrashed: (type, {...params}) => {
-
         if(type === 'Food'){
             const url = 'api/' + getType[type] + '/getTrashed/' + getType[type];
             return axiosWebClient.post(url, params);

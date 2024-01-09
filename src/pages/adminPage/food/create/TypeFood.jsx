@@ -75,7 +75,7 @@ const TypeFood = () => {
         }
 
 
-
+        
 
     }
     return (

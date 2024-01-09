@@ -23,24 +23,26 @@ const Detail = () => {
 
     }, [id]);
 
-    // lichchieu/6
+    console.log(movie);
     return (
         <div className="Detail_wrapper">
             <TicketOnline />
-            <div className="Detail mb-3">
-                
+            <div className="Detail">
                 {
                     movie && (
                     <div className="content">
                         <div className="content__poster">
                             <div className="content__poster__img" style={{backgroundImage: `url(${apiWeb.baseUrl}${movie.backdrop_path})`}}>
-
                             </div>
                         </div>
                         <div className="content__text">
                             <h1 className="title">
                                 {movie.title || movie.name}
                             </h1>
+                            <div className="genres">
+                                <span className='imdb'>imdb: {movie.imdb}</span>
+
+                            </div>
                             <div className="genres">
                                 {genres && genres.map((genre, i)=>(
                                     <span key={i} className='genres__item'> {genre.name}</span>

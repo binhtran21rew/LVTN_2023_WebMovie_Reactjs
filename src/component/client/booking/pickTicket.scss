@@ -19,45 +19,56 @@
         padding: 0 spacing(5);
         margin-bottom: spacing(3);
 
-       
         .slot__row{
             display: grid;
             grid-gap: 6px;
             grid-template-columns: repeat(8, min-content);
             align-items: center;
+            .item_seat{
+                position: relative;
+                .number_seat{
+                    position: absolute;
+                    right: 11px;
+                    left: 0;
+                    top: 0;
+                    z-index: 1;
+                    cursor: pointer;
+                }
 
+                .slot__item.item_picked  ~ .number_seat{
+                    cursor: no-drop;
+                }
+
+                .slot__item{
+                    margin-bottom: spacing(1);
+                    margin-right: spacing(1);
+                    font-size: 30px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    color: $seat-blank;
+                    
+                    &:not(.item_picked):hover,
+                    :not(.item_picked):focus{
+                        cursor: pointer;
+                        color: #c1eac5;
+                        transform: scale(1.2);
+                    }
+                    &.item_chosen{
+                        color: $seat-chosen;
+                    }
+        
+                    &.item_picked{
+                        color: $seat-block;
+                        cursor: no-drop;
+                    }
+                }
+            }
             .item_seat:nth-of-type(8n + 2){
                 margin-right: 48px;
             }
             .item_seat:nth-of-type(8n + 6) {
                 margin-right: 48px;
-              }
-
-
-            .slot__item{
-                margin-bottom: spacing(1);
-                margin-right: spacing(1);
-                font-size: 25px;
-                font-weight: 600;
-                cursor: pointer;
-                color: $seat-blank;
-                
-                &:not(.item_picked):hover,
-                :not(.item_picked):focus{
-                    cursor: pointer;
-                    color: #c1eac5;
-                    transform: scale(1.2);
-                }
-                &.item_chosen{
-                    color: $seat-chosen;
-                }
-    
-                &.item_picked{
-                    color: $seat-block;
-                    cursor: no-drop;
-                }
             }
-
         }
     }
 
@@ -65,13 +76,13 @@
         position: relative;
         width: 100%;
         height: auto;
-        text-align: center;
+        text-align: center; 
 
         .image{
             width: 96px;
             height: 112px;
             margin: 0 auto 10px auto;
-            transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out; 
         }
 
         span{

@@ -203,7 +203,8 @@ export const optionSearchBooking = [
   {
     label: 'Đã thanh toán',
     value: 'payment',
-  },      {
+  },      
+  {
     label: 'Chưa thanh toán',
     value: 'tt',
   },
@@ -212,9 +213,37 @@ export const optionChart = [
   {
     label: 'With Movie',
     value: 'movie',
-  },      {
+  },      
+  {
     label: 'With Total Price',
     value: 'total_price',
+  },
+  {
+    label: 'With Room',
+    value: 'room',
+  },
+]
+
+export const optionChartWithTime = [
+  {
+    label: 'All Time',
+    value: 'all',
+  },      
+  {
+    label: 'Current Day',
+    value: 'day',
+  },
+  {
+    label: 'Current Month',
+    value: 'month',
+  },
+  {
+    label: 'Current Year',
+    value: 'year',
+  },
+  {
+    label: 'Input Time',
+    value: 'input',
   },
 ]
 

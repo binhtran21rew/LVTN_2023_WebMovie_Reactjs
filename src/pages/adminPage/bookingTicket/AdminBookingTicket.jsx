@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import moment from 'moment'
 
-import './tiketOnline.scss';
-import webApi from '../../../api/webApi';
-import {groupBy} from '../../admin/helper';
+import './adminbookingticket.scss';
 
-const TicketOnline = () => {
-    const history = useHistory();
+import webApi from '../../../api/webApi';
+import {groupBy} from '../../../component/admin/helper';
+import BookingSeat from '../../../component/admin/booking/BookingSeat';
+const AdminBookingTicket = () => {
     const [movies, setMovies] = useState([]);
     const [schedules, setSchedules] = useState([]);
     const [maphim, setMaphim] = useState('DEFAULT');
@@ -15,6 +15,14 @@ const TicketOnline = () => {
     const [time, setTime] = useState('DEFAULT');
     const [checkSelectMovie, setCheckSelectMovie] = useState(false);
     const [checkSelectDay, setCheckSelectDay] = useState(false);
+
+    const [showSeat, setShowSeat] = useState(false);
+    const [scheduleTicket, setScheduleTicket] = useState([]);
+    const [listBookingSeat, setListBookingSeat] = useState([]);
+    const [countTicket, setCountTicket] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+
+
     const date = new Date();
     const momenTime = moment(date).format("HH::mm::ss")
     const momenDay = moment(date).format("YYYY-MM-DD");
@@ -26,7 +34,6 @@ const TicketOnline = () => {
         getMovies()
 
     }, []);
-
     useEffect(() => {
         if(maphim !== "DEFAULT"){
             setCheckSelectMovie(true)
@@ -49,9 +56,18 @@ const TicketOnline = () => {
     }, [day]);
     useEffect(() => {
         if(time !== 'DEFAULT'){
-            history.push(`/booking/` + time);
+            const getTicket = async () =>{
+                const result = await webApi.getTicketSchedule(time);
+                setScheduleTicket(result.data)
+            } 
+            getTicket();
+            setShowSeat(true);
+        }else{
+            setShowSeat(false);
         }
+
     }, [time]);
+
     const handleInputMovie = (e) => {
         setMaphim(e.target.value);
     }
@@ -84,19 +100,18 @@ const TicketOnline = () => {
             if(schedules.length > 0){
                 return entries.map(([value], i) => {
                     if(momenDay === value){
-                        return (
-                            <option value={value} key={i}>
-                              Hôm nay
-                            </option>
-                          );
+                      return (
+                        <option value={value} key={i}>
+                          Hôm nay
+                        </option>
+                      );
                     }else{
-                        return (
-                            <option value={value} key={i}>
-                              {value}
-                            </option>
-                          );
+                      return (
+                        <option value={value} key={i}>
+                          {value}
+                        </option>
+                      );
                     }
-
                 });   
             }
             return <option disabled >
@@ -144,13 +159,16 @@ const TicketOnline = () => {
         })
         
     }
-
-    return (
+  return (
+    <div className='AdminBookingTicket-page'>
+      <div className="AdminBookingTicket__header">
+        <div>
+          <span>Booking ticket</span>
+        </div>
+      </div>
+      <div className="AdminBookingTicket__body">
         <div className="cart-content">
             <div className="cart-wrap">
-                <div className="title">
-                    mua vé online
-                </div>
                 <div className="list">
                     <div  className="select-item">
                         <select
@@ -193,7 +211,26 @@ const TicketOnline = () => {
                 </div>
             </div>
         </div>
-    )
+
+        <div className="booking_seat">
+            <div className="booking_wrapper">
+                <BookingSeat 
+                    data={scheduleTicket}
+                    setData={setScheduleTicket}
+                    listBookingSeat={listBookingSeat}
+                    setListBookingSeat={setListBookingSeat}
+                    setCountTicket={setCountTicket}
+                    setTotalPrice={setTotalPrice}
+                    totalPrice={totalPrice}
+                    countTicket={countTicket}
+                    showSeat={showSeat}
+                    schedule={time}
+                />
+            </div>
+        </div>
+      </div>
+    </div>
+  )
 }
 
-export default TicketOnline;
+export default AdminBookingTicket

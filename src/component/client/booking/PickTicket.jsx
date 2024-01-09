@@ -1,11 +1,9 @@
 import React,{ useState, Fragment, useEffect  } from 'react'
 import { NavLink, useHistory } from 'react-router-dom';
 import moment from 'moment'
-import swal from "sweetalert";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCouch } from '@fortawesome/free-solid-svg-icons';
 import { NumericFormat } from 'react-number-format';
-
 
 
 import './pickTicket.scss';
@@ -17,6 +15,7 @@ import image from '../../../file/image/combo.jpg';
 
 
 import webApi, {getPayment, getType} from '../../../api/webApi';
+import { colors } from '@mui/material';
 
 const PickTicket = (props) => {
   const history = useHistory(); 
@@ -36,11 +35,13 @@ const PickTicket = (props) => {
     const [selectFood, setSelectFood] = useState([]);
 
     const listSeat = (sold, seat ,i) => {
-      
       if(sold === 1){
         return (
           <Fragment key={i}>
-            <FontAwesomeIcon icon={faCouch}  className={`slot__item item_picked item_seat_${seat.seat_id}`}> </FontAwesomeIcon>
+            <FontAwesomeIcon icon={faCouch}  className={`slot__item item_picked item_seat_${seat.seat_id}`}></FontAwesomeIcon>
+            <span className='number_seat'> 
+              {seat.seat.number}
+            </span>
           </Fragment>
         )
       }else{
@@ -63,6 +64,11 @@ const PickTicket = (props) => {
               }}
             > 
             </FontAwesomeIcon>
+            <span className='number_seat'onClick={() => {
+                handleBookingSeat(seat)
+              }}>
+              {seat.seat.number}
+            </span>
           </Fragment>
 
         )
@@ -101,11 +107,19 @@ const PickTicket = (props) => {
     }
     const renderSeat = () => {
       const {ticket} = data;
-
       return ticket?.map((seat, i) => {
-        return <div key={i} className='item_seat'>{listSeat(seat.status, seat, i)}</div>
+        if(seat.seat.position !== null){
+          const x = parseInt(seat.seat.position?.split(',')[0]);
+          const y = parseInt(seat.seat.position?.split(',')[1]);
+          return (
+              <div  className='item_seat' key={i} style={{transform: `translate(${x}px, ${y}px)`}}>{listSeat(seat.status, seat, i)}</div>
+          )
+        }else{
+          return (
+            <div  className='item_seat' key={i}>{listSeat(seat.status, seat, i)}</div>
+          )
+        }
       })
-
     }
     const renderDetail = (
       <ul className="ShowCase">

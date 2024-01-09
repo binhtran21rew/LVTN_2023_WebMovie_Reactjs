@@ -1,0 +1,112 @@
+@use '../../../../scss/' as *;
+
+.ChangeRoom-page{
+    width: 100%;
+    height: auto;
+    padding: 25px 0;
+    background-color: var(--bg-content-color);
+    .ChangeRoom__header{
+        color: $black;
+        text-align: center;
+        span{
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+        
+        .link_food{
+            display: flex;
+            justify-content: flex-end;
+            margin: 15px 0;
+        }
+        .LinkTo{
+            display: flex;
+            justify-content: flex-end;
+
+            a{
+                margin: 0 2rem 10px 0;
+                padding: .4rem;
+                text-transform: capitalize;
+                border: 1px solid var(--bg-content-color-2);
+                background-color: var(--bg-content-color-2);
+            }
+        }
+        
+    }
+    .ChangeRoom-wrapper{
+        width: 75%;
+        margin: 0 auto;
+        .schema_room{
+            display: grid;
+            place-items: center;
+        }
+
+        .screen{
+            text-align: center;
+            background: #fdd3d3;
+            box-shadow: 0 3px 10px 2px;
+            height: 70px;
+            width: 90%;
+        }
+
+        .slot__seat{
+            margin-top: 66px;
+            text-align: center;
+            padding: 0 spacing(5);
+            margin-bottom: spacing(3);
+            
+            .slot__row{
+                display: grid;
+                grid-gap: 6px;
+                grid-template-columns: repeat(8, min-content);
+                align-items: center;
+                .item_seat{
+                    position: relative;
+                    .number_seat{
+                        position: absolute;
+                        right: 11px;
+                        left: 0;
+                        top: 0;
+                        z-index: 1;
+                        cursor: pointer;
+                    }
+    
+                    .slot__item  ~ .number_seat{
+                        cursor: grab;
+
+                    }
+    
+                    .slot__item{
+                        margin-bottom: spacing(1);
+                        margin-right: spacing(1);
+                        font-size: 30px;
+                        font-weight: 600;
+                        cursor: pointer;
+                        color: $seat-blank;
+                    
+            
+                        &.item_seat{
+                            color: $seat-block;
+                            cursor: grab;
+
+                        }
+                    }
+                }
+                .item_seat:nth-of-type(8n + 2){
+                    margin-right: 48px;
+                }
+                .item_seat:nth-of-type(8n + 6) {
+                    margin-right: 48px;
+                }
+            }
+        }
+
+
+        .button{
+            text-align: center;
+            & > button {
+                margin: 15px;
+            }
+        }
+    }
+
+}

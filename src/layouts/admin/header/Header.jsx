@@ -60,7 +60,9 @@ const Header = () => {
         }
 
     }
+    const handleBooking = () => {
 
+    }
     return (
 
         <div className="Admin-header">
@@ -75,7 +77,9 @@ const Header = () => {
                 </span>
             </div>
             <div className="content__admin">
-                Welcom back: <span className='user-name'>{user.name}</span>
+                <div className='LinkTo'>
+                    <Link to={`/admin/booking/ticket`}>Booking</Link>
+                </div>
                 <div className="infomation">
                     <div className="search user">
                     </div>

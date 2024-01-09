@@ -37,7 +37,7 @@ const BookingTicket = () => {
 
   const renderSeat = listBookingSeat.map((data, i) => {
     return (
-      <span>{data}</span>
+      <span key={i}>{data}</span>
     )
   })
   

@@ -46,10 +46,11 @@ const Login = () => {
                 password: password
             }
             const result = await webApi.userLogin(params);
-            if(result) {
+            if(result.status === 200) {
                 localStorage.setItem('auth_token', result.data.token);
                 history.push('/');
             }else{
+                console.log(result);
                 swal('Error',result.message, 'error')
             }
             setUser('');

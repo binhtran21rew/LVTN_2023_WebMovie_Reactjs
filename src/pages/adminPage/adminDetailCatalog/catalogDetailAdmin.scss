@@ -5,11 +5,16 @@
     padding: 1.5rem 2.187rem 1.5rem 3.5rem;
     background-color: var(--bg-content-color);
     color: var(--txt-color);
-
+    overflow: hidden;
 
     .Catalog_detail{
         &__header{
             text-align: center;
+            .customRoom{
+                display: flex;
+                justify-content: flex-end;
+                margin: 15px 0;
+            }
             span{
                 font-size: 2rem;
                 text-transform: uppercase;

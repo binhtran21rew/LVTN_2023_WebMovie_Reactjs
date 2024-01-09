@@ -1,0 +1,43 @@
+@use '../../../scss/' as *;
+
+.AdminBookingTicket-page{
+    width: 100%;
+    height: auto;
+    padding: 25px 0;
+    background-color: var(--bg-content-color);
+
+    .AdminBookingTicket{
+
+        &__header{
+            color: $black;
+            text-align: center;
+            span{
+                font-size: 2rem;
+                text-transform: uppercase;
+            }     
+        }
+
+        &__body{
+            .cart-content{
+                margin-top: 25px ;
+                background-color: unset;
+            }
+
+            .booking_seat{
+                position: relative;
+                width: 100%;
+                height: auto;
+
+                .booking_wrapper{
+
+                    @include tablet{
+                        width: 100%;
+                    }
+                    width: 70%;
+                    height: auto;
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+}

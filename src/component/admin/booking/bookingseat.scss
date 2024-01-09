@@ -1,0 +1,341 @@
+@use '../../../scss/' as * ;
+
+.AdminPickTicket{
+    margin: 25px;
+    display: grid;
+    place-items: center;
+    grid-gap: 24px;
+    display: none;
+    .screen{
+        height: 70px;
+        width: 90%;
+        background: rgb(199, 198, 198);
+        box-shadow: 0 3px 10px 2px;
+    }
+    .slot__picking{
+        margin-top: 75px;
+        text-align: center;
+        padding: 0 spacing(5);
+        margin-bottom: spacing(3);
+
+        .slot__row{
+            @include mobile2{
+                justify-content: unset;
+            }
+            display: grid;
+            grid-gap: 6px;
+            grid-template-columns: repeat(8, min-content);
+            align-items: center;
+            justify-content: center;
+            .item_seat{
+                position: relative;
+                .number_seat{
+                    position: absolute;
+                    right: 11px;
+                    left: 0;
+                    top: 0;
+                    cursor: pointer;
+                }
+
+                .slot__item.item_picked  ~ .number_seat{
+                    cursor: no-drop;
+                }
+
+                &:hover .slot__item:not(.item_picked){
+                    cursor: pointer;
+                    color: #c1eac5;
+                    transform: scale(1.2);
+                }
+
+                .slot__item{
+                    margin-bottom: spacing(1);
+                    margin-right: spacing(1);
+                    font-size: 30px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    color: $seat-blank;
+                    
+                    &.item_chosen{
+                        color: $seat-chosen;
+                    }
+        
+                    &.item_picked{
+                        color: $seat-block;
+                        cursor: no-drop;
+                    }
+                }
+            }
+            .item_seat:nth-of-type(8n + 2){
+                margin-right: 48px;
+            }
+            .item_seat:nth-of-type(8n + 6) {
+                margin-right: 48px;
+            }
+        }
+    }
+
+    .list-food{
+        position: relative;
+        width: 100%;
+        height: auto;
+        text-align: center; 
+
+        .image{
+            width: 96px;
+            height: 112px;
+            margin: 0 auto 10px auto;
+            transition: all 0.3s ease-in-out; 
+        }
+
+        span{
+            color: #f17b7b;
+            font-size: 25px;
+        }
+    }
+
+    .ShowCase {
+        width: 90%;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        background: #898888;
+        padding: 12px;
+        margin: 0 0 48px;
+        border-radius: 4px;
+        color: #7e7e7e;
+
+        li{
+            margin: 0 12px;
+            .slot__item{
+                font-size: 25px;
+            }
+            span{
+                color: $white;
+                text-transform: capitalize;
+                font-size: 15px;
+                margin-left: 10px;
+            }
+            .blank{
+                color: $seat-blank;
+            }
+            .chosen{
+                color: $seat-chosen;
+            }
+            .block{
+                color: $seat-block;
+            }
+        }
+
+    }
+
+    .Ticket_input{
+        margin: 25px;
+        display: flex;
+        justify-content: center;
+        .ticket-btn{
+            margin-right: 25px;
+            padding: 0.9rem 2rem;
+            font-size: 16px;
+            text-transform: uppercase;
+            background-color: #f37520;
+            color: $white;
+            cursor: pointer;
+            border: none;
+            &:disabled{
+                cursor: no-drop;
+                background-color: #3b3b3b;
+
+                &:hover{
+                    background-color: #3b3b3b;
+                }
+                
+            }
+            
+            &:hover{
+                background-color: rgb(253, 146, 74);
+                transition: all 0.3s ease-in-out;
+            }
+        }
+    }
+
+    .booking-title{
+        width: 100%;
+        display: block;
+        & > div{
+            display: inline-block;
+        }
+        .booking-overview{
+
+            width: 90%;
+            @include tablet{
+                width: 76%;
+                margin-right: 0;
+            }
+            @include mobile2{
+                width: auto;
+                display: block;
+                margin: 0;
+            }
+            h2{
+                @include tablet{
+                    font-size: 26px;
+
+                }
+
+                @include mobile2{
+                    text-align: center;
+                }
+                font-weight: bold;
+                font-size: 30px;
+                color: #ff0b0b;
+                margin-bottom: 10px;
+                line-height: 30px;
+                text-align: left;
+
+
+                strong{
+                    font-weight: normal;
+                    font-size: 15px;
+                    color: #fff;
+                    text-transform: uppercase;
+                }
+                span{
+                    text-transform: uppercase;
+                }
+            }
+
+            .about-schedule{
+                width: 100%;
+                display: table;
+                border-spacing: 1px;
+
+                @include mobile2{
+                    width: 100%;
+                    display: table;
+                    margin-top: 15px
+                }
+                li{
+                    
+                    @include mobile2{
+                        height: auto;
+                        text-align: left;
+                        margin-bottom: 2px;
+                        width: 100%;
+                        display: table-row;
+                        padding: 10px 20px;
+                        float: left;
+                    }
+
+
+                    display: table-cell;
+                    text-align: center;
+                    vertical-align: middle;
+                    height: 70px;
+                    padding: 0 20px;
+
+                    .option{
+                        @include tablet{
+                            font-size: 14px;
+                        }
+                        text-transform: capitalize;
+                        font-size: 14px;
+                        color: #fff;
+                        margin-bottom: 5px;
+                        text-align: left;
+                    }
+                    .value{
+                        @include tablet{
+                            font-size: 20px;
+                        }
+                        font-weight: normal;
+                        font-size: 22px;
+                        text-align: left;
+
+
+                        sub{
+                            margin-left: 5px;
+                            font-size: 65%;
+                        }
+                    }
+                }
+                
+                li:nth-child(1){
+                    @include mobile2{
+                        width: 100%;
+
+                    }
+                    width: 150px;
+                }
+                li:nth-child(1),
+                li:nth-child(2){
+                    background-color: #f18720;
+                }
+
+                li:nth-child(3),
+                li:nth-child(4){
+                    span{
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
+                    background-color: $txt-color2;
+                    font-size: 28px;
+                    font-weight: bold;
+                }
+            }
+
+            .about-seat{
+                width: 100%;
+                display: table;
+                text-align: center;
+                border-spacing: 1px;
+                li{
+                    text-transform: capitalize;
+                    display: table-cell;
+                    height: 70px;
+                    vertical-align: middle;
+                    background-color: #450828;
+                    font-size: 14px;
+                    color: #fff;
+                    line-height: 18px;
+                }
+                li:nth-child(1) {
+                    width: 150px;
+                }
+
+                .seat-number {
+                    text-align: left;
+                    padding: 5px 15px;
+
+                    span{
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+
+        .booking-time{
+
+            @include tablet{
+                bottom: auto;
+                vertical-align: middle;
+                margin: 10px 20px 0 0;
+            }
+            vertical-align: bottom;
+            width: auto;
+            max-width: 170px;
+            position: relative;
+            bottom: 38px;
+
+            .title{
+                font-size: 20px;
+                color: #fff;
+                display: block;
+                text-align: center;
+            }
+
+            span{
+                font-size: 24px;
+            }
+        }
+    }
+}

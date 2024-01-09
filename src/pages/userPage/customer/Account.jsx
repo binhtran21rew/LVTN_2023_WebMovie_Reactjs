@@ -1,6 +1,4 @@
 import React, { useState, useEffect, Fragment } from 'react'
-
-
 import swal from "sweetalert";
 import { faCheck, faTimes, faInfoCircle, faIceCream, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
