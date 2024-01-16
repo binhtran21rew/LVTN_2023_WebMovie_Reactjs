@@ -3,6 +3,7 @@ import swal from "sweetalert";
 import { useLocation } from "react-router-dom";
 import { Radio } from 'antd';
 
+
 import {InputDefault as Input} from '../../../../component/input/Input';
 import Button from '../../../../component/button/Button';
 import img from '../../../../file/image/empty.jpg';
@@ -32,7 +33,6 @@ const EditMovie = (props) => {
     const location = useLocation();
     const data = location.state.data;
     const fileRef = useRef(null);
-   
     const [casts, setCasts] = useState([]);
     const [genres, setGenres] = useState([]);
     const [checkBox, setCheckBox] = useState(data.status)
@@ -41,6 +41,8 @@ const EditMovie = (props) => {
         title: data.title,
         overview: data.overview,
         release: data.release,
+        imdb: data.imdb,
+        price: data.price,
     })
     const [imageDefault, setImageDefault] = useState({
         post_path: data.poster_path,
@@ -98,13 +100,15 @@ const EditMovie = (props) => {
         e.preventDefault();
         try{
             const data = new FormData(document.getElementById('form-submit-edit'))
-
-            const result = await webApi.update(getType.Movie, data)
-            if(result.status === 200){
-                swal('Success',"Update movie success", 'success')
-            }else{
-                swal('Error',"sai", 'error')
+            for(var e of data){
+                console.log(e);
             }
+            // const result = await webApi.update(getType.Movie, data)
+            // if(result.status === 200){
+            //     swal('Success',"Update movie success", 'success')
+            // }else{
+            //     swal('Error',"sai", 'error')
+            // }
 
 
         }catch(e){
@@ -196,6 +200,16 @@ const EditMovie = (props) => {
                                     
                                     />
                                 </div>
+                                <div className="section mb-3">
+                                    <label htmlFor="">Input runtime movie (minutes):</label>
+                                    <Input 
+                                        type='number'
+                                        name='time'
+                                        onChange={handleInputTime}
+                                        value={time}
+                                        min="1"
+                                    /> 
+                                </div>
                                 <Button className="movie_btn_create">Create</Button>
                             </div>
                             <div className="movie__input-image">
@@ -243,15 +257,28 @@ const EditMovie = (props) => {
                                     </div>
                                 </div>
                                 <div className="section mb-3">
-                                    <label htmlFor="">Input runtime movie (minutes):</label>
+                                <label htmlFor="">IMDB:</label>
+                                <Input 
+                                    type='number'
+                                    name='imdb'
+                                    onChange={handleInput}
+                                    value={input.imdb}
+                                    min="0"
+                                    max="10"
+                                /> 
+                                </div>
+                                
+                                <div className="section mb-3">
+                                    <label htmlFor="">price:</label>
                                     <Input 
                                         type='number'
-                                        name='time'
-                                        onChange={handleInputTime}
-                                        value={time}
-                                        min="1"
+                                        name='price'
+                                        onChange={handleInput}
+                                        value={input.price}
+                                        min="0"
                                     /> 
                                 </div>
+
                             </div>
                         </div>
                     </div>

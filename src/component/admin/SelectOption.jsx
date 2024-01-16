@@ -1,47 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import AsyncSelect from 'react-select/async';
-
-
-import webApi from '../../api/webApi';
-const SelectOptionCasts = (props) => {
-    const [selectValue, setSelectValue] = useState(null)
-    const handleChange = (selectOption) => {
-        setSelectValue(selectOption);
-    }
-    const filterOptions = (inputValue) => {
-        return props.data.filter((i) =>  (i.title||i.name).toLowerCase() .includes(inputValue.toLowerCase()))
-    }
-    const loadOption = (searchValue, callback) =>{
-        if(searchValue){
-            setTimeout(() => {
-                callback(filterOptions(searchValue));
-            },2000)
-        }
-    }
-    const setStyle = {
-        control: (styles) => ({...styles, backgroundColor: "white"}),
-        option: (styles) => {
-            return {...styles, color: 'black'}
-        }
-    }
-    return (
-        <AsyncSelect 
-            cacheOptions={true}
-            defaultOptions
-            value={selectValue}
-            getOptionLabel={e => e.name||e.title}
-            getOptionValue={e => e.id}
-            loadOptions={loadOption} 
-            onChange={handleChange} 
-            name={props.name}
-            isMulti={props.isMulti}
-            placeholder={props.placeholder || 'Select'}
-            styles={setStyle}
-
-            isClearable
-        />
-    )
-}
+import { Select, Space } from 'antd';
 
 export const SelectDefault = (props) => {
     const filterOptions = (inputValue) => {
@@ -71,6 +30,43 @@ export const SelectDefault = (props) => {
     )
 }
 
+export const SelectAnt = (props) => {
+    const options = []
+    if(props.type === 'movie'){
+        props.data.map((data) => options.push({
+            value: data.id,
+            label: data.title
+        }))
+    }else{
+        props.data.map((data) => options.push({
+            value: data.id,
+            label: data.name
+        }))
+    }
+    const handleChange = (value) => {
+        props.setSelect(value)
+    };
+    const onSearch = (value) => {
+    };
+    const filterOption = (input, option) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+    return(
+        <Select
+            mode={props.isMulti ? "multiple" : ''}
+            allowClear
+            style={{
+                width: '100%',
+            }}
+            showSearch
+            placeholder={props.placeholder}
+            optionFilterProp="children"
+            onSearch={onSearch}
+            filterOption={filterOption}
+            onChange={handleChange}
+            options={options}
+        />
+    )
+}
 
 
-export default SelectOptionCasts;
+

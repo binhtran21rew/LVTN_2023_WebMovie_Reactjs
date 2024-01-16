@@ -6,8 +6,8 @@ import './movies.scss';
 import {InputDefault as Input, InputRadio} from '../../../../component/input/Input';
 import Button from '../../../../component/button/Button';
 import img from '../../../../file/image/empty.jpg';
-import SelectOptionCasts from '../../../../component/admin/SelectOption';
 
+import { SelectAnt } from '../../../../component/admin/SelectOption';
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 const Movies = () =>{
     const optionStatus = [
@@ -39,6 +39,8 @@ const Movies = () =>{
     });
     const [checkbox, setCheckbox] = useState('');
     const [time, setTime] = useState('');
+    const [selectCast, setSelectCast] = useState([]);
+    const [selectGenre, setSelectGenre] = useState([]);
 
     useEffect(() => {
         const getCast = async () => {
@@ -85,6 +87,8 @@ const Movies = () =>{
             title: '',
             overview: '',
             release: '',
+            imdb: '',
+            price: '',
         })
         setTime({
             time: '',
@@ -102,12 +106,17 @@ const Movies = () =>{
         e.preventDefault();
         try{
             const data = new FormData(document.getElementById('form-submit'))
+            selectCast.map(value => data.append('casts[]', value));
+            selectGenre.map(value => data.append('genres[]', value));
+
             const result = await webApi.create(getType.Movie, data);
             if(result.status === 200){
                 swal('Success',result.message, 'success')
                 resetValue();
             }else{
                 swal('Warn',result.message, 'warning')
+                resetValue();
+
             }
 
 
@@ -177,9 +186,11 @@ const Movies = () =>{
                                 <div className="section mb-3">
                                     <label htmlFor="">Select cast name:</label>
 
-                                    <SelectOptionCasts 
+                                    <SelectAnt 
                                         data= {casts} 
-                                        name="casts[]"
+                                        select={selectCast}
+                                        setSelect={setSelectCast}
+                                        type="cast"
                                         placeholder="Input cast name..."
                                         isMulti={true}
                                     />
@@ -188,9 +199,11 @@ const Movies = () =>{
                                 <div className="section mb-3">
                                     <label htmlFor="">Select genre name:</label>
 
-                                    <SelectOptionCasts 
+                                    <SelectAnt 
                                         data= {genres}
-                                        name="genres[]"
+                                        select={selectGenre}
+                                        setSelect={setSelectGenre}
+                                        type="genres"
                                         placeholder="Input genres name..."
                                         isMulti={true}
                                     />

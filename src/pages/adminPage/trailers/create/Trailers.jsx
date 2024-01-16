@@ -6,8 +6,7 @@ import swal from "sweetalert";
 import './trailer.scss'
 import {InputDefault as Input} from '../../../../component/input/Input';
 import Button from '../../../../component/button/Button';
-import SelectOptionCasts from '../../../../component/admin/SelectOption';
-
+import { SelectAnt } from '../../../../component/admin/SelectOption';
 import webApi, {getMethod, getType} from '../../../../api/webApi';
 
 const Trailers = () =>{
@@ -15,6 +14,7 @@ const Trailers = () =>{
         key: '',
     });
     const [movies, setMovies] = useState([]);
+    const [selectMovie, setSelectMovie] = useState([]);
     useEffect(() => {
         const getMovies = async () => {
             try{
@@ -41,6 +41,8 @@ const Trailers = () =>{
         try{
             const idFrom = document.getElementById('trailer_formSubmit');
             const data = new FormData(idFrom);
+            data.append('movie_id', selectMovie)
+
             const result = await webApi.create(getType.Trailer, data);
             if(result.status === 200){
                 swal('Success',"Create movie success", 'success')
@@ -72,11 +74,12 @@ const Trailers = () =>{
 
                     <div className="section mb-3">
                         <label htmlFor="">Select movie:</label>
-
-                            <SelectOptionCasts 
+                            <SelectAnt 
                                 data= {movies}
-                                name='movie_id'
+                                type="movie"
                                 placeholder="Input movie name..."
+                                select={selectMovie}
+                                setSelect={setSelectMovie}
 
                             />
                     </div>

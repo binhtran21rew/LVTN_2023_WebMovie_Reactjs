@@ -6,6 +6,8 @@ import AsyncSelect from 'react-select/async';
 
 import webApi, {getType, getMethod} from '../../../../api/webApi';
 import Calendar from '../../../../component/admin/calendar/Calendar';
+import { Select, Space } from 'antd';
+
 
 const Schedules = () => {
     const [room, setRoom] = useState([]);
@@ -23,29 +25,23 @@ const Schedules = () => {
         }
         roomData();
     }, []);
-
-    const handleChange = (selectOption) => {
-        setSelectValue(selectOption);
+    
+    var options = []
+    room.map((data) => options.push({
+        value: data.id,
+        label: data.name
+    }))
+    const handleChange = (value, room) => {
+        const data = room.find((data) => data.id === value);
+        setSelectValue({
+            id: data.id,
+            name: data.name
+        });
         setShowModal(true);
-    }
-    const filterOptions = (inputValue) => {
-        return room.filter((i) =>  (i.title||i.name).toLowerCase() .includes(inputValue.toLowerCase()))
-    }
-    const loadOption = (searchValue, callback) =>{
-        if(searchValue){
-            setTimeout(() => {
-                callback(filterOptions(searchValue));
-            },2000)
-        }
-    }
-    const setStyle = {
-        control: (styles) => ({...styles, backgroundColor: "white"}),
-        option: (styles) => {
-            return {...styles, color: 'black'}
-        }
-    }
-
-
+    };
+    const onSearch = (value) => {};
+    const filterOption = (input, option) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
     let show = '';
     if(showModal) {
         show = <Calendar room_id = {selectValue}/>;
@@ -54,19 +50,18 @@ const Schedules = () => {
         <div className="Schedule-page">
             <div className="section mb-3 selectRoom">
                 <label htmlFor="">Select room:</label>
-                <AsyncSelect 
-                    cacheOptions={false}
-                    defaultOptions
-                    value={selectValue}
-                    getOptionLabel={e => e.name||e.title}
-                    getOptionValue={e => e.id}
-                    loadOptions={loadOption} 
-                    onChange={handleChange} 
-                    name="room_id"
+                <Select
+                    allowClear
+                    style={{
+                        width: '100%',
+                    }}
+                    showSearch
                     placeholder="Select room..."
-                    styles={setStyle}
-                    isClearable
-                    
+                    optionFilterProp="children"
+                    onSearch={onSearch}
+                    filterOption={filterOption}
+                    onChange={(value) => handleChange(value, room)}
+                    options={options}
                 />
                 {show && show}
             </div>
